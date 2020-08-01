@@ -1,9 +1,9 @@
 
-import React, { useContext , useMemo} from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import React, { useContext , useMemo} from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 
-import { colors, metrics, fonts } from '../constants';
+import { colors, metrics, fonts } from '../constants'
 import ShopContext from '../contexts/shop/shop-context'
 
 const HomeTabBar = ({ state, descriptors, navigation }) => (
@@ -20,9 +20,9 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
   }}>
     {
       state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
+        const { options } = descriptors[route.key]
         const label = options.tabBarLabel
-        const isFocused = state.index === index;
+        const isFocused = state.index === index
         const context = (route.name === 'cart') ? useContext(ShopContext) : null
 
         const onPress = () => {
@@ -32,7 +32,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
           })
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
+            navigation.navigate(route.name)
           }
         }
 
@@ -51,18 +51,18 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
           }, [context.cart])
         }
 
-        let iconName;
+        let iconName
 
         if (route.name === 'home')
-          iconName = 'shopping-bag';
+          iconName = 'shopping-bag'
         else if (route.name === 'cart')
-          iconName = 'shopping-cart';
+          iconName = 'shopping-cart'
         else if (route.name === 'profile')
-          iconName = 'user';
+          iconName = 'user'
         else if (route.name === 'wishlist')
-          iconName = 'heart';
+          iconName = 'heart'
         else if (route.name === 'category')
-          iconName = 'grid';
+          iconName = 'grid'
 
         return (
           <TouchableOpacity key={route.key}
@@ -104,9 +104,9 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
               <Text style={{ fontSize: fonts.small, color: isFocused ? colors.accent : colors.grayDark }}>{label}</Text>
             </View>
           </TouchableOpacity>
-        );
+        )
       })}
   </View>
-);
+)
 
 export default HomeTabBar

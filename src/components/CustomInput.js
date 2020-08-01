@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { View, Text, TextInput, StyleSheet } from 'react-native'
 
 
 import { Feather, MaterialIcons } from '@expo/vector-icons'
 
-import { colors, fonts, metrics } from '../constants';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { colors, fonts, metrics } from '../constants'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default CustomInput = props => {
 
@@ -40,21 +40,21 @@ export default CustomInput = props => {
       setSecureText(true)
   }, [])
 
-  let inputType, iconName;
+  let inputType, iconName
   switch (type) {
-    case 'phone': { inputType = 'phone-pad', iconName = 'smartphone' }; break;
-    case 'password': { inputType = 'default', iconName = 'lock' }; break;
-    case 'name': { inputType = 'default', iconName = 'user' }; break;
-    case 'email': { inputType = 'email-address', iconName = 'mail' }; break;
-    case 'number': { inputType = 'numeric', iconName = 'smartphone' }; break;
-    case 'search': { inputType = 'web-search', iconName = 'search' }; break;
+    case 'phone': { inputType = 'phone-pad', iconName = 'smartphone' } break
+    case 'password': { inputType = 'default', iconName = 'lock' } break
+    case 'name': { inputType = 'default', iconName = 'user' } break
+    case 'email': { inputType = 'email-address', iconName = 'mail' } break
+    case 'number': { inputType = 'numeric', iconName = 'smartphone' } break
+    case 'search': { inputType = 'web-search', iconName = 'search' } break
 
-    default: inputType = iconName = 'default';
+    default: inputType = iconName = 'default'
   }
 
-  const label = props.label ? <Text style={[labelStyle, props.labelStyle]}>{props.label}</Text> : null;
-  const help = props.help ? <Text style={styles.helpText}>{props.help}</Text> : null;
-  const error = props.hasError && props.error ? <Text style={styles.errorText}>{props.error}</Text> : null;
+  const label = props.label ? <Text style={[labelStyle, props.labelStyle]}>{props.label}</Text> : null
+  const help = props.help ? <Text style={styles.helpText}>{props.help}</Text> : null
+  const error = props.hasError && props.error ? <Text style={styles.errorText}>{props.error}</Text> : null
 
   return (
     <View style={props.containerStyle}>

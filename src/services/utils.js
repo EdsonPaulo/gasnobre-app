@@ -47,10 +47,10 @@ const onShare = () => {
     }
     catch (error) { alert(error.message) }
 
-    const url = 'http://deltacorp.co.ao';
-    const title = 'CarneSul';
-    const message = 'Compartilhe o carnesul com amigos. Compartilhar é Carinhoso :)';
-    //const icon = 'data:<data_type>/<file_extension>;base64,<base64_data>';
+    const url = 'http://deltacorp.co.ao'
+    const title = 'CarneSul'
+    const message = 'Compartilhe o carnesul com amigos. Compartilhar é Carinhoso :)'
+    //const icon = 'data:<data_type>/<file_extension>base64,<base64_data>'
     const options = Platform.select({
         ios: {
             activityItemSources: [
@@ -72,7 +72,7 @@ const onShare = () => {
             subject: title,
             message: `${message} ${url}`,
         },
-    });
+    })
 
     Share.open(options)
     */

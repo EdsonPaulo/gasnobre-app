@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, ActivityIndicator, Alert } from "react-native";
+import React, { useState, useEffect } from "react"
+import { View, Text, FlatList, ActivityIndicator, Alert } from "react-native"
 
-import api from '../../services/api';
-import ProductItem from "./ProductItem";
+import api from '../../services/api'
+import ProductItem from "./ProductItem"
 import Shimmer from '../Shimmer'
-import { general, colors, metrics } from "../../constants";
+import { general, colors, metrics } from "../../constants"
 
 const ProductHorizontalList = () => {
 
@@ -97,4 +97,4 @@ const ProductHorizontalList = () => {
   )
 }
 
-export default ProductHorizontalList;
+export default ProductHorizontalList

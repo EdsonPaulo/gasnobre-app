@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 export default function useDebounce(value, delay) {
     // State and setters for debounced value
@@ -29,5 +29,5 @@ export default function useDebounce(value, delay) {
         // ... need to be able to change that dynamically.
         [value]
     )
-    return debouncedValue;
+    return debouncedValue
 }

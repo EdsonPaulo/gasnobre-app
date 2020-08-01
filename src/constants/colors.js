@@ -29,6 +29,6 @@ const colors = {
     grayLight: '#e4e4e4',
     grayMedium: '#cacaca',
     grayDark: '#8a8a8a'
-  };
+  }
   
-  export default colors;
+  export default colors

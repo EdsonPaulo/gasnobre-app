@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, ActivityIndicator, Text } from 'react-native';
+import React from 'react'
+import { View, ActivityIndicator, Text } from 'react-native'
 
 import { colors } from '../constants'
 

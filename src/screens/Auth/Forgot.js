@@ -1,15 +1,15 @@
 import React, { } from 'react'
 import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform} from 'react-native'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/Feather'
 
 import { CustomButton, CustomInput}  from '../../components'
-import { metrics } from '../../constants';
+import { metrics } from '../../constants'
 import styles from './styles'
 
 const Forgot = () => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation()
 
     return (
         <KeyboardAvoidingView  behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.background}>

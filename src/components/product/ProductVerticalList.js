@@ -5,7 +5,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import ProductItem from "./ProductItem"
 import LoadingSpin from "../LoadingSpin"
 import api from '../../services/api'
-import { general, colors, metrics } from "../../constants";
+import { general, colors, metrics } from "../../constants"
 
 const { width } = Dimensions.get('window')
 

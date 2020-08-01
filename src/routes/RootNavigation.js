@@ -28,8 +28,8 @@ import {
 
 import AuthContext from '../contexts/auth/auth-context'
 
-import AuthProvider from '../contexts/auth/auth-provider';
-import ShopProvider from '../contexts/shop/shop-provider';
+import AuthProvider from '../contexts/auth/auth-provider'
+import ShopProvider from '../contexts/shop/shop-provider'
 
 const HomeTabs = () => {
   const Tabs = createBottomTabNavigator()

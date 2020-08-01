@@ -1,7 +1,7 @@
-import metrics from './metrics';
-import colors from './colors';
-import fonts from './fonts';
-import { StatusBar, Platform } from 'react-native';
+import metrics from './metrics'
+import colors from './colors'
+import fonts from './fonts'
+import { StatusBar, Platform } from 'react-native'
 
 const general = {
   background: {
@@ -32,6 +32,6 @@ const general = {
     justifyContent:  'center',
     alignItems: 'center',
   }
-};  
+}  
 
-export default general;
+export default general

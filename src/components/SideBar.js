@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useContext } from 'react'
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import {
     View,
     Image,
@@ -11,13 +11,13 @@ import {
     Platform,
     StyleSheet,
     TouchableOpacity
-} from 'react-native';
+} from 'react-native'
 
 import { onRate, onShare } from '../services/utils'
 
 import AuthContext from '../contexts/auth/auth-context'
 
-import { colors, fonts, metrics } from '../constants';
+import { colors, fonts, metrics } from '../constants'
 
 /*
  Condomínio Balumuka, Apto 301 - Talatona 
@@ -149,4 +149,4 @@ const styles = StyleSheet.create({
         opacity: 0.5,
         backgroundColor: colors.grayLight
     }
-});
+})

@@ -1,14 +1,14 @@
 import React, { } from 'react'
 import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/Feather'
 import { CustomButton, CustomInput}  from '../../components'
-import { metrics, fonts, colors } from '../../constants';
+import { metrics, fonts, colors } from '../../constants'
 import styles from './styles'
 
 const Login = () => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation()
 
     return (
         <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>

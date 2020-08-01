@@ -6,6 +6,6 @@ const fonts = {
     medium: 12,
     small: 10,
     tiny: 10,
-};
+}
  
-export default fonts;
+export default fonts

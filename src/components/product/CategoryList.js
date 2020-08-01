@@ -3,7 +3,7 @@ import { Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import { useRoute, useNavigation } from '@react-navigation/native'
 
 import { colors, metrics, fonts } from '../../constants'
-import api from '../../services/api';
+import api from '../../services/api'
 
 
 const CategoryList = props => {

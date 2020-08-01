@@ -1,6 +1,6 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform } from 'react-native'
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 
 const metrics = {
   smallMargin: 5,
@@ -19,4 +19,4 @@ const metrics = {
   formInputRadius: 20,
 }
 
-export default metrics;
+export default metrics

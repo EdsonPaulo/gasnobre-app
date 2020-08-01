@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { metrics, fonts, colors } from '../../constants';
+import { metrics, fonts, colors } from '../../constants'
 
 const styles = StyleSheet.create({
     background: {
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default styles;
+export default styles

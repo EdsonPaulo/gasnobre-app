@@ -1,16 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext } from 'react'
 import {
     View, StyleSheet,
     TouchableOpacity, Text,
     TouchableHighlight,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import Shimmer from '../Shimmer'
-import { colors, metrics, fonts, general } from '../../constants';
-import ShopContext from '../../contexts/shop/shop-context';
-import PlaceholderImage from '../PlaceholderImage';
+import { colors, metrics, fonts, general } from '../../constants'
+import ShopContext from '../../contexts/shop/shop-context'
+import PlaceholderImage from '../PlaceholderImage'
 
 const ProductItem = props => {
 
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default ProductItem;
+export default ProductItem

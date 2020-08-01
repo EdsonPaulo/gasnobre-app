@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { View, Image, Animated, ActivityIndicator } from 'react-native';
-import { colors } from '../constants';
+import { View, Image, Animated, ActivityIndicator } from 'react-native'
+import { colors } from '../constants'
 
 export default PlaceholderImage = props => {
 
@@ -13,7 +13,7 @@ export default PlaceholderImage = props => {
       toValue: 1,
       duration: 300,
       useNativeDriver: true
-    }).start();
+    }).start()
   }
 
   return (

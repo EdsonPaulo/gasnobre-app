@@ -1,9 +1,9 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import * as firebase from "firebase/app";
+import * as firebase from "firebase/app"
 
 
-import "firebase/auth";
-import "firebase/firestore";
+import "firebase/auth"
+import "firebase/firestore"
 
 const firebaseConfig = {
     apiKey: "AIzaSyBPWuICePw26MQgTHBosbzXn7pfMSLfHS4",
@@ -17,21 +17,21 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+firebase.initializeApp(firebaseConfig)
+firebase.analytics()
 
 
 var phoneNumber = "942682194"
-//var appVerifier = window.recaptchaVerifier;
+//var appVerifier = window.recaptchaVerifier
 firebase.auth().signInWithPhoneNumber(phoneNumber
     //, appVerifier
 )
     .then(function (confirmationResult) {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
-        //      window.confirmationResult = confirmationResult;
+        //      window.confirmationResult = confirmationResult
     }).catch(function (error) {
-        // Error; SMS not sent
+        // Error SMS not sent
         // ...
     })
 
@@ -39,15 +39,15 @@ firebase.auth().signInWithPhoneNumber(phoneNumber
 var code = "123456" //digitado pelo user
 confirmationResult.confirm(code).then(function (result) {
     // User signed in successfully.
-    var user = result.user;
+    var user = result.user
     // ...
 }).catch(function (error) {
     // User couldn't sign in (bad verification code?)
     // ...
-});
+})
 
 firebase.auth().signOut().then(function () {
     // Sign-out successful.
 }).catch(function (error) {
     // An error happened.
-});
+})

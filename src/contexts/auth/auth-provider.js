@@ -56,9 +56,9 @@ const AuthProvider = props => {
       //AXIOS AUTHORIZATION HEADER
       //  delete axios.defaults.headers.common["Authorization"]
       //DISPATCH TO REDUCER
-      dispatch({ type: LOGOUT });
+      dispatch({ type: LOGOUT })
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error)
     }
   }
 
