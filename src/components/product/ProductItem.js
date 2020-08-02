@@ -9,12 +9,11 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import Shimmer from '../Shimmer'
 import { colors, metrics, fonts, general } from '../../constants'
-import ShopContext from '../../contexts/shop/shop-context'
 import PlaceholderImage from '../PlaceholderImage'
 
 const ProductItem = props => {
 
-    const context = useContext(ShopContext)
+    const context = useContext()
     const navigation = useNavigation()
     const { width, ...item } = props
 
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         textTransform: 'capitalize',
         textAlign: 'center',
-        fontFamily: 'Lato',
+        //fontFamily: 'Lato',
     },
     priceContainer: {
         width: 125,

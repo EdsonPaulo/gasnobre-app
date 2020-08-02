@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     textStyle: {
         textTransform: 'capitalize',
         letterSpacing: 1.1,
-        fontFamily: 'Lato',
+        //fontFamily: 'Lato',
         textAlign: 'center'
     }
 })

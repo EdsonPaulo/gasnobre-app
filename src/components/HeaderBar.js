@@ -30,7 +30,8 @@ const HeaderBar = props => {
         home ?
           <View style={styles.btnContainer}>
             {renderMenuButtom()}
-            <Text style={[styles.title, { fontSize: 28, fontFamily: 'Soviet' }]}> {title} </Text>
+            <Text style={[styles.title, { fontSize: 28, //fontFamily: 'Soviet' 
+            }]}> {title} </Text>
             {renderSearchButtom()}
           </View>
           :
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     textTransform: 'capitalize',
     letterSpacing: 0.4,
-    fontFamily: 'Lato'
+    //fontFamily: 'Lato'
   }
 
 })

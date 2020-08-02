@@ -10,7 +10,7 @@ const metrics = {
   largeTopMargin: 100,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
-  tabBarHeight: 55,
+  tabBarHeight: 50,
   navBarHeight: (Platform.OS === 'ios') ? 64 : 54,
   statusBarHeight: (Platform.OS === 'ios') ? 20 : 0,
   baseRadius: 5,

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
+const { height } = Dimensions.get("window")
 import {
     Text,
     View,
+    Dimensions,
     AsyncStorage,
     StyleSheet,
     ScrollView,
@@ -12,13 +13,12 @@ import {
 } from 'react-native'
 
 import { colors, metrics, general, fonts, constants } from '../../constants'
-import { HeaderBar, SwiperCards, ProductHorizontalList, CategoryList } from '../../components'
-import ShopContext from '../../contexts/shop/shop-context'
+import { HeaderBar, ProductHorizontalList, CategoryList } from '../../components'
 
 const index = () => {
 
     const navigation = useNavigation()
-    const context = useContext(ShopContext)
+    //const context = useContext(ShopContext)
     const [cart, setCart] = useState([])
 
     //obter o carrinho do armazenamento
@@ -49,182 +49,75 @@ const index = () => {
             setCart(context.cart)
             saveDataCart()
         }, [context.cart])
-    */
-    return (
-        <SafeAreaView style={general.background}>
 
             <HeaderBar raised title="Carnesul" home />
 
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-
-                {/** Section Banner Slides */}
-                <View style={styles.bannerSection}>
-                    <SwiperCards />
+    */
+    return (
+        <SafeAreaView style={general.background}>
+            <View style={styles.homeHeader}>
+                <Text style={{fontSize: 16, color: "#fff", fontWeight: "bold", marginBottom: 5,}}>Olá, Edson Paulo</Text>
+                <View style={styles.addressContainer}>
+                    <Text>O seu endereço actual é: </Text>
+                    <Text>AV. Deolinda Rodrigues, Rua E, Casa nº 21, Lua... </Text>
                 </View>
-
-                { /** Section Category */}
-                <View style={styles.categorySection}>
-                    <View style={styles.sectionTopContainer}>
-                        <View style={styles.sectionTitleContainer}>
-                            <View style={styles.sectionTitleEffect}></View>
-                            <Text style={styles.sectionTitle}>Categorias</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('category')}>
-                            <Text style={styles.seeMore}>Ver Mais</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {/** 
-
-                    <View style={[styles.sectionTopContainer, { marginVertical: 0 }]}>
-                        <TouchableOpacity style={styles.categoryContainer}
-                            onPress={() => navigation.navigate('category', { categoryId: 81 })}>
-                            <Image resizeMode="cover" source={require('../../assets/icons/categoria1.png')} />
-                            <Text style={styles.categoryTitle}>Bovino</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.categoryContainer}
-                            onPress={() => navigation.navigate('category', { categoryId: 2 })}>
-                            <Image resizeMode="cover" source={require('../../assets/icons/categoria2.png')} />
-                            <Text style={styles.categoryTitle}>Suino</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.categoryContainer}
-                            onPress={() => navigation.navigate('category', { categoryId: 3 })}>
-                            <Image resizeMode="cover" source={require('../../assets/icons/categoria1.png')} />
-                            <Text style={styles.categoryTitle}>Caprino</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.categoryContainer}
-                            onPress={() => navigation.navigate('category', { categoryId: 4 })}>
-                            <Image resizeMode="cover" source={require('../../assets/icons/categoria3.png')} />
-                            <Text style={styles.categoryTitle}>Ovideo</Text>
-                        </TouchableOpacity>
-                    </View>
-                */}
-
-                    <CategoryList />
-
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.homeTitle}>O QUE VAI PEDIR HOJE?</Text>
+                <View style={styles.optionContainer}>
+                    <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("products", { category: "gas" })}>
+                        <Text>GÁS</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("products", { category: "agua" })}>
+                        <Text>ÁGUA</Text>
+                    </TouchableOpacity>
                 </View>
-
-                <View style={styles.productSection}>
-                    <View style={styles.sectionTopContainer}>
-                        <View style={styles.sectionTitleContainer}>
-                            <View style={styles.sectionTitleEffect}></View>
-                            <Text style={styles.sectionTitle}>Recomendados</Text>
-                        </View>
-                    </View>
-                    <View style={{ justifyContent: 'center', height: 240 }}>
-                        <ProductHorizontalList />
-                    </View>
-
-                </View>
-
-                <View style={styles.productSection}>
-                    <View style={styles.sectionTopContainer}>
-                        <View style={styles.sectionTitleContainer}>
-                            <View style={styles.sectionTitleEffect}></View>
-                            <Text style={styles.sectionTitle}>Mais Recentes</Text>
-                        </View>
-                    </View>
-                    <View style={{ justifyContent: 'center', height: 240 }}>
-                        <ProductHorizontalList />
-                    </View>
-                </View>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     )
-
-
 }
 
 
 const styles = StyleSheet.create({
     container: {
+        position: "absolute",
+        height: height - 250,
         flex: 1,
+        bottom: 0,
+        width: "100%",
         backgroundColor: colors.bgColor,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        padding: 15,
     },
-    headerTitle: {
-        fontFamily: 'Soviet',
-        color: 'white',
-        fontSize: 24
+    homeHeader: {
+        height: 140,
+        backgroundColor: colors.primaryDark,
+        paddingHorizontal: 20,
+        // elevation: 5
     },
-
-    bannerSection: {
-        height: 200,
+    addressContainer: {
+        backgroundColor: "#ffffff29",
+        padding: 15,
+        borderRadius: metrics.baseRadius
     },
-
-    categorySection: {
-        marginTop: metrics.baseMargin,
-        marginBottom: metrics.doubleBaseMargin
+    homeTitle: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: colors.primaryDark,
+        textAlign: "center",
+        marginBottom: metrics.baseMargin
     },
-
-    productSection: {
-        height: 285,
-        justifyContent: 'center',
+    optionContainer: {
+        flex: 1
     },
-
-    sectionTopContainer: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        margin: metrics.baseMargin
-    },
-    sectionTitleContainer: {
-        marginLeft: metrics.doubleBaseMargin,
+    option: {
+        flex: 1 / 2,
+        width: "100%",
+        padding: metrics.baseMargin,
         marginVertical: metrics.smallMargin,
-        borderWidth: 1,
-        backgroundColor: colors.white,
-        borderColor: colors.grayMedium,
-        paddingVertical: metrics.smallMargin,
-        paddingHorizontal: metrics.doubleBaseMargin,
+        backgroundColor: colors.grayMedium,
     },
-    sectionTitleEffect: {
-        left: -15,
-        position: 'absolute',
-        width: 25,
-        height: 7,
-        top: '50%',
-        bottom: '50%',
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
-        borderTopColor: colors.primaryDark,
-        borderBottomColor: colors.primaryDark,
-    },
-    sectionTitle: {
-        letterSpacing: 1.7,
-        textTransform: 'uppercase',
-        // fontFamily: 'Lato',
-        fontWeight: 'bold',
-        fontSize: fonts.small,
-        color: colors.grayDark2,
-        textAlign: 'center'
-    },
-    seeMore: {
-        fontSize: fonts.regular,
-        color: colors.grayDark2,
-        marginRight: metrics.smallMargin
-    },
-
-    categoryContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 65,
-        height: 65,
-    },
-    category: {
-        width: 60,
-        height: 60,
-    },
-    categoryTitle: {
-        textAlign: 'center',
-        marginTop: 2,
-        letterSpacing: 1.2,
-        fontSize: fonts.small,
-        color: colors.grayDark2
-    }
-
-
 })
 
 export default index

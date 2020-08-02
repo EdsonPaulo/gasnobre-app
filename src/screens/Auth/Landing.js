@@ -28,8 +28,6 @@ const Landing = () => {
         <View style={[styles.background, { padding: 0 }]}>
             <View style={{ flex: 2 / 3, justifyContent: 'flex-end', alignItems: "center", elevation: 15, }}>
                 <View style={{ width: '100%', height: '100%' }}>
-                    <ImageBackground source={require('../../assets/landing1.jpg')} resizeMode="cover"
-                        style={{ width: '100%', height: '100%' }} />
                 </View>
 
                 <View style={{ position: 'absolute', top: 0, width: '100%', height: '100%', zIndex: 1, borderBottomRightRadius: 80, backgroundColor: '#00000062', justifyContent: 'center' }}>

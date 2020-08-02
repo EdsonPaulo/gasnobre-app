@@ -1,10 +1,10 @@
 const colors = {
-    bgColor: '#FCFCFC',
+    bgColor: '#FBFBFB',
 
-    primaryDark: '#CC2C2C',
+    primaryDark: '#24628A',
     primary: '#F34244',
     primaryLight: '#747d8c', 
-    accent: '#b21807',
+    accent: '#3081B5',
    
     darkblue: '#1e3c72',
     magenta: '#474787', 

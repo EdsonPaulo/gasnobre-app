@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         fontSize: fonts.input,
         textTransform: 'capitalize',
         color: 'white',
-        fontFamily: 'Lato'
+        //fontFamily: 'Lato'
     },
 
 })

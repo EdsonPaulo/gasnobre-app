@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
     userInfo: {
         color: 'white',
         textAlign: 'center',
-        fontFamily: 'Lato'
+        //fontFamily: 'Lato'
     },
     textStyle: {
         color: colors.grayDark2,
         fontSize: fonts.regular,
-        fontFamily: 'Lato'
+        //fontFamily: 'Lato'
     },
     optionsContainer: {
         padding: metrics.baseMargin,
