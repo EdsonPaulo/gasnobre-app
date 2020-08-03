@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 35,
         backgroundColor: colors.primaryDark,
+        elevation: 3
     },
     userInfoContainer: {
         top: 10,
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
         marginRight: metrics.baseMargin,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.accent
+        backgroundColor: colors.primaryDark
     },
     sectionTitle: {
         //fontFamily: 'Lato',

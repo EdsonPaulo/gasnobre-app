@@ -20,18 +20,16 @@ import {
   HomePage,
   ProfilePage,
   ProfileDetails,
-
   Orders,
   AddressPage,
   Checkout,
   ProductDetails,
   ProductsPage,
   OrderDetails,
-  PlansPage,
+  PlansPage
 } from '../screens'
 
 import AuthContext from '../contexts/auth/auth-context'
-
 import AuthProvider from '../contexts/auth/auth-provider'
 
 const stackScreenGlobalOptions = {
@@ -44,23 +42,19 @@ const stackScreenGlobalOptions = {
 const HomeTabs = () => {
   const Tabs = createBottomTabNavigator()
   return (
-    <Tabs.Navigator initialRouteName='homeStack' animationEnabled={true}
-      tabBar={props => <HomeTabBar {...props} />}
-      screenOptions={({ route }) => { { } }}>
+    <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
       <Tabs.Screen name="homeStack" component={HomeStack} options={{ tabBarLabel: 'Página Inicial' }} />
       <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Meus Pedidos' }} />
-      <Tabs.Screen name="profileStack" component={ProfileStack} options={{ tabBarLabel: 'Perfil' }} />
+      <Tabs.Screen name="profileStack" component={ProfileStack} options={{ tabBarLabel: 'Definições e Perfil' }} />
     </Tabs.Navigator>
   )
 }
 
-const HomeStack = () => {
+const MainStack = () => {
   const Stack = createStackNavigator()
   return (
-    <Stack.Navigator initialRouteName='home' screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="home" component={HomePage} options={{
-        headerStyle: { backgroundColor: colors.primaryDark, elevation: 0, height: 55 }
-      }} />
+    <Stack.Navigator initialRouteName='homeTabs' screenOptions={stackScreenGlobalOptions}>
+      <Stack.Screen name="homeTabs" component={HomeTabs} options={{ headerShown: false }} />
       <Stack.Screen name="products" options={{
         headerRightContainerStyle: { marginRight: 10 },
         headerRight: (props => <Icon name="shopping-cart" size={18} color={props.tintColor} />),
@@ -68,8 +62,24 @@ const HomeStack = () => {
         headerStyle: { backgroundColor: colors.primaryDark, elevation: 0, height: 55 }
       }} component={ProductsPage} />
       <Stack.Screen name="productDetails" options={{ headerTitle: "Detalhes do Produto" }} component={ProductDetails} />
-      <Stack.Screen name="checkout" component={Checkout} options={{ headerTitle: "Fazer Pedido" }} />
       <Stack.Screen name="address" component={AddressPage} options={{ headerTitle: "Meus Endereços" }} />
+      <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
+      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais" }} />
+      <Stack.Screen name="plans" component={PlansPage} options={{ headerTitle: "Planos de Serviço" }} />
+      <Stack.Screen name="checkout" component={Checkout} options={{ headerTitle: "Fazer Pedido" }} />
+    </Stack.Navigator>
+  )
+}
+
+const HomeStack = () => {
+  const Stack = createStackNavigator()
+  return (
+    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
+      <Stack.Screen name="profile" options={{
+        headerTitleAlign: "center",
+        headerStyle: { backgroundColor: colors.primaryDark, elevation: 0, height: 55 }
+      }} component={HomePage} />
+
     </Stack.Navigator>
   )
 }
@@ -77,9 +87,8 @@ const HomeStack = () => {
 const OrderStack = () => {
   const Stack = createStackNavigator()
   return (
-    <Stack.Navigator initialRouteName='orders' screenOptions={stackScreenGlobalOptions}>
+    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos", headerTitleAlign: "center" }} component={Orders} />
-      <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
     </Stack.Navigator>
   )
 }
@@ -87,15 +96,12 @@ const OrderStack = () => {
 const ProfileStack = () => {
   const Stack = createStackNavigator()
   return (
-    <Stack.Navigator initialRouteName='profile' screenOptions={stackScreenGlobalOptions}>
+    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="profile" options={{
         headerTitle: "Definições e Perfil",
         headerTitleAlign: "center",
         headerStyle: { backgroundColor: colors.primaryDark, elevation: 0, height: 55 }
       }} component={ProfilePage} />
-      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais" }} />
-      <Stack.Screen name="plans" component={PlansPage} options={{ headerTitle: "Planos de Serviço" }} />
-      <Stack.Screen name="address" component={AddressPage} options={{ headerTitle: "Meus Endereços" }} />
     </Stack.Navigator>
   )
 }
@@ -113,14 +119,13 @@ const AuthNavigation = () => {
   )
 }
 
-
 export default Router = () => {
   const authContext = useContext(AuthContext)
   return (
     <NavigationContainer>
       <StatusBar barStyle='light-content' backgroundColor={colors.primaryDark} />
       <AuthProvider>
-        <HomeTabs />
+        <MainStack />
       </AuthProvider>
     </NavigationContainer>
   )

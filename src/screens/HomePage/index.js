@@ -81,7 +81,7 @@ const index = () => {
 const styles = StyleSheet.create({
     container: {
         position: "absolute",
-        height: height - 250,
+        height: height - 260,
         flex: 1,
         bottom: 0,
         width: "100%",
@@ -91,9 +91,10 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     homeHeader: {
-        height: 140,
+        height: 150,
         backgroundColor: colors.primaryDark,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
+        justifyContent: "center"
         // elevation: 5
     },
     addressContainer: {

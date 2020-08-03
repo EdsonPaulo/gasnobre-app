@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, FlatList, Alert, StyleSheet, InteractionManager, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
+
+import {
+    Text, View,
+    FlatList, Alert,
+    StyleSheet,
+    InteractionManager,
+    ActivityIndicator,
+    TouchableOpacity,
+    ScrollView,
+    Dimensions
+} from 'react-native'
+
 import { useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { TabView, SceneMap } from 'react-native-tab-view';
 
 import { HeaderBar, ProductVerticalList, LoadingSpin } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
@@ -72,16 +84,45 @@ export default index = () => {
         )
     }
 
+    const FirstRoute = () => (
+        <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+    )
+
+    const SecondRoute = () => (
+        <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+    )
+
+    const initialLayout = { width: Dimensions.get('window').width }
+
+    const TabViewExample = () => {
+        const [index, setIndex] = React.useState(0);
+        const [routes] = React.useState([
+            { key: 'first', title: 'First' },
+            { key: 'second', title: 'Second' }
+        ])
+
+        const renderScene = SceneMap({
+            first: FirstRoute,
+            second: SecondRoute,
+        })
+
+        return (
+            <TabView
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                initialLayout={initialLayout}
+            />
+        )
+    }
+
     if (!interactionsComplete) { return <LoadingSpin /> }
 
     return (
         <SafeAreaView style={general.background}>
-            <View style={styles.categoryListContainer}>
-                {renderCategoryList()}
-            </View>
-            <View style={{ flex: 1 }}>
-                <ProductVerticalList category={categoryId} />
-            </View>
+        {
+            TabViewExample()
+        }
         </SafeAreaView>
     )
 }
