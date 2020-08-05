@@ -1,34 +1,19 @@
 import 'react-native-gesture-handler'
-import * as React from 'react'
-//import { enableScreens } from 'react-native-screens'
+import React from 'react'
+import { enableScreens } from 'react-native-screens'
+enableScreens()
 import 'intl'
 import 'intl/locale-data/jsonp/pt-AO'
-//import { AppLoading } from 'expo'
-//import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Router from './src/routes/RootNavigation'
+import AuthProvider from './src/contexts/auth/auth-provider'
 
 export default function App() {
-
-  /**
-   * 
-   * 
-
-  enableScreens()
-
-  let [fontsLoaded] = useFonts({
-    'Soviet': require('./src/assets/fonts/Soviet.ttf'),
-    'Lato': require('./src/assets/fonts/Lato.ttf')
-  })
-
-  if (!fontsLoaded)
-    return <AppLoading />
-
-
-  {/** <SafeAreaProvider>*/ 
-  {/** </SafeAreaProvider>*/ }
-
   return (
-    <Router />
+    <AuthProvider>
+      <SafeAreaProvider>
+        <Router />
+      </SafeAreaProvider>
+    </AuthProvider>
   )
 }

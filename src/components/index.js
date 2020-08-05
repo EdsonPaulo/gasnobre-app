@@ -4,7 +4,6 @@ import HeaderBar from './HeaderBar'
 import HomeTabBar from './HomeTabBar'
 import Shimmer from './Shimmer'
 import LoadingSpin from './LoadingSpin'
-import SideBar from './SideBar'
 import PlaceholderImage from './PlaceholderImage'
 import ProductItem from './product/ProductItem'
 import ProductHorizontalList from './product/ProductHorizontalList'
@@ -18,7 +17,6 @@ export {
     HeaderBar,
     HomeTabBar,
     Shimmer,
-    SideBar,
     LoadingSpin,
     PlaceholderImage,
     ProductItem,

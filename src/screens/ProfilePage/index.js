@@ -13,25 +13,15 @@ export default index = () => {
 
     const navigation = useNavigation()
 
-    const authContext = useContext(AuthContext)
+    const { logout, user } = useContext(AuthContext)
 
-    const logout = () => {
+    const Logout = () => {
         Alert.alert(
             'Terminar Sessão', 'Deseja terminar sessão da sua conta?', [
             { text: 'Não', style: 'cancel' },
-            { text: 'SIm', onPress: () => authContext.logout() },
+            { text: 'SIm', onPress: () => logout() },
         ], { cancelable: true })
     }
-
-    const [userInfo, setUserInfo] = useState({
-        id: 12313,
-        name: 'Edson Paulo',
-        initials: 'EP',
-        phone: '+244942682194',
-        email: 'edsonpaulo24@gmail.com',
-        address1: 'Casa 12, Luanda - Angola',
-        address2: '',
-    })
 
     useEffect(() => {
         return () => {
@@ -44,13 +34,13 @@ export default index = () => {
 
             <View style={styles.topContainer} />
 
-            <View style={styles.userInfoContainer}>
+            <View style={styles.userContainer}>
                 <View style={styles.avatar}>
-                    <Text style={{ fontSize: 20, color: "#fff" }}>{userInfo.initials}</Text>
+                    <Text style={{ fontSize: 20, color: "#fff" }}>{user.initials}</Text>
                 </View>
-                <View style={styles.userInfo}>
-                    <Text style={styles.userName}>{userInfo.name}</Text>
-                    <Text style={styles.userDetails}>{userInfo.phone}</Text>
+                <View style={styles.user}>
+                    <Text style={styles.userName}>{user.name}</Text>
+                    <Text style={styles.userDetails}>{user.phone}</Text>
                 </View>
             </View>
 
@@ -107,7 +97,7 @@ export default index = () => {
                     <Ionicons name="ios-arrow-forward" size={18} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.btn} onPress={() => logout()}>
+                <TouchableOpacity style={styles.btn} onPress={() => Logout()}>
                     <View style={{ flexDirection: "row", alignItems: 'center' }}>
                         <MaterialCommunityIcons name='logout' style={styles.icons} />
                         <Text style={styles.textStyle}> Terminar Sessão </Text>
@@ -130,7 +120,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primaryDark,
         elevation: 3
     },
-    userInfoContainer: {
+    userContainer: {
         top: 10,
         height: 70,
         width: "85%",
@@ -162,7 +152,7 @@ const styles = StyleSheet.create({
     formContainer: {
         paddingBottom: 20,
     },
-    userInfo: {
+    user: {
         flex: 1,
         marginLeft: 15,
         justifyContent: 'center',
@@ -192,7 +182,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: colors.primaryDark,
     },
-    userInfo: {
+    user: {
         color: 'white',
         textAlign: 'center',
         //fontFamily: 'Lato'

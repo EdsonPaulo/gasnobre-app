@@ -13,7 +13,7 @@ import {
 
 import { useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import { HeaderBar, ProductVerticalList, LoadingSpin } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
@@ -25,7 +25,12 @@ export default index = () => {
     const [interactionsComplete, setInteractionsComplete] = useState(false)
     const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
     const [categoryId, setCategoryId] = useState(81)
-
+    const initialLayout = { width: Dimensions.get('window').width }
+    const [index, setIndex] = React.useState(0);
+    const [routes] = useState([
+        { key: 'gas', title: 'GÁS' },
+        { key: 'water', title: 'ÁGUA' }
+    ])
 
     const loadProductCategories = () => {
         api.get('/products/categories')
@@ -84,45 +89,45 @@ export default index = () => {
         )
     }
 
-    const FirstRoute = () => (
-        <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+    const GasRoute = () => (
+        <View style={[styles.scene, { backgroundColor: '#ff40811a' }]} />
     )
 
-    const SecondRoute = () => (
-        <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+    const WaterRoute = () => (
+        <View style={[styles.scene, { backgroundColor: '#673ab71A' }]} />
     )
 
-    const initialLayout = { width: Dimensions.get('window').width }
 
-    const TabViewExample = () => {
-        const [index, setIndex] = React.useState(0);
-        const [routes] = React.useState([
-            { key: 'first', title: 'First' },
-            { key: 'second', title: 'Second' }
-        ])
+    const CustomTabView = () => {
 
         const renderScene = SceneMap({
-            first: FirstRoute,
-            second: SecondRoute,
+            gas: GasRoute,
+            water: WaterRoute,
         })
 
+        const renderTabBar = props => (
+            <TabBar {...props}
+                indicatorStyle={{ backgroundColor: index == 0 ? 'orange' : 'blue' }}
+                style={{ backgroundColor: colors.primaryDark }}
+            />
+        );
+
         return (
-            <TabView
+            <TabView lazy
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
+                renderTabBar={renderTabBar}
                 onIndexChange={setIndex}
                 initialLayout={initialLayout}
             />
         )
     }
 
-    if (!interactionsComplete) { return <LoadingSpin /> }
+    // if (!interactionsComplete) { return <LoadingSpin /> }
 
     return (
         <SafeAreaView style={general.background}>
-        {
-            TabViewExample()
-        }
+           { CustomTabView() }
         </SafeAreaView>
     )
 }

@@ -1,14 +1,29 @@
-import React, { } from 'react'
+import React, { useContext } from 'react'
 import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/Feather'
-import { CustomButton, CustomInput}  from '../../components'
+import { CustomButton, CustomInput } from '../../components'
 import { metrics, fonts, colors } from '../../constants'
+import AuthContext from '../../contexts/auth/auth-context'
 import styles from './styles'
 
 const Login = () => {
 
     const navigation = useNavigation()
+    const { login } = useContext(AuthContext)
+
+    const [username, setUsername] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    
+    const [user, setuser] = useState({
+        id: 12313,
+        name: 'Edson Paulo',
+        initials: 'EP',
+        phone: '+244942682194',
+        email: 'edsonpaulo24@gmail.com',
+        address1: 'Casa 12, Luanda - Angola',
+        address2: '',
+    })
 
     return (
         <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>
@@ -24,13 +39,13 @@ const Login = () => {
                 <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
                     <CustomInput label="Telefone" style={{ marginTop: 0 }} name="phone" type="phone" placeholder="+2449XXXXXX" />
 
-                    <CustomInput  label="Senha" containerStyle={{marginTop: 20}} name="password" type="password" placeholder="**********" />
+                    <CustomInput label="Senha" containerStyle={{ marginTop: 20 }} name="password" type="password" placeholder="**********" />
 
                     <TouchableOpacity onPress={() => navigation.navigate('forgot')}>
                         <Text style={{ marginTop: 8, color: colors.grayLight, fontSize: fonts.regular, textAlign: 'right' }}>Esqueceu a sua senha?</Text>
                     </TouchableOpacity>
 
-                    <CustomButton style={{ marginTop: 20 }} primary title="Entrar" onPress={() => { }} />
+                    <CustomButton style={{ marginTop: 20 }} primary title="Entrar" onPress={() => { login(user, "auth-dummy-token") }} />
                 </View>
             </View>
 

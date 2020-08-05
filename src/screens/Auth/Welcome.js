@@ -1,7 +1,7 @@
 import React, { } from 'react'
-import { Image } from 'react-native'
+import { Image, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Onboarding from 'react-native-onboarding-swiper'
+//import Onboarding from 'react-native-onboarding-swiper'
 
 import { colors } from '../../constants'
 import styles from './styles'
@@ -12,6 +12,10 @@ const Welcome = () => {
     const navigation = useNavigation()
 
     return (
+
+        /**
+         * 
+         * 
         <Onboarding
             nextLabel="Seguinte"
             skipLabel="Saltar"
@@ -43,6 +47,9 @@ const Welcome = () => {
                 }
             ]}
         />
+         */
+
+         <View/>
 
     )
 }
