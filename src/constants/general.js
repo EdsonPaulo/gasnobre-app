@@ -1,28 +1,23 @@
 import metrics from './metrics'
 import colors from './colors'
-import fonts from './fonts'
-import { StatusBar, Platform } from 'react-native'
 
 const general = {
   background: {
     flex: 1,
     backgroundColor: colors.bgColor,
-
-  //  borderTopWidth: StatusBar.currentHeight,
-  //  borderTopColor: colors.primaryDark,
   },
   container: {
     padding: metrics.baseMargin,
 
   },
   card: {
-    borderRadius: metrics.baseRadius,
+    borderRadius: 8,
     padding: metrics.baseMargin,
     backgroundColor: 'white',
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
     elevation: 5,
   },
   headerButton: {

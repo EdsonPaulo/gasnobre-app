@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, FlatList, Alert, Dimensions, ActivityIndicator } from 'react-native'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 
-import ProductItem from "./ProductItem"
+import ProductVerticalItem from "./ProductVerticalItem"
 import LoadingSpin from "../LoadingSpin"
 import api from '../../services/api'
 import { general, colors, metrics } from "../../constants"
@@ -92,7 +92,7 @@ const ProductVerticalList = listParams => {
     if (item.empty)
       return <View style={styles.itemInvisible} />
     else
-      return <ProductItem width={(width / 2 - 20)} {...item} />
+      return <ProductVerticalItem width={(width / 2 - 20)} {...item} />
   }
 
   if (products.length !== 0) {

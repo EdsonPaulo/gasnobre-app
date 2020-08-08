@@ -1,156 +1,47 @@
-[{
-    "id": 1,
-    "name": "Carne 1",
-    "price": 4500,
-    "weight": 1.5,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 1
-},
-{
-    "id": 2,
-    "name": "Carne xyz",
-    "price": 8000,
-    "weight": 2,
-    "images": [
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 2
-},
-{
-    "id": 3,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 3
-},
-{
-    "id": 4,
-    "name": "Carne 1",
-    "price": 4500,
-    "weight": 1.5,
-    "images": [
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 3
-},
-{
-    "id": 5,
-    "name": "Carne xyz",
-    "price": 8000,
-    "weight": 2,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 2
-},
-{
-    "id": 6,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 1
-},
-{
-    "id": 7,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 2
-},
-{
-    "id": 8,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 3
-}
-,
-{
-    "id": 9,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 1
-}
-,
-{
-    "id": 10,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 3
-}
-,
-{
-    "id": 11,
-    "name": "Carne abc",
-    "price": 9000,
-    "weight": 1,
-    "images": [
-        {"src": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png"}
-    ],
-    "categories": [
-        {"name": "categoria x"},
-        {"name": "categoria y"}
-    ],
-    "category": 2
-}
+[
+    {
+        "id": 1,
+        "title": "Água Pura (6 unid.)",
+        "type": "agua",
+        "weight": "2L",
+        "price": 4500,
+        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+        "category": "2"
+    },
+    {
+        "id": 2,
+        "title": "Água Perla (1 unid.)",
+        "weight": "5L",
+        "price": 500,
+        "type": "agua",
+        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+        "category": "2"
+    },
+    {
+        "id": 3,
+        "title": "Água Pura (6 unid.)",
+        "weight": "2L",
+        "type": "agua",
+        "price": 4500,
+        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+        "category": "2"
+    },
+    {
+        "id": 4,
+        "title": "Água Pura (6 unid.)",
+        "weight": "2L",
+        "type": "agua",
+        "price": 4000,
+        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+        "category": "2"
+    },
+    {
+        "id": 5,
+        "title": "Água Bela Vida (6 unid.)",
+        "weight": "1L",
+        "type": "agua",
+        "price": 3000,
+        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+        "category": "2"
+    }
 ]

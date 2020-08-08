@@ -9,9 +9,10 @@ const LoadingSpin = ({text}) => {
         <View style={{
             flex: 1,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundColor: colors.bgColor
         }}>
-            <ActivityIndicator size="large" color={colors.primaryDark} />
+            <ActivityIndicator size="large" color={colors.primary} />
             <Text style={{ fontSize: 16 }}> {text || "Carregando.."}</Text>
         </View>
     )

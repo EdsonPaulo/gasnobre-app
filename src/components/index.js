@@ -4,8 +4,8 @@ import HeaderBar from './HeaderBar'
 import HomeTabBar from './HomeTabBar'
 import LoadingSpin from './LoadingSpin'
 import PlaceholderImage from './PlaceholderImage'
-import ProductItem from './product/ProductItem'
-import ProductHorizontalList from './product/ProductHorizontalList'
+import ProductVerticalItem from './product/ProductVerticalItem'
+import ProductHorizontalItem from './product/ProductHorizontalItem'
 import ProductVerticalList from './product/ProductVerticalList'
 import CategoryList from './product/CategoryList'
 
@@ -17,8 +17,8 @@ export {
     HomeTabBar,
     LoadingSpin,
     PlaceholderImage,
-    ProductItem,
-    ProductHorizontalList,
+    ProductVerticalItem,
+    ProductHorizontalItem,
     ProductVerticalList,
     CategoryList
 }

@@ -3,15 +3,13 @@ import {
     View, StyleSheet,
     TouchableOpacity, Text,
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { colors, metrics, fonts, general } from '../../constants'
 import PlaceholderImage from '../PlaceholderImage'
 
-const ProductItem = ({ item, handleQuantity }) => {
+const ProductVerticalItem = ({ item, handleQuantity }) => {
 
-    const navigation = useNavigation()
     const [quantity, setQuantity] = useState(0)
 
     const containerWidth = 160
@@ -19,23 +17,20 @@ const ProductItem = ({ item, handleQuantity }) => {
     const changeQuantity = (add) => {
         let auxQuantity = add ? (quantity + 1) : (quantity - 1)
         setQuantity(auxQuantity)
-        handleQuantity(auxQuantity)
+        handleQuantity(auxQuantity, item)
     }
 
     return (
-        <View activeScale={0.7} style={[general.card, styles.container, { width: containerWidth, maxWidth: 200, alignItems: "center" }]}
-            onPress={() => navigation.navigate('product', { product: item })}>
+        <View style={[general.card, styles.container, { width: containerWidth }]}>
 
             <View style={styles.productImageContainer}>
                 <PlaceholderImage style={styles.productImage}
-                    source={(item.images?.length > 0) ? { uri: item.images[0].src } : require('../../assets/noimage.png')} />
+                    source={item.image ? { uri: item.image } : require('../../assets/noimage.png')} />
             </View>
 
-            <View style={{height: "50%", justifyContent: "space-between"}}>
-                <View>
-                    <Text style={styles.title}>{item.title}</Text>
-                </View>
- 
+            <View style={{ height: "50%", justifyContent: "space-between", alignItems: "center" }}>
+                <Text style={styles.title}>{item.title}</Text>
+
                 <Text style={styles.price}>
                     {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(item.price)}
                 </Text>
@@ -72,18 +67,11 @@ const styles = StyleSheet.create({
     container: {
         width: 160,
         height: 240,
-        borderRadius: metrics.doubleBaseRadius,
         marginVertical: metrics.smallMargin,
         marginHorizontal: metrics.baseMargin,
         justifyContent: 'space-between',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 5,
+        maxWidth: 200,
+        alignItems: "center",
     },
     productImageContainer: {
         width: '100%',
@@ -122,4 +110,4 @@ const styles = StyleSheet.create({
         alignItems: "center"
     }
 })
-export default ProductItem
+export default ProductVerticalItem

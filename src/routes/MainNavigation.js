@@ -20,7 +20,6 @@ import {
   Orders,
   AddressPage,
   Checkout,
-  ProductDetails,
   ProductsPage,
   OrderDetails,
   PlansPage
@@ -61,7 +60,6 @@ const MainNavigation = () => {
         headerTitle: "",
         headerStyle: { backgroundColor: colors.primary, elevation: 0, height: 55 }
       }} component={ProductsPage} />
-      <Stack.Screen name="productDetails" options={{ headerTitle: "Detalhes do Produto" }} component={ProductDetails} />
       <Stack.Screen name="address" component={AddressPage} options={{ headerTitle: "Meus Endereços" }} />
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
       <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais" }} />

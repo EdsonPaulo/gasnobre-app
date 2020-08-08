@@ -12,7 +12,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
   <View style={{ backgroundColor: colors.bgColor }}>
     <View style={{
       flexDirection: 'row',
-      height: metrics.tabBarHeight + 10,
+      height: metrics.tabBarHeight,
       backgroundColor: colors.white,
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -71,8 +71,8 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Ionicons name={iconName} style={{ color: isFocused ? colors.accent : colors.grayDark }} size={20} />
-                <Text style={{ fontSize: fonts.small, color: isFocused ? colors.accent : colors.grayDark }}>{label}</Text>
+                <Ionicons name={iconName} style={{ color: isFocused ? colors.primary : colors.grayDark }} size={20} />
+                <Text style={{ fontSize: fonts.small, color: isFocused ? colors.primary : colors.grayDark }}>{label}</Text>
               </View>
             </TouchableOpacity>
           )

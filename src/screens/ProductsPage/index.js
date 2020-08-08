@@ -15,19 +15,33 @@ import { useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
-import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductItem } from '../../components'
+import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
-import { color } from 'react-native-reanimated';
+
 
 export default index = () => {
+    let cartM = []
+    let subtotalM = 0
+    const productsData = require("../../services/mock-data.json")
+
     let isMounted = true
     const route = useRoute()
+    const initialLayout = { width: Dimensions.get('window').width }
     const [interactionsComplete, setInteractionsComplete] = useState(false)
+    const [index, setIndex] = useState(route.params.category === "water" ? 1 : 0 || 0)
+    const [subtotal, setSubtotal] = useState(0)
+    const [cart, setCart] = useState([])
+
     const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
     const [categoryId, setCategoryId] = useState(81)
-    const initialLayout = { width: Dimensions.get('window').width }
-    const [index, setIndex] = React.useState(0);
+
+    const item = {
+        id: 3,
+        title: "gas botija",
+        price: 23000
+    }
+
     const [routes] = useState([
         { key: 'gas', title: 'GÁS' },
         { key: 'water', title: 'ÁGUA' }
@@ -41,32 +55,22 @@ export default index = () => {
                     setCategoryId(route.params?.categoryId || categoryId)
                 }
             })
-            .catch(err => {
-                console.log(err + ' ===> erro')
-            })
+            .catch(err => { console.log(err + ' ===> erro') })
     }
 
+
+    /**
+     * 
     useEffect(() => {
         InteractionManager.runAfterInteractions(() => {
             setInteractionsComplete(true)
         }).then(() => {
             isMounted = true
-            if (categories.length <= 0)
-                loadProductCategories()
+            // if (categories.length <= 0) loadProductCategories()
         })
         return () => isMounted = false
     }, [])
-
-
-    useEffect(() => {
-        if (categories.length <= 0) {
-            if (isMounted)
-                setCategories(route.params?.categories)
-        }
-        else
-            setCategoryId(route.params?.categoryId || categoryId)
-        return () => { }
-    }, [route.params?.categoryId])
+     */
 
 
     const renderCategoryList = () => {
@@ -90,32 +94,62 @@ export default index = () => {
         )
     }
 
-    const item = {
-        title: "gas botija",
-        price: 23000
-    }
-
-    const handleQuantity = (quantity) => {
+    const handleQuantity = (quantity, item) => {
         console.log("Quantidade: " + quantity)
+        console.log("Produto: " + JSON.stringify(item))
+
+        /** */
+        //const updatedCart = [...cartM]
+        const updatedItemIndex = cartM.findIndex(product => product.id === item.id)
+        if (updatedItemIndex < 0)
+            cartM.push({ ...item, quantity: 1 })
+        else {
+            console.log("aumentado")
+            const updatedItem = { ...cartM[updatedItemIndex] }
+            updatedItem.quantity += 1
+            cartM[updatedItemIndex] = updatedItem
+        }
+        subtotalM += item.price
+        //  cartM = updatedCart
     }
 
-    const GasRoute = () => (
-        <View style={styles.scene}>
-        </View>
-    )
-
-    const WaterRoute = () => (
-        <View style={styles.scene}>
-            <ProductItem item={item} handleQuantity={handleQuantity} />
-        </View>
-    )
-
+    //calcular o valor total
+    const calculateTotal = () => {
+        let acumulator = 0
+        cart.forEach(element => {
+            acumulator += (element.price * element.quantity)
+        })
+        setSubtotal(acumulator)
+    }
 
     const CustomTabView = () => {
+        const GasScene = () => (
+            <View style={styles.scene}>
+                <ScrollView>
+                    {
+                        productsData.map(item =>
+                            <ProductHorizontalItem key={item.id} item={item} handleQuantity={handleQuantity} />
+                        )
+                    }
+                </ScrollView>
+            </View>
+        )
+
+        const WaterScene = () => (
+            <View style={styles.scene}>
+                <ScrollView>
+                    {
+                        productsData.map(item =>
+                            <ProductVerticalItem key={item.id} item={item} handleQuantity={handleQuantity} />
+                        )
+                    }
+                </ScrollView>
+            </View>
+        )
 
         const renderScene = SceneMap({
-            gas: GasRoute,
-            water: WaterRoute,
+            gas: GasScene,
+            water: WaterScene,
         })
 
         const renderTabBar = props => (
@@ -123,7 +157,7 @@ export default index = () => {
                 indicatorStyle={{ backgroundColor: index == 0 ? 'orange' : colors.white }}
                 style={{ backgroundColor: colors.primary }}
             />
-        );
+        )
 
         return (
             <TabView lazy
@@ -144,10 +178,11 @@ export default index = () => {
             <View style={{ backgroundColor: "#fff", height: metrics.tabBarHeight, elevation: 8, paddingHorizontal: 10 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", height: "100%", alignItems: "center" }}>
                     <View>
-                        <Text>8 Itens no selecionados</Text>
-                        <Text>Subtotal: 12 000 kz</Text>
+                        <Text>Carrinho:</Text>
+                        <Text>{subtotalM} kz ({cartM.length} itens)</Text>
                     </View>
                     <TouchableOpacity activeOpacity={0.7}
+                        onPress={() => navigation.navigate('checkout', { cart: cart, subtotal: subtotal })}
                         style={{
                             borderRadius: 25,
                             backgroundColor: index == 1 ? colors.primaryDark : "#E37E24",
@@ -168,8 +203,11 @@ const styles = StyleSheet.create({
     },
     scene: {
         flex: 1,
-//justifyContent: 'center',
-        alignItems: 'center',
+        //justifyContent: 'center',
+        //alignItems: 'center',
+    },
+    checkoutBtn: {
+
     },
     categoryListContainer: {
         width: '100%',

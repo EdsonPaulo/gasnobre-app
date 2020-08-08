@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { View, Text, FlatList, ActivityIndicator, Alert } from "react-native"
 
 import api from '../../services/api'
-import ProductItem from "./ProductItem"
+import ProductVerticalItem from "./ProductVerticalItem"
 import { general, colors, metrics } from "../../constants"
 
 const ProductHorizontalList = () => {
@@ -90,7 +90,7 @@ const ProductHorizontalList = () => {
       contentContainerStyle={{ paddingHorizontal: 10 }}
       showsHorizontalScrollIndicator={false}
       data={products}
-      renderItem={({ item }) => <ProductItem {...item} />}
+      renderItem={({ item }) => <ProductVerticalItem {...item} />}
       keyExtractor={(item, index) => index.toString()}
     />
   )
