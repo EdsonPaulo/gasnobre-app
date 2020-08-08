@@ -5,11 +5,13 @@ const { height } = Dimensions.get("window")
 import {
     Text,
     View,
+    Image,
     Dimensions,
     AsyncStorage,
     StyleSheet,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground
 } from 'react-native'
 
 import { colors, metrics, general, fonts, constants } from '../../constants'
@@ -49,29 +51,19 @@ const index = () => {
             setCart(context.cart)
             saveDataCart()
         }, [context.cart])
-
-            <HeaderBar raised title="Carnesul" home />
-
     */
     return (
         <SafeAreaView style={general.background}>
-            <View style={styles.homeHeader}>
-                <Text style={{fontSize: 16, color: "#fff", fontWeight: "bold", marginBottom: 5,}}>Olá, Edson Paulo</Text>
-                <View style={styles.addressContainer}>
-                    <Text>O seu endereço actual é: </Text>
-                    <Text>AV. Deolinda Rodrigues, Rua E, Casa nº 21, Lua... </Text>
-                </View>
-            </View>
-            <View style={styles.container}>
+            <View style={{ flex: 3 / 3 }}>
+
+                <Text style={{ fontSize: 20, margin: 20, }}>Olá, Edson Paulo</Text>
                 <Text style={styles.homeTitle}>O QUE VAI PEDIR HOJE?</Text>
-                <View style={styles.optionContainer}>
                     <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("products", { category: "gas" })}>
-                        <Text>GÁS</Text>
+                        <Image style={{ width: "100%", height: "100%" }} resizeMode="contain" source={require("../../assets/gas-btn2.png")} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("products", { category: "agua" })}>
-                        <Text>ÁGUA</Text>
+                        <Image style={{ width: "100%", height: "100%" }} resizeMode="contain" source={require("../../assets/agua-btn2.png")} />
                     </TouchableOpacity>
-                </View>
             </View>
         </SafeAreaView>
     )
@@ -103,22 +95,44 @@ const styles = StyleSheet.create({
         borderRadius: metrics.baseRadius
     },
     homeTitle: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "bold",
-        color: colors.primaryDark,
+        color: colors.grayDark2,
         textAlign: "center",
-        marginBottom: metrics.baseMargin
+        marginBottom: metrics.doubleBaseMargin
+
     },
     optionContainer: {
-        flex: 1
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
     },
     option: {
         flex: 1 / 2,
         width: "100%",
-        padding: metrics.baseMargin,
-        marginVertical: metrics.smallMargin,
-        backgroundColor: colors.grayMedium,
+        height: 110,
+        // borderRadius: 8,
+        //borderWidth: 1,
+        //padding: metrics.baseMargin,
+        // backgroundColor: colors.grayMedium,
     },
+    historyContainer: {
+        flex: 1.3 / 3,
+        padding: metrics.baseMargin,
+        marginHorizontal: metrics.doubleBaseMargin,
+        borderWidth: 1,
+        borderRadius: metrics.baseRadius,
+        borderColor: colors.borderColor,
+        backgroundColor: colors.grayLight
+    },
+    history: {
+        padding: metrics.baseMargin,
+        borderWidth: 1,
+        backgroundColor: colors.white,
+        borderRadius: metrics.baseRadius,
+        borderColor: colors.grayMedium,
+        marginVertical: 3
+    }
 })
 
 export default index

@@ -1,10 +1,10 @@
 import React, { } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform} from 'react-native'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Icon from '@expo/vector-icons/Feather'
+import Icon from '@expo/vector-icons/FontAwesome5'
 
-import { CustomButton, CustomInput}  from '../../components'
-import { metrics } from '../../constants'
+import { CustomButton, CustomInput } from '../../components'
+import { metrics, colors } from '../../constants'
 import styles from './styles'
 
 const Forgot = () => {
@@ -12,9 +12,11 @@ const Forgot = () => {
     const navigation = useNavigation()
 
     return (
-        <KeyboardAvoidingView  behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.background}>
+        <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.background}>
+            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
+
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Icon style={styles.iconHeader} name='chevron-left' />
+                <Icon style={styles.iconHeader} name='long-arrow-alt-left' />
             </TouchableOpacity>
 
             <View style={[{ padding: metrics.baseMargin, width: '100%' }]}>

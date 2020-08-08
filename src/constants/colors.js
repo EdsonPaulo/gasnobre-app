@@ -1,8 +1,9 @@
 const colors = {
     bgColor: '#FBFBFB',
+    borderColor: '#E1E1E1',
 
-    primaryDark: '#24628A',
-    primary: '#F34244',
+    primaryDark: '#0D64A4',
+    primary: '#0D7AC9',
     primaryLight: '#747d8c', 
     accent: '#3081B5',
    
@@ -26,7 +27,7 @@ const colors = {
     alert: '#cc4b37',
 
     // GRAYSCALE
-    grayLight: '#e4e4e4',
+    grayLight: '#F0F2F5',
     grayMedium: '#cacaca',
     grayDark: '#8a8a8a'
   }

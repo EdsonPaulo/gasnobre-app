@@ -1,63 +1,77 @@
-import React, { useContext } from 'react'
+import React, { useState } from 'react'
 import {
     View, StyleSheet,
     TouchableOpacity, Text,
-    TouchableHighlight,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import Shimmer from '../Shimmer'
 import { colors, metrics, fonts, general } from '../../constants'
 import PlaceholderImage from '../PlaceholderImage'
 
-const ProductItem = props => {
+const ProductItem = ({ item, handleQuantity }) => {
 
-    const context = useContext()
     const navigation = useNavigation()
-    const { width, ...item } = props
+    const [quantity, setQuantity] = useState(0)
 
-    const containerWidth = width || 160
+    const containerWidth = 160
+
+    const changeQuantity = (add) => {
+        let auxQuantity = add ? (quantity + 1) : (quantity - 1)
+        setQuantity(auxQuantity)
+        handleQuantity(auxQuantity)
+    }
 
     return (
-        <TouchableOpacity activeScale={0.7} style={[general.card, styles.container, { width: containerWidth, maxWidth: 200 }]}
+        <View activeScale={0.7} style={[general.card, styles.container, { width: containerWidth, maxWidth: 200, alignItems: "center" }]}
             onPress={() => navigation.navigate('product', { product: item })}>
-            <View style={styles.topContainer}>
-                {
-                    item.weight ?
-                        <Text style={styles.iconQuantity}>{item.weight || 0} {item.weight >= 1 ? "Kg" : "g"}</Text>
-                        : <View />
-                }
-                <TouchableOpacity activeScale={1.2}>
-                    <Ionicons color={colors.primaryDark} size={20}
-                        name={item.isFavorite ? 'ios-heart' : 'ios-heart-empty'} />
-                </TouchableOpacity>
-            </View>
 
             <View style={styles.productImageContainer}>
                 <PlaceholderImage style={styles.productImage}
                     source={(item.images?.length > 0) ? { uri: item.images[0].src } : require('../../assets/noimage.png')} />
             </View>
 
-            <View>
-                <Text style={styles.title}>{item.name}</Text>
+            <View style={{height: "50%", justifyContent: "space-between"}}>
+                <View>
+                    <Text style={styles.title}>{item.title}</Text>
+                </View>
+ 
+                <Text style={styles.price}>
+                    {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(item.price)}
+                </Text>
+
+                <View>
+                    {
+                        quantity == 0 ?
+                            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                <TouchableOpacity style={[styles.btn, { backgroundColor: colors.primaryDark }]}
+                                    onPress={() => changeQuantity(true)}>
+                                    <MaterialCommunityIcons size={20} color="#fff" name="plus" />
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            <View style={styles.btnContainer}>
+                                <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => changeQuantity(false)}>
+                                    <MaterialCommunityIcons size={20} color={colors.primaryDark} name="minus" />
+                                </TouchableOpacity>
+
+                                <Text style={{ fontSize: 14, color: "#fff", marginHorizontal: 20 }}>{quantity}</Text>
+
+                                <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => changeQuantity(true)}>
+                                    <MaterialCommunityIcons size={20} color={colors.primaryDark} name="plus" />
+                                </TouchableOpacity>
+                            </View>
+                    }
+                </View>
             </View>
-
-            <Text style={styles.price}>
-                {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(item.price)}
-            </Text>
-
-            <TouchableHighlight underlayColor={colors.grayLight} style={styles.addCart}
-                onPress={() => context.addProductToCart(item)}>
-                <MaterialCommunityIcons size={20} color={colors.grayDark} name="cart-plus" />
-            </TouchableHighlight>
-        </TouchableOpacity>
+        </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         width: 160,
-        height: 200,
+        height: 240,
         borderRadius: metrics.doubleBaseRadius,
         marginVertical: metrics.smallMargin,
         marginHorizontal: metrics.baseMargin,
@@ -71,62 +85,41 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 5,
     },
-    topContainer: {
-        width: '100%',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 20,
-        marginBottom: 2,
-    },
-    iconQuantity: {
-        fontSize: fonts.small,
-        color: colors.grayDark2,
-        backgroundColor: colors.grayMedium,
-        padding: 2,
-        paddingHorizontal: 4,
-        borderRadius: 4,
-        fontWeight: 'bold'
-    },
     productImageContainer: {
         width: '100%',
-        height: 95
+        height: "50%"
     },
     productImage: {
         width: '100%',
         height: '100%'
     },
-
     title: {
         fontSize: 14,
         textTransform: 'capitalize',
         textAlign: 'center',
         //fontFamily: 'Lato',
     },
-    priceContainer: {
-        width: 125,
-        height: 30,
-        justifyContent: 'flex-end'
-    },
     price: {
         fontSize: 15,
-        color: colors.accent,
+        color: colors.primaryDark,
         fontWeight: 'bold',
         marginTop: 2,
     },
-    addCart: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        padding: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: '#0000002a',
-        borderTopLeftRadius: 20,
-        borderBottomRightRadius: metrics.doubleBaseRadius,
+    btnContainer: {
+        flexDirection: "row",
+        height: 25,
+        backgroundColor: colors.primaryDark,
+        borderRadius: 20,
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginHorizontal: 15
+    },
+    btn: {
+        backgroundColor: "#fff", width: 25, height: 25,
+        borderRadius: 30,
+        elevation: 3,
+        justifyContent: "center",
+        alignItems: "center"
     }
 })
-
-
 export default ProductItem

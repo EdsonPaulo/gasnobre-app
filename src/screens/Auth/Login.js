@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Icon from '@expo/vector-icons/Feather'
+import Icon from '@expo/vector-icons/FontAwesome5'
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, fonts, colors } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
@@ -14,7 +14,7 @@ const Login = () => {
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    
+
     const [user, setuser] = useState({
         id: 12313,
         name: 'Edson Paulo',
@@ -27,32 +27,30 @@ const Login = () => {
 
     return (
         <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Icon style={styles.iconHeader} name='chevron-left' />
+                <Icon style={styles.iconHeader} name='long-arrow-alt-left' />
             </TouchableOpacity>
 
-            <View style={[{ padding: metrics.baseMargin, width: '100%' }]}>
+            <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
 
-                <Text style={styles.title}>Login</Text>
-                <Text style={styles.subtitle}>Informe as suas credenciais para iniciar sessão com sua conta de cliente..</Text>
+                <Text style={styles.title}>ENTRAR NA CONTA</Text>
 
                 <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
-                    <CustomInput label="Telefone" style={{ marginTop: 0 }} name="phone" type="phone" placeholder="+2449XXXXXX" />
-
-                    <CustomInput label="Senha" containerStyle={{ marginTop: 20 }} name="password" type="password" placeholder="**********" />
-
-                    <TouchableOpacity onPress={() => navigation.navigate('forgot')}>
-                        <Text style={{ marginTop: 8, color: colors.grayLight, fontSize: fonts.regular, textAlign: 'right' }}>Esqueceu a sua senha?</Text>
-                    </TouchableOpacity>
-
-                    <CustomButton style={{ marginTop: 20 }} primary title="Entrar" onPress={() => { login(user, "auth-dummy-token") }} />
+                    <CustomInput label="Telefone" style={{ marginTop: 0 }} name="phone" type="phone" placeholder="9XXXXXX" />
+                    <CustomInput label="Senha" containerStyle={{ marginTop: 0 }} name="password" type="password" placeholder="**********" />
+                    <CustomButton style={{ marginTop: 20 }} primary icon="ios-arrow-round-forward" title="Entrar" onPress={() => { login(user, "auth-dummy-token") }} />
                 </View>
             </View>
 
             <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
-                <Text style={[styles.bottomText]}>Não possui uma conta?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('signup')}>
-                    <Text style={[styles.bottomText, { fontWeight: 'bold' }]}>Criar Conta</Text>
+                    <Text style={styles.bottomText}>Não possui uma conta?
+                    <Text style={{ fontWeight: 'bold' }}>  Criar Conta</Text></Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('forgot')}>
+                    <Text style={[styles.bottomText, {marginTop: metrics.doubleBaseMargin}]}>Esqueceu a sua senha?</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

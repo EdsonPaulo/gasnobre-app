@@ -2,7 +2,6 @@ import CustomButton from './CustomButton'
 import CustomInput from './CustomInput'
 import HeaderBar from './HeaderBar'
 import HomeTabBar from './HomeTabBar'
-import Shimmer from './Shimmer'
 import LoadingSpin from './LoadingSpin'
 import PlaceholderImage from './PlaceholderImage'
 import ProductItem from './product/ProductItem'
@@ -16,7 +15,6 @@ export {
     CustomInput,
     HeaderBar,
     HomeTabBar,
-    Shimmer,
     LoadingSpin,
     PlaceholderImage,
     ProductItem,

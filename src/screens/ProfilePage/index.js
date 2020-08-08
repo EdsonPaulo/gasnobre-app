@@ -23,11 +23,6 @@ export default index = () => {
         ], { cancelable: true })
     }
 
-    useEffect(() => {
-        return () => {
-            //salvar dados dos inputs
-        }
-    }, [])
 
     return (
         <SafeAreaView style={general.background}>
@@ -36,14 +31,13 @@ export default index = () => {
 
             <View style={styles.userContainer}>
                 <View style={styles.avatar}>
-                    <Text style={{ fontSize: 20, color: "#fff" }}>{user.initials}</Text>
+                    <Text style={{ fontSize: 20, color: "#fff" }}>{user.initials}EP</Text>
                 </View>
                 <View style={styles.user}>
-                    <Text style={styles.userName}>{user.name}</Text>
-                    <Text style={styles.userDetails}>{user.phone}</Text>
+                    <Text style={styles.userName}>{user.name}Edson Paulo</Text>
+                    <Text style={styles.userDetails}>{user.phone}942682194</Text>
                 </View>
             </View>
-
 
             <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.sectionTitle}>Meus Dados</Text>
@@ -89,14 +83,6 @@ export default index = () => {
                     <Ionicons name="ios-arrow-forward" size={18} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.btn} onPress={() => onRate()}>
-                    <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                        <Ionicons name='ios-star' style={styles.icons} />
-                        <Text style={styles.textStyle}>Sobre Gás Nobre </Text>
-                    </View>
-                    <Ionicons name="ios-arrow-forward" size={18} />
-                </TouchableOpacity>
-
                 <TouchableOpacity style={styles.btn} onPress={() => Logout()}>
                     <View style={{ flexDirection: "row", alignItems: 'center' }}>
                         <MaterialCommunityIcons name='logout' style={styles.icons} />
@@ -117,18 +103,19 @@ const styles = StyleSheet.create({
     topContainer: {
         height: 50,
         marginBottom: 35,
-        backgroundColor: colors.primaryDark,
-        elevation: 3
+        backgroundColor: colors.primary,
+        elevation: 3,
+        position: "relative"
     },
     userContainer: {
         top: 10,
         height: 70,
-        width: "85%",
-        elevation: 3,
+        width: "80%",
+        elevation: 4,
         alignSelf: "center",
         position: "absolute",
         padding: metrics.doubleBaseMargin,
-        backgroundColor: "#fff",
+        backgroundColor: colors.white,
         flexDirection: "row",
         alignItems: "center",
         borderRadius: metrics.baseRadius,
@@ -145,15 +132,10 @@ const styles = StyleSheet.create({
     sectionTitle: {
         //fontFamily: 'Lato',
         fontSize: fonts.regular,
-        fontWeight: 'bold',
         color: colors.grayMedium,
         marginTop: metrics.baseMargin,
     },
-    formContainer: {
-        paddingBottom: 20,
-    },
     user: {
-        flex: 1,
         marginLeft: 15,
         justifyContent: 'center',
     },
@@ -169,31 +151,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         marginVertical: metrics.smallMargin
-    },
-    labelStyle: {
-        marginBottom: 2,
-        color: colors.grayDark,
-    },
-    userContainer: {
-        padding: metrics.baseMargin,
-        width: '100%',
-        height: 140,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.primaryDark,
-    },
-    user: {
-        color: 'white',
-        textAlign: 'center',
-        //fontFamily: 'Lato'
-    },
-    textStyle: {
-        color: colors.grayDark2,
-        fontSize: fonts.regular,
-        //fontFamily: 'Lato'
-    },
-    optionsContainer: {
-        padding: metrics.baseMargin,
     },
     icons: {
         color: colors.grayDark2,
@@ -211,10 +168,5 @@ const styles = StyleSheet.create({
         marginVertical: metrics.smallMargin,
         padding: metrics.baseMargin,
         paddingHorizontal: metrics.doubleBaseMargin
-    },
-    divider: {
-        marginVertical: metrics.baseMargin,
-        opacity: 0.5,
-        backgroundColor: colors.grayLight
     }
 })

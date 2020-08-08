@@ -1,9 +1,9 @@
 import React, { } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Icon from '@expo/vector-icons/Feather'
-import { CustomButton, CustomInput}  from '../../components'
-import { metrics } from '../../constants'
+import Icon from '@expo/vector-icons/FontAwesome5'
+import { CustomButton, CustomInput } from '../../components'
+import { metrics, colors } from '../../constants'
 import styles from './styles'
 
 const SignUp = () => {
@@ -12,13 +12,14 @@ const SignUp = () => {
 
     return (
         <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
+
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Icon style={styles.iconHeader} name='chevron-left' />
+                <Icon style={styles.iconHeader} name='long-arrow-alt-left' />
             </TouchableOpacity>
 
-            <View style={[, { padding: metrics.baseMargin, width: '100%' }]}>
+            <View style={[, { paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
                 <Text style={styles.title}>Criar Conta</Text>
-                <Text style={styles.subtitle}>Informe os seus dados para criar uma conta de cliente..</Text>
 
                 <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
                     <CustomInput name="name" type="name" placeholder="Nome de Usuário" />
@@ -31,9 +32,10 @@ const SignUp = () => {
             </View>
 
             <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
-                <Text style={styles.bottomText}>Já tens uma conta?</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                    <Text style={[styles.bottomText, { fontWeight: 'bold' }]}>Fazer Login</Text>
+                    <Text style={styles.bottomText}>Já tens uma conta?
+                        <Text style={{ fontWeight: 'bold' }}> Fazer Login</Text>
+                    </Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

@@ -22,7 +22,7 @@ export default Router = () => {
   const RootStack = createStackNavigator()
   return (
     <NavigationContainer>
-      <StatusBar barStyle='light-content' backgroundColor={colors.primaryDark} />
+      <StatusBar barStyle='light-content' backgroundColor={colors.primary} />
       <>
         {
           <RootStack.Navigator screenOptions={{ headerShown: false }}>

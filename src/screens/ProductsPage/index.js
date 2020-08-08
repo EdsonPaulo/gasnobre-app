@@ -15,9 +15,10 @@ import { useRoute } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
-import { HeaderBar, ProductVerticalList, LoadingSpin } from '../../components'
+import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductItem } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
+import { color } from 'react-native-reanimated';
 
 export default index = () => {
     let isMounted = true
@@ -89,12 +90,24 @@ export default index = () => {
         )
     }
 
+    const item = {
+        title: "gas botija",
+        price: 23000
+    }
+
+    const handleQuantity = (quantity) => {
+        console.log("Quantidade: " + quantity)
+    }
+
     const GasRoute = () => (
-        <View style={[styles.scene, { backgroundColor: '#ff40811a' }]} />
+        <View style={styles.scene}>
+        </View>
     )
 
     const WaterRoute = () => (
-        <View style={[styles.scene, { backgroundColor: '#673ab71A' }]} />
+        <View style={styles.scene}>
+            <ProductItem item={item} handleQuantity={handleQuantity} />
+        </View>
     )
 
 
@@ -107,8 +120,8 @@ export default index = () => {
 
         const renderTabBar = props => (
             <TabBar {...props}
-                indicatorStyle={{ backgroundColor: index == 0 ? 'orange' : 'blue' }}
-                style={{ backgroundColor: colors.primaryDark }}
+                indicatorStyle={{ backgroundColor: index == 0 ? 'orange' : colors.white }}
+                style={{ backgroundColor: colors.primary }}
             />
         );
 
@@ -127,7 +140,23 @@ export default index = () => {
 
     return (
         <SafeAreaView style={general.background}>
-           { CustomTabView() }
+            {CustomTabView()}
+            <View style={{ backgroundColor: "#fff", height: metrics.tabBarHeight, elevation: 8, paddingHorizontal: 10 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", height: "100%", alignItems: "center" }}>
+                    <View>
+                        <Text>8 Itens no selecionados</Text>
+                        <Text>Subtotal: 12 000 kz</Text>
+                    </View>
+                    <TouchableOpacity activeOpacity={0.7}
+                        style={{
+                            borderRadius: 25,
+                            backgroundColor: index == 1 ? colors.primaryDark : "#E37E24",
+                            padding: 8, paddingHorizontal: 20
+                        }}>
+                        <Text style={{ color: colors.white }}>Fazer Pedido</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </SafeAreaView>
     )
 }
@@ -139,7 +168,7 @@ const styles = StyleSheet.create({
     },
     scene: {
         flex: 1,
-        justifyContent: 'center',
+//justifyContent: 'center',
         alignItems: 'center',
     },
     categoryListContainer: {

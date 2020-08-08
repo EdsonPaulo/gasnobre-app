@@ -11,6 +11,7 @@ export default CustomInput = props => {
 
   const { hasError, rounded, bordered, raised, type, icon, ...rest } = props
   const [secureText, setSecureText] = useState(false)
+  const [borderColor, setBorderColor] = useState(colors.borderColor)
 
   const containerStyle = {
     flexDirection: 'row',
@@ -18,16 +19,16 @@ export default CustomInput = props => {
     paddingHorizontal: metrics.baseMargin,
     elevation: raised ? 5 : 0,
     width: '100%',
-    height: 45,
+    height: 50,
     backgroundColor: colors.grayLight,
-    borderWidth: bordered ? 2 : 0,
-    borderColor: hasError ? 'red' : colors.grayMedium,
-    borderRadius: rounded ? metrics.formInputRadius : metrics.baseRadius,
+    borderWidth: bordered ? 2 : 1,
+    borderColor: hasError ? 'red' : borderColor,
+    borderRadius: rounded ? metrics.formInputRadius : 8,
   }
   const inputStyle = {
     fontSize: fonts.input,
     height: '100%',
-    flex: 1,
+    flex: 1
   }
   const labelStyle = {
     fontSize: 14,
@@ -73,13 +74,15 @@ export default CustomInput = props => {
           keyboardType={inputType}
           secureTextEntry={secureText}
           //onChangeText={value => props.onChange(value)}
+          onFocus={() => setBorderColor(colors.primary)}
+          onBlur={() => setBorderColor(colors.borderColor)}
           onChange={props.onChangeNative}
           AuthibilityLabel={props.label}
           ref={props.ref}
         />
         {
           props.type === 'password' ?
-            <TouchableOpacity style={{width: 35}} onPress={() => setSecureText(!secureText)}>
+            <TouchableOpacity style={{ width: 25, height: "100%", justifyContent: "center", alignItems: "center" }} onPress={() => setSecureText(!secureText)}>
               {
                 secureText ?
                   <Feather size={16} name='eye' />

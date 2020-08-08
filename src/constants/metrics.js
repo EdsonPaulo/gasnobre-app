@@ -10,12 +10,12 @@ const metrics = {
   largeTopMargin: 100,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
-  tabBarHeight: 50,
+  tabBarHeight: 55,
   navBarHeight: (Platform.OS === 'ios') ? 64 : 54,
   statusBarHeight: (Platform.OS === 'ios') ? 20 : 0,
   baseRadius: 5,
   doubleBaseRadius: 10,
-  formInputHeight: 45,
+  formInputHeight: 50,
   formInputRadius: 20,
 }
 

@@ -1,21 +1,27 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import Icon from "@expo/vector-icons/Ionicons"
 import { colors, metrics, fonts } from '../constants'
 
 const CustomButton = props => {
-    const { rounded, primary, title, onPress, style, loading } = props
+    const { rounded, primary, title, onPress, style, loading, icon } = props
 
     return (
         <TouchableOpacity activeOpacity={0.6} disabled={loading || false} onPress={onPress} style={[styles.buttonContainer, style, {
-            backgroundColor: primary ? colors.accent : colors.grayLight,
-            borderRadius: rounded ? metrics.formInputRadius : metrics.baseRadius,
+            backgroundColor: primary ? colors.primary : colors.grayLight,
+            borderRadius: rounded ? metrics.formInputRadius : 8,
         }]}>
-            <View />
-            <Text style={[styles.textStyle, { color: primary ? colors.grayLight : colors.grayDark2 }]}>
+            {
+                loading ? <ActivityIndicator color={colors.grayLight} size='small' /> : icon ? <View style={{width: 50}} /> : <View />
+            }
+            <Text style={[styles.textStyle, { color: primary ? colors.white : colors.grayDark2 }]}>
                 {title}
             </Text>
             {
-                loading ? <ActivityIndicator color={colors.grayLight} size='small' /> : <View />
+                !icon ? <View /> :
+                    <View style={styles.iconStyle}>
+                        <Icon name={icon} size={30} color={primary ? colors.white : colors.grayDark2} />
+                    </View>
             }
         </TouchableOpacity>
     )
@@ -23,22 +29,31 @@ const CustomButton = props => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-      //  flex: 1,
+        //flex: 1,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        elevation: 3,
-        height: 40,
-        paddingHorizontal: metrics.doubleBaseMargin,
+        elevation: 2,
+        height: 50,
         marginVertical: metrics.baseMargin,
-        borderColor: colors.primary,
+        borderColor: colors.primaryDark,
     },
     textStyle: {
-        textTransform: 'capitalize',
-        letterSpacing: 1.1,
+        textTransform: 'uppercase',
+        //letterSpacing: 1.1,
+        fontWeight: "bold",
         //fontFamily: 'Lato',
         textAlign: 'center'
+    },
+    iconStyle: {
+        width: 50, 
+        backgroundColor: colors.primaryDark, 
+        height: "100%",
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
+        justifyContent: "center",
+        alignItems: "center"
     }
 })
 

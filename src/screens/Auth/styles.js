@@ -4,11 +4,11 @@ import { metrics, fonts, colors } from '../../constants'
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: colors.primaryDark,
-        padding: metrics.baseMargin
+        backgroundColor: colors.white,
+        padding: metrics.doubleBaseMargin
     },
     iconHeader: {
-        color: colors.grayLight,
+        color: colors.grayDark2,
         width: 40,
         height: 40,
         fontSize: 30
@@ -18,31 +18,32 @@ const styles = StyleSheet.create({
         padding: metrics.tripleBaseMargin,
     },
     title: {
-        fontSize: 26,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: colors.light,
+        color: colors.grayDark2,
         //fontFamily: 'Soviet',
-       // textAlign: 'center'
+        textAlign: 'center'
     },
     subtitle: {
         fontSize: 16,
-        color: colors.light,
+        color: colors.grayDark2,
         marginHorizontal: 0,
         marginTop: metrics.smallMargin
     },
     bottomText: {
         marginTop: metrics.smallMargin,
         alignSelf: 'center', 
-        fontSize: fonts.input,
-        color: colors.grayLight, 
+        fontSize: fonts.regular,
+        color: colors.grayDark2, 
         textAlign: 'center' 
     },
     copyrightText: {
         fontSize: fonts.regular, 
-        color: colors.grayMedium,
+        color: colors.grayDark,
         letterSpacing: 1.4,
         bottom: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: metrics.tripleBaseMargin
     }
 })
 

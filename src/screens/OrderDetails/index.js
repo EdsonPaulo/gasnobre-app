@@ -20,7 +20,6 @@ export default index = () => {
 
     return (
         <SafeAreaView style={[general.background, { backgroundColor: 'white' }]}>
-            <HeaderBar raised title={"Pedido #" + order.number} back />
 
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.textContainer}>

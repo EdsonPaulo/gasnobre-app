@@ -3,7 +3,6 @@ import { View, Text, FlatList, ActivityIndicator, Alert } from "react-native"
 
 import api from '../../services/api'
 import ProductItem from "./ProductItem"
-import Shimmer from '../Shimmer'
 import { general, colors, metrics } from "../../constants"
 
 const ProductHorizontalList = () => {

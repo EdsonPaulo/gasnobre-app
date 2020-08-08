@@ -9,72 +9,75 @@ import { colors, metrics, fonts } from '../constants'
 
 const HomeTabBar = ({ state, descriptors, navigation }) => (
 
-  <View style={{
-    flexDirection: 'row',
-    height: metrics.tabBarHeight,
-    backgroundColor: colors.white,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderTopWidth: 1,
-    borderTopColor: "whitesmoke"
-  }}>
-    {
-      state.routes.map((route, index) => {
-        const { options } = descriptors[route.key]
-        const label = options.tabBarLabel
-        const isFocused = state.index === index
+  <View style={{ backgroundColor: colors.bgColor }}>
+    <View style={{
+      flexDirection: 'row',
+      height: metrics.tabBarHeight + 10,
+      backgroundColor: colors.white,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderTopColor: colors.borderColor,
+      borderTopRightRadius: 25,
+      borderTopLeftRadius: 25,
+      padding: 5,
+      elevation: 8
+    }}>
+      {
+        state.routes.map((route, index) => {
+          const { options } = descriptors[route.key]
+          const label = options.tabBarLabel
+          const isFocused = state.index === index
 
-        const onPress = () => {
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-          })
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+            })
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name)
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name)
+            }
           }
-        }
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          })
-        }
+          const onLongPress = () => {
+            navigation.emit({
+              type: 'tabLongPress',
+              target: route.key,
+            })
+          }
 
-        let iconName
+          let iconName
+          if (route.name === 'homeStack')
+            iconName = 'ios-home'
+          else if (route.name === 'orderStack')
+            iconName = 'ios-grid'
+          else if (route.name === 'profileStack')
+            iconName = 'ios-person'
+          else if (route.name === 'productStack')
+            iconName = 'grid'
 
-        if (route.name === 'homeStack')
-          iconName = 'ios-home'
-        else if (route.name === 'orderStack')
-          iconName = 'ios-grid'
-        else if (route.name === 'profileStack')
-          iconName = 'ios-person'
-        else if (route.name === 'productStack')
-          iconName = 'grid'
-
-        return (
-          <TouchableOpacity key={route.key}
-            activeOpacity={0.5}
-            accessibilityRole="button"
-            accessibilityStates={isFocused ? ['selected'] : []}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
-            onPress={onPress}
-            onLongPress={onLongPress}
-          >
-            <View style={{
-              width: width / 3,
-              height: '100%',
-              alignItems: 'center',
-              justifyContent: 'center'}}>
-              <Ionicons name={iconName} style={{ color: isFocused ? colors.accent : colors.grayDark }} size={22} />
-              <Text style={{ fontSize: fonts.small, color: isFocused ? colors.accent : colors.grayDark }}>{label}</Text>
-            </View>
-          </TouchableOpacity>
-        )
-      })}
+          return (
+            <TouchableOpacity key={route.key}
+              activeOpacity={0.5}
+              accessibilityRole="button"
+              accessibilityStates={isFocused ? ['selected'] : []}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarTestID}
+              onPress={onPress}
+              onLongPress={onLongPress}>
+              <View style={{
+                width: width / 3 - 30,
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <Ionicons name={iconName} style={{ color: isFocused ? colors.accent : colors.grayDark }} size={20} />
+                <Text style={{ fontSize: fonts.small, color: isFocused ? colors.accent : colors.grayDark }}>{label}</Text>
+              </View>
+            </TouchableOpacity>
+          )
+        })}
+    </View>
   </View>
 )
-
 export default HomeTabBar
