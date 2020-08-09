@@ -1,35 +1,30 @@
-import React, { useState, useContext } from "react";
-import { Text, View, StyleSheet, Image, ScrollView, ActivityIndicator, TouchableOpacity } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import React from "react";
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { HeaderBar } from '../../components'
 import { colors, metrics, general, fonts } from "../../constants"
-
 
 export default index = () => {
 
-    const context = useContext()
-    const navigation = useNavigation()
     const route = useRoute()
     const order = route.params.order
-    const [quantity, setQuantity] = useState(1)
 
     const transformPrice = value => Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value)
-    const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
+    const convertDate = date => console.log(date)//Intl.DateTimeFormat('pt-AO').format(new Date(date))
 
     return (
         <SafeAreaView style={[general.background, { backgroundColor: 'white' }]}>
 
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.textContainer}>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{convertDate(order.date_created)}</Text>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{convertDate(order.createdAt)}</Text>
+                    <Text>Estado:
                     <Text style={[styles.statusText, {
-                        backgroundColor: order.status === 'processing' ? 'lightgreen'
-                            : order.status === 'canceled' ? colors.alert : colors.grayLight
-                    }]}>
-                        {order.status}
-                    </Text>
+                            color: order.status === 'concluído' ? 'lightgreen'
+                                : order.status === 'cancelado' ? colors.alert : colors.grayLight
+                        }]}> {order.status}
+                        </Text></Text>
                 </View>
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Produtos</Text>
@@ -37,7 +32,7 @@ export default index = () => {
                         {
                             order.line_items.map(product => (
                                 <View key={product.id}>
-                                    <Text style={{ textTransform: 'capitalize' }}>{product.name}</Text>
+                                    <Text style={{ textTransform: 'capitalize' }}>{product.title}</Text>
                                     <View style={styles.textContainer}>
                                         <Text> {product.quantity} x {product.price}</Text>
                                         <Text>{transformPrice(product.subtotal)} </Text>
@@ -48,18 +43,14 @@ export default index = () => {
                     </View>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Pagamento</Text>
+                    <Text style={styles.sectionTitle}>Custo</Text>
                     <View style={styles.textContainer}>
                         <Text>Subtotal</Text>
-                        <Text>{transformPrice(order.line_items.subtotal)} </Text>
+                        <Text>{transformPrice(order.subtotal)} </Text>
                     </View>
                     <View style={styles.textContainer}>
                         <Text>Taxa de Entrega</Text>
                         <Text>{transformPrice(order.total_tax)} </Text>
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text>Desconto</Text>
-                        <Text>{transformPrice(order.discount_total)} </Text>
                     </View>
                     <View style={styles.textContainer}>
                         <Text style={styles.totalText}>Total </Text>
@@ -68,10 +59,10 @@ export default index = () => {
                 </View>
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Entrega</Text>
-                    <Text>{order.shipping.first_name}</Text>
-                    <Text>{order.shipping.address_1}</Text>
-                    <Text>Angola - {order.shipping.city}</Text>
-                    <Text>+244 {order.billing.phone}</Text>
+                    <Text>{order.customer?.name}</Text>
+                    <Text>{order.address}</Text>
+                    <Text>Angola - {order.city}</Text>
+                    <Text>+244 {order.customer?.phone}</Text>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -92,10 +83,13 @@ const styles = StyleSheet.create({
         marginBottom: metrics.baseMargin
     },
     section: {
+        flex: 1,
+        backgroundColor: 'white',
+        elevation: 1,
         padding: metrics.baseMargin,
         marginVertical: metrics.smallMargin,
         borderWidth: 1,
-        borderColor: colors.grayLight,
+        borderColor: colors.borderColor,
         borderRadius: metrics.baseRadius
     },
     textContainer: {
@@ -110,8 +104,6 @@ const styles = StyleSheet.create({
     },
     statusText: {
         fontWeight: 'bold',
-        paddingHorizontal: 7,
-        borderRadius: 6,
         textTransform: 'capitalize',
     }
 })

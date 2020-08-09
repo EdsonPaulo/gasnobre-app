@@ -41,23 +41,23 @@ export default index = () => {
   const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
 
   const Order = ({ order }) => (
-    <TouchableOpacity style={styles.orderContainer} onPress={() => navigation.navigate('order', { order: order })}>
+    <TouchableOpacity activeOpacity={0.7} style={styles.orderContainer} onPress={() => navigation.navigate('orderDetails', { order })}>
       <View style={styles.rowContainer}>
-        <Text style={{}}>#{order.number}</Text>
-        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-          {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
-        </Text>
+        <Text style={styles.statusText}>Pedido nº {order.number}</Text>
+        <Text style={styles.statusText}>{convertDate(order.date_created)}</Text>
       </View>
 
       <View style={styles.rowContainer}>
-        <Text style={[styles.statusText, {
-          backgroundColor: order.status === 'processing' ? 'lightgreen'
-            : order.status === 'canceled' ? colors.alert : colors.grayLight
-        }]}>
-          {order.status}
+        <Text style={styles.statusText}>Estado:  
+        <Text style={{
+          fontWeight: "bold",
+          color: order.status === 'processing' ? 'green'
+            : order.status === 'canceled' ? colors.alert : colors.dark
+        }}> {order.status}
+        </Text></Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.primaryDark }}>
+          {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
         </Text>
-
-        <Text>{convertDate(order.date_created)}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -99,26 +99,24 @@ const styles = StyleSheet.create({
   },
   orderContainer: {
     flex: 1,
-    height: 75,
-    paddingVertical: metrics.baseMargin,
+    paddingVertical: metrics.smallMargin,
     paddingHorizontal: metrics.doubleBaseMargin,
     backgroundColor: 'white',
     borderWidth: 1,
     elevation: 1,
     borderRadius: metrics.baseRadius,
-    borderColor: colors.grayLight,
+    borderColor: colors.borderColor,
     marginVertical: metrics.smallMargin
   },
   rowContainer: {
     flex: 1 / 2,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    alignItems: "center",
+    justifyContent: 'space-between',
+    marginVertical: metrics.smallMargin
   },
   statusText: {
-    fontWeight: 'bold',
-    paddingHorizontal: 8,
-    paddingVertical: 1,
-    borderRadius: 6,
+    fontSize: 13,
     textTransform: 'capitalize',
   }
 })

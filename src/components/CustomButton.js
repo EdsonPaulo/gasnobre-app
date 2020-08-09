@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import Icon from "@expo/vector-icons/Ionicons"
+
 import { colors, metrics, fonts } from '../constants'
 
 const CustomButton = props => {
@@ -12,7 +13,7 @@ const CustomButton = props => {
             borderRadius: rounded ? metrics.formInputRadius : 8,
         }]}>
             {
-                loading ? <ActivityIndicator color={colors.grayLight} size='small' /> : icon ? <View style={{width: 50}} /> : <View />
+                loading ? <ActivityIndicator color={colors.grayLight} style={{ marginLeft: metrics.baseMargin }} size='small' /> : icon ? <View style={{ width: 50 }} /> : <View />
             }
             <Text style={[styles.textStyle, { color: primary ? colors.white : colors.grayDark2 }]}>
                 {title}
@@ -41,14 +42,15 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         textTransform: 'uppercase',
-        //letterSpacing: 1.1,
+        letterSpacing: 1.1,
         fontWeight: "bold",
         //fontFamily: 'Lato',
+        fontSize: 12,
         textAlign: 'center'
     },
     iconStyle: {
-        width: 50, 
-        backgroundColor: colors.primaryDark, 
+        width: 50,
+        backgroundColor: colors.primaryDark,
         height: "100%",
         borderTopRightRadius: 8,
         borderBottomRightRadius: 8,

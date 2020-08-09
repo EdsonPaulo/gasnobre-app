@@ -1,47 +1,112 @@
-[
-    {
-        "id": 1,
-        "title": "Água Pura (6 unid.)",
-        "type": "agua",
-        "weight": "2L",
-        "price": 4500,
-        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
-        "category": "2"
-    },
-    {
-        "id": 2,
-        "title": "Água Perla (1 unid.)",
-        "weight": "5L",
-        "price": 500,
-        "type": "agua",
-        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
-        "category": "2"
-    },
-    {
-        "id": 3,
-        "title": "Água Pura (6 unid.)",
-        "weight": "2L",
-        "type": "agua",
-        "price": 4500,
-        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
-        "category": "2"
-    },
-    {
-        "id": 4,
-        "title": "Água Pura (6 unid.)",
-        "weight": "2L",
-        "type": "agua",
-        "price": 4000,
-        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
-        "category": "2"
-    },
-    {
-        "id": 5,
-        "title": "Água Bela Vida (6 unid.)",
-        "weight": "1L",
-        "type": "agua",
-        "price": 3000,
-        "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
-        "category": "2"
-    }
-]
+{
+    "user": [
+        {
+            "name": "",
+            "username": "",
+            "phone": "",
+            "password": "",
+            "email": "",
+            "passwordResetToken": "",
+            "passwordResetExpires": "",
+            "createdAt": "",
+            "updatedAt": ""
+        }
+    ],
+
+    
+    "order": [
+        {
+            "number": 5,
+            "customer": {},
+            "cart": [
+                {
+                    "product": {},
+                    "quantity": 3
+                }
+            ],
+            "subtotal": 0,
+            "tax": 0,
+            "total": 0,
+            "dateDelivery": "",
+            "dateOrder": "",
+            "status": "pendente",
+            "createdAt": "",
+            "updatedAt": ""
+        }
+    ],
+
+
+    "customer": [
+        {
+            "name": "",
+            "phone": "",
+            "address": [
+                {
+                    "street": "",
+                    "city": "",
+                    "homeNumber": "",
+                    "description": ""
+                }
+            ],
+            "plan": {
+                "active": false,
+                "balance": 0,
+                "type": "adianta",
+                "dateActivation": "",
+                "dateExpiration": ""
+            },
+            "user": {},
+            "createdAt": "",
+            "updatedAt": ""
+        }
+    ],
+
+
+    "product": [
+        {
+            "id": 1,
+            "title": "Água Pura (6 unid.)",
+            "type": "agua",
+            "weight": "2L",
+            "price": 4500,
+            "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+            "category": "2"
+        },
+        {
+            "id": 2,
+            "title": "Água Perla (1 unid.)",
+            "weight": "5L",
+            "price": 500,
+            "type": "agua",
+            "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+            "category": "2"
+        },
+        {
+            "id": 3,
+            "title": "Água Pura (6 unid.)",
+            "weight": "2L",
+            "type": "agua",
+            "price": 4500,
+            "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+            "category": "2"
+        },
+        {
+            "id": 4,
+            "title": "Água Pura (6 unid.)",
+            "weight": "2L",
+            "type": "agua",
+            "price": 4000,
+            "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+            "category": "2"
+        },
+        {
+            "id": 5,
+            "title": "Água Bela Vida (6 unid.)",
+            "weight": "1L",
+            "type": "agua",
+            "price": 3000,
+            "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+            "category": "2"
+        }
+    ]
+}

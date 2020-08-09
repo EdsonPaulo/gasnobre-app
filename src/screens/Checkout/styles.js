@@ -21,8 +21,14 @@ const styles = StyleSheet.create({
         fontSize: fonts.regular,
     },
     section: {
+        flex: 1,
+        backgroundColor: 'white',
         padding: 15,
-        marginTop: 10
+        marginTop: 10,
+        elevation: 1,
+        borderWidth: 1,
+        borderColor: colors.borderColor,
+        borderRadius: metrics.baseRadius
     },
     textContainer: {
         flexDirection: 'row',

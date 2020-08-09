@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Icon from "@expo/vector-icons/FontAwesome5"
+import Icon from "@expo/vector-icons/FontAwesome"
 
 import { HomeTabBar, StatusBar } from '../components'
 
@@ -27,8 +27,11 @@ import {
 
 
 const stackScreenGlobalOptions = {
-  headerBackImage: (props => <Icon name="long-arrow-alt-left" size={25} color={props.tintColor} />),
+  headerBackImage: (props => <Icon name="long-arrow-left" size={25} color={props.tintColor} />),
   headerTitle: "Gás Nobre",
+  headerTitleAlign: "center",
+  headerTitleStyle: {fontSize: 15, textTransform: "uppercase"},
+  headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.white,
   headerStyle: { backgroundColor: colors.primary, height: 55 }
 }
@@ -55,10 +58,9 @@ const MainNavigation = () => {
     <Stack.Navigator initialRouteName='homeTabs' screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="homeTabs" component={HomeTabs} options={{ headerShown: false }} />
       <Stack.Screen name="products" options={{
-        headerRightContainerStyle: { marginRight: 10 },
-        headerRight: (props => <Icon name="shopping-cart" size={18} color={props.tintColor} />),
         headerTitle: "",
-        headerStyle: { backgroundColor: colors.primary, elevation: 0, height: 55 }
+        headerLeftContainerStyle: { marginLeft: 5 },
+        headerStyle: { backgroundColor: colors.primary, elevation: 0, height: 50 }
       }} component={ProductsPage} />
       <Stack.Screen name="address" component={AddressPage} options={{ headerTitle: "Meus Endereços" }} />
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />

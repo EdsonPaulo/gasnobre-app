@@ -11,14 +11,13 @@ import {
     Dimensions
 } from 'react-native'
 
-import { useRoute } from '@react-navigation/native'
+import { useRoute, useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
 import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
-
 
 export default index = () => {
     let cartM = []
@@ -27,6 +26,7 @@ export default index = () => {
 
     let isMounted = true
     const route = useRoute()
+    const navigation = useNavigation()
     const initialLayout = { width: Dimensions.get('window').width }
     const [interactionsComplete, setInteractionsComplete] = useState(false)
     const [index, setIndex] = useState(route.params.category === "water" ? 1 : 0 || 0)
@@ -35,12 +35,6 @@ export default index = () => {
 
     const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
     const [categoryId, setCategoryId] = useState(81)
-
-    const item = {
-        id: 3,
-        title: "gas botija",
-        price: 23000
-    }
 
     const [routes] = useState([
         { key: 'gas', title: 'GÁS' },
@@ -58,7 +52,6 @@ export default index = () => {
             .catch(err => { console.log(err + ' ===> erro') })
     }
 
-
     /**
      * 
     useEffect(() => {
@@ -71,7 +64,6 @@ export default index = () => {
         return () => isMounted = false
     }, [])
      */
-
 
     const renderCategoryList = () => {
         const CategoryItem = (category) => (

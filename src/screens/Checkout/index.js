@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Picker } from '@react-native-community/picker';
 
 import { colors, metrics, general, constants, fonts } from '../../constants'
-import { HeaderBar, CustomButton }  from '../../components'
+import { HeaderBar, CustomButton } from '../../components'
 import api from '../../services/api'
 import styles from './styles'
 
@@ -19,7 +19,6 @@ const index = () => {
     const cart = route.params.cart
     const subtotal = route.params.subtotal
     const [tax, setTax] = useState(5000)
-    const [cupom, setCupom] = useState(0)
     const [address, setAddress] = useState(['Rua E - Bairro Palanca - Luanda', 'Rua 14 - Bairro Prenda - Luanda'])
     const [deliveryAddress, setDeliveryAddress] = useState(address[0] || '')
     const [submiting, setSubmiting] = useState(false)
@@ -89,8 +88,6 @@ const index = () => {
 
     return (
         <SafeAreaView style={general.background}>
-            <HeaderBar raised title="Fazer Pedido" back />
-
             <ScrollView contentContainerStyle={{ paddingVertical: 10 }} showsVerticalScrollIndicator={false}>
 
                 <View style={styles.sectionContainer}>
@@ -98,7 +95,7 @@ const index = () => {
                         <Icon name='list' size={15} color={colors.accent} />
                         <Text style={styles.sectionTitle}>Resumo do Pedido</Text>
                     </View>
-                    <View style={[general.card, styles.section]}>
+                    <View style={styles.section}>
                         {
 
                             cart.map(item => (
@@ -109,12 +106,7 @@ const index = () => {
                                 </View>
                             ))
                         }
-                        {/**Codigo de cupom */}
-                        <View style={[styles.textContainer, { marginTop: 20 }]}>
-                            <TextInput style={[styles.inputStyle, { marginRight: 5 }]} placeholder="Código de cupom (se tiver)" />
-                            <CustomButton primary title="Aplicar" style={{ height: 35, paddingHorizontal: 5 }} onPress={() => { console.log('applicar cupom') }} />
-                        </View>
-                        <View style={styles.textContainer}>
+                        <View style={[styles.textContainer, { marginTop: 15 }]}>
                             <Text>Subtotal</Text>
                             <Text>{transformPrice(subtotal)} </Text>
                         </View>
@@ -122,23 +114,20 @@ const index = () => {
                             <Text>Taxa de Entrega</Text>
                             <Text>{transformPrice(tax)} </Text>
                         </View>
-                        <View style={styles.textContainer}>
-                            <Text>Desconto (Cupom)</Text>
-                            <Text>{transformPrice(cupom)} </Text>
-                        </View>
+                       
                         <View style={styles.textContainer}>
                             <Text style={styles.totalText}>Total </Text>
-                            <Text style={styles.totalText}> {transformPrice(subtotal + tax - cupom)} </Text>
+                            <Text style={styles.totalText}> {transformPrice(subtotal + tax)} </Text>
                         </View>
                     </View>
                 </View>
 
                 <View style={styles.sectionContainer}>
                     <View style={styles.sectionTitleContainer}>
-                        <Icon name='address-book' size={15} color={colors.accent} />
-                        <Text style={styles.sectionTitle}>Informações de Contacto</Text>
+                        <Icon name='info-circle' size={15} color={colors.accent} />
+                        <Text style={styles.sectionTitle}>Detalhes da Entrega</Text>
                     </View>
-                    <View style={[general.card, styles.section]}>
+                    <View style={styles.section}>
                         <View style={styles.inputContainer}>
                             <Text style={styles.labelStyle}>Nome Completo</Text>
                             <TextInput returnKeyType='next'
@@ -166,29 +155,6 @@ const index = () => {
                             }}
                                 keyboardType='phone-pad' style={styles.inputStyle} placeholder="Seu número de telefone" />
                         </View>
-
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.labelStyle}>Email (opcional)</Text>
-                            <TextInput returnKeyType='next'
-                                onChangeText={value => {
-                                    setOrderDetails(
-                                        orderDetails => {
-                                            orderDetails.billing.email = value
-                                            return ({ ...orderDetails })
-                                        }
-                                    )
-                                }}
-                                keyboardType='email-address' style={styles.inputStyle} placeholder="Seu email de contacto" />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.sectionContainer}>
-                    <View style={styles.sectionTitleContainer}>
-                        <Icon name='shipping-fast' size={15} color={colors.accent} />
-                        <Text style={styles.sectionTitle}>Detalhes da Entrega</Text>
-                    </View>
-                    <View style={[general.card, styles.section]}>
                         {
                             address.length === 0 ?
                                 <TouchableOpacity onPress={navigation.navigate('address')} activeOpacity={0.7} style={styles.btnAdress}>
@@ -197,7 +163,7 @@ const index = () => {
                                 </TouchableOpacity>
                                 :
                                 <View style={styles.inputContainer}>
-                                    <Text style={styles.labelStyle}>Selecione um endereço</Text>
+                                    <Text style={styles.labelStyle}>Endereço de entrega</Text>
                                     <Picker selectedValue={deliveryAddress}
                                         itemStyle={{ borderWidth: 1 }}
                                         style={{ height: 35, borderWidth: 5, borderRadius: 5, borderColor: colors.magenta, backgroundColor: colors.grayLight }}
@@ -210,13 +176,13 @@ const index = () => {
                         }
                         <View style={styles.inputContainer}>
                             <Text style={styles.labelStyle}>Observação do pedido (opcional)</Text>
-                            <TextInput returnKeyType='done' multiline style={[styles.inputStyle, { height: 70 }]}
-                                placeholder="Observação sobre o pedido, por exemplo, mais informações sobre a entrega.." />
+                            <TextInput returnKeyType='done' multiline style={[styles.inputStyle, { height: 75 }]}
+                                placeholder="Observação sobre o pedido..." />
                         </View>
                     </View>
                 </View>
 
-                <CustomButton loading={submiting} primary title="Finalizar Pedido" style={{ margin: 15 }} onPress={() => makeOrder()} />
+                <CustomButton loading={submiting} primary title="Fazer Pedido" icon="ios-checkmark" style={{ margin: 20 }} onPress={() => makeOrder()} />
 
             </ScrollView>
         </SafeAreaView>

@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const { height } = Dimensions.get("window")
 
 import { colors, metrics, general, constants, fonts } from '../../constants'
 
