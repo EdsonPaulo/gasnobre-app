@@ -1,0 +1,91 @@
+{
+  "users": [],
+  "orders": [],
+  "customers": [],
+  "products": [
+    {
+      "id": 1,
+      "title": "Água Pura (6 unid.)",
+      "price": 4500,
+      "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+      "category": "2",
+      "type": "agua",
+      "weight": "2L",
+      "active": true,
+      "brand": "Pura",
+      "units": 6,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": 2,
+      "title": "Água Perla (1 unid.)",
+      "weight": "5L",
+      "price": 500,
+      "type": "agua",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+      "category": "2",
+      "active": true,
+      "brand": "Pura",
+      "units": 6,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": 3,
+      "title": "Água Pura (6 unid.)",
+      "weight": "2L",
+      "type": "agua",
+      "price": 4500,
+      "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+      "category": "2",
+      "active": true,
+      "brand": "Pura",
+      "units": 6,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": 4,
+      "title": "Água Pura (6 unid.)",
+      "weight": "2L",
+      "type": "agua",
+      "price": 4000,
+      "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+      "category": "2",
+      "active": true,
+      "brand": "Pura",
+      "units": 6,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": 5,
+      "title": "Água Bela Vida (6 unid.)",
+      "weight": "1L",
+      "type": "agua",
+      "price": 3000,
+      "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+      "category": "2",
+      "active": true,
+      "brand": "Pura",
+      "units": 6,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": 6,
+      "title": "Gás Botija Laranja",
+      "price": 1500,
+      "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+      "category": null,
+      "type": "gas",
+      "weight": "3Kg",
+      "active": true,
+      "brand": null,
+      "units": 1,
+      "createdAt": "",
+      "updatedAt": ""
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+################################################
+#### USERS
+GET http://localhost:3000/users HTTP/1.1
+###
+GET http://localhost:3000/users/1 HTTP/1.1
+###
+DELETE http://localhost:3000/users/1 HTTP/1.1
+###
+POST http://localhost:3000/users HTTP/1.1
+Content-Type: application/json
+ 
+{
+    "name": "Edson Paulo Gregório",
+    "username": "edsonpaulo",
+    "phone": "942682194",
+    "password": "edson942682194",
+    "email": "edsonpaulo24@gmail.com",
+    "passwordResetToken": "",
+    "passwordResetExpires": "",
+    "createdAt": "",
+    "updatedAt": ""
+}
+
+################################################
+
+## PRODUCTS
+GET http://localhost:3000/products HTTP/1.1
+###
+GET http://localhost:3000/products/1 HTTP/1.1
+###
+DELETE http://localhost:3000/products/1 HTTP/1.1
+###
+POST http://localhost:3000/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Água Pura (6 unid.)",
+    "price": 4500,
+    "image": "https://purepng.com/public/uploads/large/purepng.com-meatmeatchickenanimalflesh-14115278710841xdwa.png",
+    "category": "2",
+    "type": "agua",
+    "weight": "2L",
+    "active": true,
+    "brand": "Pura",
+    "units": 6,
+    "createdAt": "",
+    "updatedAt": ""
+}
+
+################################################
+
+#### CUSTOMERS
+GET http://localhost:3000/customers HTTP/1.1
+###
+GET http://localhost:3000/customers/1 HTTP/1.1
+###
+DELETE  http://localhost:3000/customers/1 HTTP/1.1
+###
+POST http://localhost:3000/customers HTTP/1.1
+Content-Type: application/json
+
+ {
+    "name": "",
+    "phone": "",
+    "address": [
+        {
+            "street": "",
+            "city": "",
+            "homeNumber": "",
+            "description": ""
+        }
+    ],
+    "plan": {
+        "active": false,
+        "balance": 0,
+        "type": "adianta",
+        "dateActivation": "",
+        "dateExpiration": ""
+    },
+    "user": {},
+    "createdAt": "",
+    "updatedAt": ""
+}
+
+################################################
+
+#### ORDERS
+GET http://localhost:3000/orders HTTP/1.1
+###
+GET http://localhost:3000/orders/1 HTTP/1.1
+###
+DELETE  http://localhost:3000/orders/1 HTTP/1.1
+###
+POST http://localhost:3000/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "number": 5,
+    "customer": {},
+    "cart": [
+        {
+            "product": {},
+            "quantity": 3
+        }
+    ],
+    "subtotal": 0,
+    "tax": 0,
+    "total": 0,
+    "dateDelivery": "",
+    "dateOrder": "",
+    "status": "pendente",
+    "createdAt": "",
+    "updatedAt": ""
+}

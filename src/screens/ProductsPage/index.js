@@ -22,7 +22,6 @@ import api from '../../services/api'
 export default index = () => {
     let cartM = []
     let subtotalM = 0
-    const productsData = require("../../services/mock-data.json")
 
     let isMounted = true
     const route = useRoute()
@@ -30,6 +29,7 @@ export default index = () => {
     const initialLayout = { width: Dimensions.get('window').width }
     const [interactionsComplete, setInteractionsComplete] = useState(false)
     const [index, setIndex] = useState(route.params.category === "water" ? 1 : 0 || 0)
+    const [products, setProducts] = useState([])
     const [subtotal, setSubtotal] = useState(0)
     const [cart, setCart] = useState([])
 
@@ -51,6 +51,20 @@ export default index = () => {
             })
             .catch(err => { console.log(err + ' ===> erro') })
     }
+
+    const getProducts = () => {
+        api.get('/products')
+            .then(response => {
+                if (isMounted) {
+                    setProducts(response.data)
+                }
+            })
+            .catch(err => { console.log(err + ' ===> erro') })
+    }
+
+    useEffect(() => {
+        getProducts()
+    }, [])
 
     /**
      * 
@@ -118,11 +132,11 @@ export default index = () => {
         const GasScene = () => (
             <View style={styles.scene}>
                 <ScrollView>
-                    {
-                        productsData.map(item =>
-                            <ProductHorizontalItem key={item.id} item={item} handleQuantity={handleQuantity} />
-                        )
-                    }
+                {
+                    products
+                        .filter(product => product.type === "gas")
+                        .map(item => <ProductHorizontalItem key={item.id} item={item} handleQuantity={handleQuantity} />)
+                }
                 </ScrollView>
             </View>
         )
@@ -130,11 +144,11 @@ export default index = () => {
         const WaterScene = () => (
             <View style={styles.scene}>
                 <ScrollView>
-                    {
-                        productsData.map(item =>
-                            <ProductVerticalItem key={item.id} item={item} handleQuantity={handleQuantity} />
-                        )
-                    }
+                {
+                    products
+                        .filter(product => product.type === "agua")
+                        .map(item => <ProductVerticalItem key={item.id} item={item} handleQuantity={handleQuantity} />)
+                }
                 </ScrollView>
             </View>
         )

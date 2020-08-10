@@ -1,7 +1,7 @@
 import React, { } from 'react'
 import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, StatusBar } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Icon from '@expo/vector-icons/FontAwesome5'
+import Icon from '@expo/vector-icons/FontAwesome'
 
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, colors } from '../../constants'
@@ -16,7 +16,7 @@ const Forgot = () => {
             <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
 
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Icon style={styles.iconHeader} name='long-arrow-alt-left' />
+                <Icon style={styles.iconHeader} name='long-arrow-left' />
             </TouchableOpacity>
 
             <View style={[{ padding: metrics.baseMargin, width: '100%' }]}>

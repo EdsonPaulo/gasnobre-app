@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import { Text, View, Image, StatusBar, TouchableOpacity, ImageBackground } from 'react-native'
+import { Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar';
 
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -28,7 +29,7 @@ const Landing = () => {
 
     return (
         <View style={[styles.background, { padding: metrics.doubleBaseMargin, }]}>
-            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
+            <StatusBar style="dark" barStyle='dark-content' backgroundColor={colors.white} />
 
             <Image source={require('../../assets/logo.png')} style={{ flex: 1.3 / 2, width: '100%'}} />
 

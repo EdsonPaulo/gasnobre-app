@@ -19,9 +19,9 @@ export default CustomInput = props => {
     paddingHorizontal: metrics.baseMargin,
     elevation: raised ? 5 : 0,
     width: '100%',
-    height: 50,
+    height: 45,
     backgroundColor: colors.grayLight,
-    borderWidth: bordered ? 2 : 1,
+    borderWidth: 1,
     borderColor: hasError ? 'red' : borderColor,
     borderRadius: rounded ? metrics.formInputRadius : 8,
   }
@@ -31,10 +31,11 @@ export default CustomInput = props => {
     flex: 1
   }
   const labelStyle = {
-    fontSize: 14,
-    letterSpacing: 1.2,
-    color: colors.white,
-    marginVertical: 2
+    fontSize: fonts.regular,
+    letterSpacing: 1.1,
+    color: colors.dark,
+    marginVertical: 2,
+    marginLeft: metrics.smallMargin
   }
   useEffect(() => {
     if (props.type === 'password')

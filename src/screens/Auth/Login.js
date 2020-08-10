@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, StatusBar } from 'react-native'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform } from 'react-native'
+import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native'
-import Icon from '@expo/vector-icons/FontAwesome5'
+import Icon from '@expo/vector-icons/FontAwesome'
 import { CustomButton, CustomInput } from '../../components'
-import { metrics, fonts, colors } from '../../constants'
+import { metrics, colors } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
+import api from '../../services/api';
+
 import styles from './styles'
 
 const Login = () => {
@@ -12,8 +15,9 @@ const Login = () => {
     const navigation = useNavigation()
     const { login } = useContext(AuthContext)
 
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [phone, setPhone] = useState("")
+    const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [user, setuser] = useState({
         id: 12313,
@@ -25,21 +29,40 @@ const Login = () => {
         address2: '',
     })
 
+    const signIn = () => {
+        console.log(phone)
+        setLoading(true)
+
+        api.get(`/users?phone=${phone}`)
+            .then(response => {
+                console.log(response)
+                if (response.data?.password === password)
+                    console.log("Sucesso!")
+            })
+            .catch(error => {
+                console.error(error)
+                Alert.alert("Erro", "Verifique as suas credenciais!")
+                setLoading(false)
+            })
+            .finally(() => setLoading(false))
+    }
+
+
     return (
         <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>
-            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
+            <StatusBar style='dark' backgroundColor={colors.white} />
             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Icon style={styles.iconHeader} name='long-arrow-alt-left' />
+                <Icon style={styles.iconHeader} name='long-arrow-left' />
             </TouchableOpacity>
 
             <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
 
-                <Text style={styles.title}>ENTRAR NA CONTA</Text>
+                <Text style={styles.title}>Entrar na Conta</Text>
 
                 <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
-                    <CustomInput label="Telefone" style={{ marginTop: 0 }} name="phone" type="phone" placeholder="9XXXXXX" />
-                    <CustomInput label="Senha" containerStyle={{ marginTop: 0 }} name="password" type="password" placeholder="**********" />
-                    <CustomButton style={{ marginTop: 20 }} primary icon="ios-arrow-round-forward" title="Entrar" onPress={() => { login(user, "auth-dummy-token") }} />
+                    <CustomInput label="Telefone" style={{ marginBottom: metrics.baseMargin }} name="phone" type="phone" placeholder="9XXXXXXXX" onChangeText={value => setPhone(value)} />
+                    <CustomInput label="Senha" name="password" type="password" placeholder="**********" onChangeText={value => setPassword(value)} />
+                    <CustomButton style={{ marginTop: 20 }} loading={loading} primary icon="ios-arrow-round-forward" title="Entrar" onPress={signIn} />
                 </View>
             </View>
 
@@ -50,7 +73,7 @@ const Login = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => navigation.navigate('forgot')}>
-                    <Text style={[styles.bottomText, {marginTop: metrics.doubleBaseMargin}]}>Esqueceu a sua senha?</Text>
+                    <Text style={[styles.bottomText, { marginTop: metrics.doubleBaseMargin }]}>Esqueceu a sua senha?</Text>
                 </TouchableOpacity>
             </View>
         </KeyboardAvoidingView>

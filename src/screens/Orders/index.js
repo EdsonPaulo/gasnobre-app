@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Text, View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 
+import AuthContext from '../../contexts/auth/auth-context';
 import { colors, metrics, general } from '../../constants'
 import { LoadingSpin } from '../../components'
-import { HeaderBar } from '../../components'
 import api from '../../services/api';
 
 export default index = () => {
 
   let isMounted = true
+  const navigation = useNavigation()
+  const { user } = useContext(AuthContext)
+
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
-  const navigation = useNavigation()
-
-  const user_id = 2;
 
   const getOrders = () => {
-    api.get(`orders?customer=${user_id}`)
+    api.get(`/orders?customer=${user.id}`)
       .then(response => {
         if (isMounted) {
           setOrders(response.data)
@@ -44,17 +44,17 @@ export default index = () => {
     <TouchableOpacity activeOpacity={0.7} style={styles.orderContainer} onPress={() => navigation.navigate('orderDetails', { order })}>
       <View style={styles.rowContainer}>
         <Text style={styles.statusText}>Pedido nº {order.number}</Text>
-        <Text style={styles.statusText}>{convertDate(order.date_created)}</Text>
+        <Text style={styles.statusText}>{convertDate(order.createdAt)}</Text>
       </View>
 
       <View style={styles.rowContainer}>
-        <Text style={styles.statusText}>Estado:  
+        <Text style={styles.statusText}>Estado:
         <Text style={{
-          fontWeight: "bold",
-          color: order.status === 'processing' ? 'green'
-            : order.status === 'canceled' ? colors.alert : colors.dark
-        }}> {order.status}
-        </Text></Text>
+            fontWeight: "bold",
+            color: order.status === 'processing' ? 'green'
+              : order.status === 'canceled' ? colors.alert : colors.dark
+          }}> {order.status}
+          </Text></Text>
         <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.primaryDark }}>
           {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
         </Text>

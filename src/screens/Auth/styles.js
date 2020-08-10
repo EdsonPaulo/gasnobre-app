@@ -11,14 +11,14 @@ const styles = StyleSheet.create({
         color: colors.grayDark2,
         width: 40,
         height: 40,
-        fontSize: 30
+        fontSize: 26
     },
     container: {
         width: '100%',
         padding: metrics.tripleBaseMargin,
     },
     title: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
         color: colors.grayDark2,
         //fontFamily: 'Soviet',
