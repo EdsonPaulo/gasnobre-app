@@ -40,7 +40,7 @@ const index = () => {
         },
         shipping_tax: '5000',
         customer_id: 2,
-        line_items: []
+        line_products: []
     })
 
 
@@ -74,7 +74,7 @@ const index = () => {
             })
         })
 
-        order.line_items = listItem
+        order.line_products = listItem
 
         setSubmiting(true)
         console.log(order)
@@ -98,10 +98,10 @@ const index = () => {
                     <View style={styles.section}>
                         {
 
-                            cart.map(item => (
-                                <View style={styles.textContainer} key={item.id}>
-                                    <Text style={{ textTransform: 'capitalize' }}>{item.name} (x{item.quantity})</Text>
-                                    <Text>{transformPrice(item.price * item.quantity)}
+                            cart.map(product => (
+                                <View key={product.id} style={styles.textContainer} key={product.id}>
+                                    <Text style={{ textTransform: 'capitalize' }}>{product.title} (x{product.quantity})</Text>
+                                    <Text>{transformPrice(product.price * product.quantity)}
                                     </Text>
                                 </View>
                             ))
@@ -169,7 +169,7 @@ const index = () => {
                                         style={{ height: 35, borderWidth: 5, borderRadius: 5, borderColor: colors.magenta, backgroundColor: colors.grayLight }}
                                         onValueChange={(itemValue, itemIndex) => setDeliveryAddress(itemValue)}>
 
-                                        {address.map(item => <Picker.Item label={item} value={item} />)}
+                                        {address.map((item, index) => <Picker.Item key={index} label={item} value={item} />)}
 
                                     </Picker>
                                 </View>

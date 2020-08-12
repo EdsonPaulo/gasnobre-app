@@ -47,6 +47,8 @@ export default index = () => {
         modalizeRef.current?.open()
     }
 
+    const transformPrice = value => Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value)
+
     const getProductCategories = () => {
         api.get('/products/categories')
             .then(response => {
@@ -101,11 +103,9 @@ export default index = () => {
     }
 
     const handleQuantity = (quantity, item, increment) => {
-        console.log("Quantidade: " + quantity)
         const updatedItemIndex = cart.findIndex(product => product.id === item.id)
 
         if (increment) {
-            console.log("adicionando")
             setCartSize(cartSize + 1)
             setSubtotal(subtotal + item.price)
 
@@ -117,7 +117,6 @@ export default index = () => {
             }
         }
         else {
-            console.log("removendo")
             setCartSize(cartSize - 1)
             setSubtotal(subtotal - item.price)
 
@@ -130,8 +129,6 @@ export default index = () => {
                 cart.push({ ...item, quantity })
             }
         }
-        console.log("cartSize: " + cartSize)
-        console.log(JSON.stringify(cart))
     }
 
 
@@ -154,20 +151,20 @@ export default index = () => {
     )
 
     const renderCart = () => (
-        <View style={{ margin: 15 }}>
-            <Text>CART 5 PRODUTOS</Text>
-            <Text>{JSON.stringify(cart)}</Text>
+        <View style={{ margin: 15, textAlign: "center" }}>
+            <Text style={{textAlign: "center", marginVertical: 15}}>SELECIONOU {cartSize} PRODUTO(S)</Text>
             {
-                cart.map(product => {
-                    <View style={{
+                cart.map(product => (
+                    <View key={product.id} style={{
                         borderWidth: 1,
                         borderColor: colors.borderColor,
-                        padding: metrics.baseMargin
+                        padding: metrics.baseMargin,
+                        borderRadius: metrics.baseRadius,
+                        marginBottom: metrics.smallMargin
                     }}>
-                        <Text>{product.title}</Text>
-
+                        <Text style={{textAlign: "center"}}>{product.title} {product.weight} (x{product.quantity}) =  { transformPrice(product.price * product.quantity)}</Text>
                     </View>
-                })
+                ))
             }
         </View>
     )
@@ -190,7 +187,10 @@ export default index = () => {
                 }
                 <Modalize ref={modalizeRef} rootStyle={{ elevation: 3 }} modalHeight={height - 200}
                     FooterComponent={
-                        <CustomButton primary style={styles.makeOrderButton} rounded title={`Fazer Pedido (${subtotal})`} />
+                        <CustomButton primary style={styles.makeOrderButton} rounded
+                            onPress={() => navigation.navigate("checkout", { cart, subtotal })}
+
+                            title={`Fazer Pedido (${transformPrice(subtotal)})`} />
                     }>
                     {renderCart()}
                 </Modalize>

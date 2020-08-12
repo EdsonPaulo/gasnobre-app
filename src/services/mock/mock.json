@@ -5,7 +5,7 @@
   "products": [
     {
       "id": 1,
-      "title": "Água Atlantis (6 unid.)",
+      "title": "Água Atlantis",
       "price": 4500,
       "image": "https://shop.roque-online.com/wp-content/uploads/2019/07/6l-small.png",
       "category": "2",
@@ -19,7 +19,7 @@
     },
     {
       "id": 2,
-      "title": "Água Perla (1 unid.)",
+      "title": "Água Perla",
       "weight": "5L",
       "price": 500,
       "type": "agua",
@@ -33,7 +33,7 @@
     },
     {
       "id": 3,
-      "title": "Água Pura (6 unid.)",
+      "title": "Água Pura",
       "weight": "2L",
       "type": "agua",
       "price": 4500,
@@ -47,7 +47,7 @@
     },
     {
       "id": 4,
-      "title": "Água Pura (6 unid.)",
+      "title": "Água Pura",
       "weight": "2L",
       "type": "agua",
       "price": 4000,
@@ -61,7 +61,7 @@
     },
     {
       "id": 5,
-      "title": "Água Bela Vida (6 unid.)",
+      "title": "Água Bela Vida",
       "weight": "1L",
       "type": "agua",
       "price": 3000,

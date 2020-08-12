@@ -41,7 +41,7 @@ const HomeTabs = () => {
       <Tabs.Screen name="homeStack" component={HomeStack} options={{ tabBarLabel: 'início' }} />
       <Tabs.Screen name="storeStack" component={StoreStack} options={{ tabBarLabel: 'Produtos', tabBarVisible: false }} />
       <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Pedidos' }} />
-      <Tabs.Screen name="profileStack" component={ProfilePage} options={{ tabBarLabel: 'Perfil' }} />
+      <Tabs.Screen name="profileStack" component={ProfileStack} options={{ tabBarLabel: 'Perfil' }} />
     </Tabs.Navigator>
   )
 }
@@ -67,7 +67,7 @@ const HomeStack = () => {
       <Stack.Screen name="home" options={{
         headerTitleAlign: "left",
         headerTitleStyle: { fontSize: 30, fontFamily: "Amarante_400Regular" },
-        headerTitle: "Gás Nobre"
+        headerTitle: "Gás Nobre",
       }} component={HomePage} />
     </Stack.Navigator>
   )
@@ -77,6 +77,17 @@ const OrderStack = () => {
   return (
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos" }} component={Orders} />
+    </Stack.Navigator>
+  )
+}
+const ProfileStack = () => {
+  const Stack = createStackNavigator()
+  return (
+    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
+      <Stack.Screen name="profile" options={{
+        headerTitle: "Definições e Perfil",
+        headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 40 }
+      }} component={ProfilePage} />
     </Stack.Navigator>
   )
 }

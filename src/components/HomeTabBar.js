@@ -71,12 +71,8 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Fontisto name={iconName} style={{ color: isFocused ? colors.primary : colors.grayDark, marginBottom: 2}} size={20} />
-                {
-                  !isFocused ? null :
-                    <Text style={{ fontSize: fonts.small, color: isFocused ? colors.primary : colors.grayDark }}>{label}</Text>
-                }
-
+                <Fontisto name={iconName} style={{ color: isFocused ? colors.primary : colors.grayDark, marginBottom: 2 }} size={18} />
+                <Text style={{ fontSize: fonts.small, color: isFocused ? colors.primary : colors.grayDark }}>{label}</Text>
               </View>
             </TouchableOpacity>
           )
