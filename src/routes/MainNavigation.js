@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Icon from "@expo/vector-icons/FontAwesome"
@@ -27,11 +27,11 @@ import {
 
 const stackScreenGlobalOptions = {
   headerBackImage: (props => <Icon name="long-arrow-left" size={25} color={props.tintColor} />),
- // headerTitleAlign: "center",
-  headerTitleStyle: {fontSize: 15},
+  headerTitleAlign: "center",
+  headerTitleStyle: { fontSize: 18, fontFamily: "Amarante_400Regular" },
   headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.white,
-  headerStyle: { backgroundColor: colors.primary, height: 55 }
+  headerStyle: { backgroundColor: colors.primary, height: 60 }
 }
 
 const HomeTabs = () => {
@@ -64,7 +64,11 @@ const HomeStack = () => {
   const Stack = createStackNavigator()
   return (
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="home" options={{headerTitle: "GásNobre"}} component={HomePage} />
+      <Stack.Screen name="home" options={{
+        headerTitleAlign: "left",
+        headerTitleStyle: { fontSize: 30, fontFamily: "Amarante_400Regular" },
+        headerTitle: "Gás Nobre"
+      }} component={HomePage} />
     </Stack.Navigator>
   )
 }
@@ -75,18 +79,17 @@ const OrderStack = () => {
       <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos" }} component={Orders} />
     </Stack.Navigator>
   )
-} 
+}
 const StoreStack = () => {
   const Stack = createStackNavigator()
   return (
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="products" options={{headerTitle: "Produtos Disponíveis" }} component={ProductsPage} />
+      <Stack.Screen name="products" options={{ headerTitle: "Produtos Disponíveis" }} component={ProductsPage} />
     </Stack.Navigator>
   )
 }
 
 const AuthNavigation = () => {
-
   const AuthStack = createStackNavigator()
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal", }}>

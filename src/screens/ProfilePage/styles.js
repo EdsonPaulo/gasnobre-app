@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primaryDark
     },
     sectionTitle: {
-        //fontFamily: 'Lato',
+        fontFamily: 'RobotoCondensed_400Regular',
         fontSize: fonts.regular,
         color: colors.grayMedium,
         marginTop: metrics.smallMargin,
@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     userName: {
-        //fontFamily: 'Lato',
+        fontFamily: 'RobotoCondensed_400Regular',
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: metrics.smallMargin,
     },
     userDetails: {
-        //fontFamily: 'Lato',
+        fontFamily: 'RobotoCondensed_400Regular',
         textAlign: 'justify'
     },
     inputContainer: {

@@ -1,19 +1,25 @@
 import 'react-native-gesture-handler'
 import React from 'react'
+import { AppLoading } from 'expo'
 import { enableScreens } from 'react-native-screens'
-enableScreens()
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
 import 'intl'
 import 'intl/locale-data/jsonp/pt-AO'
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { RobotoCondensed_400Regular, RobotoCondensed_700Bold } from '@expo-google-fonts/roboto-condensed'
+import { useFonts, Amarante_400Regular } from '@expo-google-fonts/amarante'
+
 import Router from './src/routes/Router'
 import AuthProvider from './src/contexts/auth/auth-provider'
-import { useFonts, OleoScript_400Regular } from '@expo-google-fonts/oleo-script'
-import { Roboto_400Regular } from '@expo-google-fonts/roboto'
+
+enableScreens()
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    OleoScript_400Regular,
-    Roboto_400Regular
+    RobotoCondensed_400Regular,
+    RobotoCondensed_700Bold,
+    Amarante_400Regular
   })
 
   if (!fontsLoaded)

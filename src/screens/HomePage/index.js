@@ -28,9 +28,7 @@ const index = () => {
 
                 <Text style={{ fontSize: 20, margin: 20, }}>Olá, Edson Paulo</Text>
                 <Text style={styles.homeTitle}>O QUE VAI PEDIR HOJE?</Text>
-                <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("products", { category: "gas" })}>
-                    <Image style={{ width: "100%", height: "100%" }} resizeMode="contain" source={require("../../assets/gas-btn2.png")} />
-                </TouchableOpacity>
+               
                 <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("products", { category: "water" })}>
                     <Image style={{ width: "100%", height: "100%" }} resizeMode="contain" source={require("../../assets/agua-btn2.png")} />
                 </TouchableOpacity>

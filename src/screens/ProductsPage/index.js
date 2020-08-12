@@ -13,14 +13,14 @@ import {
 
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Modalize } from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize'
 
 import { Entypo } from '@expo/vector-icons'
 
 import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 const data = require("../../services/mock/mock.json")
 
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
         fontSize: fonts.input,
         textTransform: 'capitalize',
         color: 'white',
-        //fontFamily: 'Lato'
+        fontFamily: 'RobotoCondensed_400Regular'
     },
     makeOrderButton: {
         width: 250,

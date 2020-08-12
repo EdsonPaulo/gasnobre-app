@@ -1,6 +1,6 @@
-import React from "react";
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import React from "react"
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from "react-native"
+import { useRoute } from "@react-navigation/native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { colors, metrics, general, fonts } from "../../constants"
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         color: colors.grayDark,
         fontWeight: 'bold',
         fontSize: 15,
-        //fontFamily: 'Lato',
+        fontFamily: 'RobotoCondensed_400Regular',
         marginBottom: metrics.baseMargin
     },
     section: {

@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         textTransform: 'uppercase',
-        letterSpacing: 1.1,
+        letterSpacing: 0.3,
         fontWeight: "bold",
-        //fontFamily: 'Lato',
-        fontSize: 12,
+        fontFamily: 'RobotoCondensed_400Regular',
+        fontSize: 13,
         textAlign: 'center'
     },
     iconStyle: {

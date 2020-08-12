@@ -3,7 +3,7 @@ import { Text, View, TextInput, Alert, AsyncStorage, ScrollView, StyleSheet, Tou
 import { useNavigation, useRoute } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Picker } from '@react-native-community/picker';
+import { Picker } from '@react-native-community/picker'
 
 import { colors, metrics, general, constants, fonts } from '../../constants'
 import { HeaderBar, CustomButton } from '../../components'

@@ -948,15 +948,15 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
-"@expo-google-fonts/oleo-script@^0.1.0":
+"@expo-google-fonts/amarante@^0.1.0":
   version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/oleo-script/-/oleo-script-0.1.0.tgz#e1fee0e27445ad467248280663c09d234f63fc08"
-  integrity sha512-Su4HotbI4+UQT3RxWxvwspB1vl5DuPQUvARf5z9DYqGkRgETXemnVtFpLzgMqgqjGBMMEDr/JHPdHhCFlG2xUw==
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/amarante/-/amarante-0.1.0.tgz#2720acb2ed4d15bd799511f440afa13666f8a9d3"
+  integrity sha512-1ZFgc6CZPU3ECUeR15Ejb70ZTUbBQ6BniFk7kZ0/cNhEojzlcUqU8ocwixHWixmIB7CL7ELRVAErtnS04SdYTg==
 
-"@expo-google-fonts/roboto@^0.1.0":
+"@expo-google-fonts/roboto-condensed@^0.1.0":
   version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/roboto/-/roboto-0.1.0.tgz#2897dc09db4ceb9f5ba337103090e1d70236e811"
-  integrity sha512-q+68xWZpLIS/iPC5jwoakEskyTVgIC1jfpNzWFMnUnBoZsWRq1rlpnleR3MjKDeN1Vt0NcvUI/aaZoCyIXhisw==
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/roboto-condensed/-/roboto-condensed-0.1.0.tgz#09e2aad0f5c03e53ae871a4857486da3e0daee62"
+  integrity sha512-gF0O9nb+B1iNNb2u83Qn67g2Sw2A4KqXhoZmNV4+nOFGFcPJ86IbbvaJQ61DvcE9/QdV61DH0FeJKvLmaRi9jA==
 
 "@expo/configure-splash-screen@0.1.13":
   version "0.1.13"

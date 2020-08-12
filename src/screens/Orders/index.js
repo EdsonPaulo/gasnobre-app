@@ -3,10 +3,10 @@ import { Text, View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity }
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 
-import AuthContext from '../../contexts/auth/auth-context';
+import AuthContext from '../../contexts/auth/auth-context'
 import { colors, metrics, general } from '../../constants'
 import { LoadingSpin } from '../../components'
-import api from '../../services/api';
+import api from '../../services/api'
 
 export default index = () => {
 

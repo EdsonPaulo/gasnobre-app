@@ -8,8 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo-google-fonts/oleo-script": "^0.1.0",
-    "@expo-google-fonts/roboto": "^0.1.0",
+    "@expo-google-fonts/amarante": "^0.1.0",
+    "@expo-google-fonts/roboto-condensed": "^0.1.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/picker": "1.6.0",
     "@react-navigation/bottom-tabs": "^5.5.2",

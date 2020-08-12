@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from "@react-navigation/stack"
-import { StatusBar } from 'react-native';
+import { StatusBar } from 'react-native'
 import { colors } from '../constants'
 import { AuthNavigation, MainNavigation } from './MainNavigation'
 import { LoadingSpin } from '../components'
@@ -15,9 +15,9 @@ export default Router = () => {
   useEffect(() => {
     const bootstrapAsync = async () => {
       retrieveToken()
-    };
+    }
     bootstrapAsync()
-  }, []);
+  }, [])
 
   const RootStack = createStackNavigator()
   return (

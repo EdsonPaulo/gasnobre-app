@@ -6,7 +6,7 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import AuthContext from '../../contexts/auth/auth-context'
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, colors } from '../../constants'
-import api from '../../services/api';
+import api from '../../services/api'
 
 import styles from './styles'
 

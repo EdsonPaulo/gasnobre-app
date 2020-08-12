@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: colors.grayDark2,
-        //fontFamily: 'Soviet',
+        fontFamily: 'Amarante_400Regular',
         textAlign: 'center'
     },
     subtitle: {

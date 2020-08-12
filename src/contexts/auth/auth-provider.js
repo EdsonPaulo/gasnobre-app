@@ -49,17 +49,17 @@ const AuthProvider = props => {
         constants.USER_KEY
       ])
       //  delete axios.defaults.headers.common["Authorization"]
-      dispatch({ type: LOGOUT });
+      dispatch({ type: LOGOUT })
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error)
     }
   }
 
   const retrieveToken = async () => {
-    let user, token;
+    let user, token
     try {
-      token = await AsyncStorage.getItem(constants.TOKEN_KEY);
-      user = await AsyncStorage.getItem(constants.USER_KEY);
+      token = await AsyncStorage.getItem(constants.TOKEN_KEY)
+      user = await AsyncStorage.getItem(constants.USER_KEY)
     } catch (e) {
       // Restoring token failed
     }

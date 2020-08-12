@@ -90,14 +90,14 @@ const styles = StyleSheet.create({
         fontSize: 13,
         textTransform: 'capitalize',
         textAlign: 'center',
-        //fontFamily: 'Lato',
+        fontFamily: 'RobotoCondensed_400Regular',
     },
     description: {
         fontSize: 11,
         color: colors.grayDark,
         textAlign: 'center',
         marginVertical: 8,
-        //fontFamily: 'Lato',
+        fontFamily: 'RobotoCondensed_400Regular',
     },
     price: {
         fontSize: 13,

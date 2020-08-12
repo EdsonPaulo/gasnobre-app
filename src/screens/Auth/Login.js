@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform } from 'react-native'
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome'
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, colors } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
-import api from '../../services/api';
+import api from '../../services/api'
 
 import styles from './styles'
 
@@ -57,7 +57,7 @@ const Login = () => {
 
             <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
 
-                <Text style={styles.title}>Entrar na Conta</Text>
+                <Text style={[styles.title, {fontFamily: 'Amarante_400Regular'}]}>Entrar na Conta</Text>
 
                 <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
                     <CustomInput label="Telefone" style={{ marginBottom: metrics.baseMargin }} name="phone" type="phone" placeholder="9XXXXXXXX" onChangeText={value => setPhone(value)} />

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar'
 
 import { SafeAreaView } from "react-native-safe-area-context"
 
