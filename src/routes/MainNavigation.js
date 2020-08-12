@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Icon from "@expo/vector-icons/FontAwesome"
 
-import { HomeTabBar, StatusBar } from '../components'
+import { HomeTabBar } from '../components'
 
 import { colors } from '../constants'
 
@@ -25,29 +25,23 @@ import {
   PlansPage
 } from '../screens'
 
-
 const stackScreenGlobalOptions = {
   headerBackImage: (props => <Icon name="long-arrow-left" size={25} color={props.tintColor} />),
-  headerTitle: "Gás Nobre",
-  headerTitleAlign: "center",
-  headerTitleStyle: {fontSize: 15, textTransform: "uppercase"},
+ // headerTitleAlign: "center",
+  headerTitleStyle: {fontSize: 15},
   headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.white,
   headerStyle: { backgroundColor: colors.primary, height: 55 }
-}
-
-const tabScreensHeader = {
-  headerTitleAlign: "center",
-  headerStyle: { backgroundColor: colors.primary, elevation: 0, height: 55 }
 }
 
 const HomeTabs = () => {
   const Tabs = createBottomTabNavigator()
   return (
     <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
-      <Tabs.Screen name="homeStack" component={HomeStack} options={{ tabBarLabel: 'Página Inicial' }} />
-      <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Meus Pedidos' }} />
-      <Tabs.Screen name="profileStack" component={ProfileStack} options={{ tabBarLabel: 'Definições e Perfil' }} />
+      <Tabs.Screen name="homeStack" component={HomeStack} options={{ tabBarLabel: 'início' }} />
+      <Tabs.Screen name="storeStack" component={StoreStack} options={{ tabBarLabel: 'Produtos', tabBarVisible: false }} />
+      <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Pedidos' }} />
+      <Tabs.Screen name="profileStack" component={ProfilePage} options={{ tabBarLabel: 'Perfil' }} />
     </Tabs.Navigator>
   )
 }
@@ -57,11 +51,6 @@ const MainNavigation = () => {
   return (
     <Stack.Navigator initialRouteName='homeTabs' screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="homeTabs" component={HomeTabs} options={{ headerShown: false }} />
-      <Stack.Screen name="products" options={{
-        headerTitle: "",
-        headerLeftContainerStyle: { marginLeft: 5 },
-        headerStyle: { backgroundColor: colors.primary, elevation: 0, height: 50 }
-      }} component={ProductsPage} />
       <Stack.Screen name="address" component={AddressPage} options={{ headerTitle: "Meus Endereços" }} />
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
       <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais" }} />
@@ -75,25 +64,23 @@ const HomeStack = () => {
   const Stack = createStackNavigator()
   return (
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="home" options={tabScreensHeader} component={HomePage} />
+      <Stack.Screen name="home" options={{headerTitle: "GásNobre"}} component={HomePage} />
     </Stack.Navigator>
   )
 }
-
 const OrderStack = () => {
   const Stack = createStackNavigator()
   return (
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos", headerTitleAlign: "center" }} component={Orders} />
+      <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos" }} component={Orders} />
     </Stack.Navigator>
   )
-}
-
-const ProfileStack = () => {
+} 
+const StoreStack = () => {
   const Stack = createStackNavigator()
   return (
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="profile" options={{...tabScreensHeader, headerTitle: "Definições e Perfil" }} component={ProfilePage} />
+      <Stack.Screen name="products" options={{headerTitle: "Produtos Disponíveis" }} component={ProductsPage} />
     </Stack.Navigator>
   )
 }

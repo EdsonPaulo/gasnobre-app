@@ -8,6 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/oleo-script": "^0.1.0",
+    "@expo-google-fonts/roboto": "^0.1.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/picker": "1.6.0",
     "@react-navigation/bottom-tabs": "^5.5.2",
@@ -15,6 +17,7 @@
     "@react-navigation/stack": "^5.5.1",
     "axios": "0.18.0",
     "expo": "^38.0.9",
+    "expo-font": "~8.2.1",
     "expo-status-bar": "^1.0.2",
     "firebase": "7.9.0",
     "intl": "^1.2.5",
@@ -22,6 +25,7 @@
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-gesture-handler": "~1.6.0",
+    "react-native-modalize": "^2.0.5",
     "react-native-rate": "^1.2.1",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",

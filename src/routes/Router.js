@@ -28,7 +28,7 @@ export default Router = () => {
           <RootStack.Navigator screenOptions={{ headerShown: false }}>
             {
               isLoading ? (<RootStack.Screen name="Splash" component={LoadingSpin} />)
-                : isLogged ? (<RootStack.Screen name="main" component={MainNavigation} />)
+                : !isLogged ? (<RootStack.Screen name="main" component={MainNavigation} />)
                   : (<RootStack.Screen name="auth" component={AuthNavigation} options={{
                     animationTypeForReplace: !isLogged ? 'pop' : 'push',
                   }} />)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 import {
     Text, View,
@@ -13,35 +13,41 @@ import {
 
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { Modalize } from 'react-native-modalize';
+
+import { Entypo } from '@expo/vector-icons'
 
 import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+const data = require("../../services/mock/mock.json")
+
 
 export default index = () => {
-    let cartM = []
-    let subtotalM = 0
 
     let isMounted = true
     const route = useRoute()
+    const modalizeRef = useRef(null)
+
     const navigation = useNavigation()
-    const initialLayout = { width: Dimensions.get('window').width }
+    const { width, height } = Dimensions.get('window')
+
     const [interactionsComplete, setInteractionsComplete] = useState(false)
-    const [index, setIndex] = useState(route.params.category === "water" ? 1 : 0 || 0)
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState(data.products)
     const [subtotal, setSubtotal] = useState(0)
+    const [cartSize, setCartSize] = useState(0)
     const [cart, setCart] = useState([])
 
     const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
     const [categoryId, setCategoryId] = useState(81)
 
-    const [routes] = useState([
-        { key: 'gas', title: 'GÁS' },
-        { key: 'water', title: 'ÁGUA' }
-    ])
+    const openCartModal = () => {
+        modalizeRef.current?.open()
+    }
 
-    const loadProductCategories = () => {
+    const getProductCategories = () => {
         api.get('/products/categories')
             .then(response => {
                 if (isMounted) {
@@ -63,21 +69,16 @@ export default index = () => {
     }
 
     useEffect(() => {
-        getProducts()
-    }, [])
-
-    /**
-     * 
-    useEffect(() => {
         InteractionManager.runAfterInteractions(() => {
             setInteractionsComplete(true)
         }).then(() => {
             isMounted = true
+            //getProducts()
             // if (categories.length <= 0) loadProductCategories()
         })
         return () => isMounted = false
     }, [])
-     */
+
 
     const renderCategoryList = () => {
         const CategoryItem = (category) => (
@@ -88,7 +89,6 @@ export default index = () => {
                 <Text style={styles.categoryItemText}>{category.name} ({category.count || 0})</Text>
             </TouchableOpacity>
         )
-
         return (
             <FlatList horizontal bounces
                 showsHorizontalScrollIndicator={false}
@@ -100,106 +100,115 @@ export default index = () => {
         )
     }
 
-    const handleQuantity = (quantity, item) => {
+    const handleQuantity = (quantity, item, increment) => {
         console.log("Quantidade: " + quantity)
-        console.log("Produto: " + JSON.stringify(item))
+        const updatedItemIndex = cart.findIndex(product => product.id === item.id)
 
-        /** */
-        //const updatedCart = [...cartM]
-        const updatedItemIndex = cartM.findIndex(product => product.id === item.id)
-        if (updatedItemIndex < 0)
-            cartM.push({ ...item, quantity: 1 })
-        else {
-            console.log("aumentado")
-            const updatedItem = { ...cartM[updatedItemIndex] }
-            updatedItem.quantity += 1
-            cartM[updatedItemIndex] = updatedItem
+        if (increment) {
+            console.log("adicionando")
+            setCartSize(cartSize + 1)
+            setSubtotal(subtotal + item.price)
+
+            if (updatedItemIndex < 0)
+                cart.push({ ...item, quantity: 1 })
+            else {
+                cart.splice(updatedItemIndex, 1)
+                cart.push({ ...item, quantity })
+            }
         }
-        subtotalM += item.price
-        //  cartM = updatedCart
+        else {
+            console.log("removendo")
+            setCartSize(cartSize - 1)
+            setSubtotal(subtotal - item.price)
+
+            if (quantity <= 0) {
+                cart.splice(updatedItemIndex, 1)
+                console.log("removendo o item")
+            }
+            else {
+                cart.splice(updatedItemIndex, 1)
+                cart.push({ ...item, quantity })
+            }
+        }
+        console.log("cartSize: " + cartSize)
+        console.log(JSON.stringify(cart))
     }
 
-    //calcular o valor total
-    const calculateTotal = () => {
-        let acumulator = 0
-        cart.forEach(element => {
-            acumulator += (element.price * element.quantity)
-        })
-        setSubtotal(acumulator)
+
+    //rederiza o product card ou um espaco com largura equivalente se não tiver produto
+    const renderItem = ({ item }) => {
+        if (item.empty)
+            return <View style={styles.itemInvisible} />
+        else
+            return <ProductVerticalItem width={(width / 2 - 20)} handleQuantity={handleQuantity}  {...item} />
     }
 
-    const CustomTabView = () => {
-        const GasScene = () => (
-            <View style={styles.scene}>
-                <ScrollView>
-                {
-                    products
-                        .filter(product => product.type === "gas")
-                        .map(item => <ProductHorizontalItem key={item.id} item={item} handleQuantity={handleQuantity} />)
-                }
-                </ScrollView>
-            </View>
-        )
+    const renderProductsList = () => (
+        <FlatList bounces numColumns={numColumns}
+            //showsVerticalScrollIndicator={false}
+            data={formatData(products, numColumns)}
+            contentContainerStyle={{ paddingVertical: 15 }}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+        />
+    )
 
-        const WaterScene = () => (
-            <View style={styles.scene}>
-                <ScrollView>
-                {
-                    products
-                        .filter(product => product.type === "agua")
-                        .map(item => <ProductVerticalItem key={item.id} item={item} handleQuantity={handleQuantity} />)
-                }
-                </ScrollView>
-            </View>
-        )
+    const renderCart = () => (
+        <View style={{ margin: 15 }}>
+            <Text>CART 5 PRODUTOS</Text>
+            <Text>{JSON.stringify(cart)}</Text>
+            {
+                cart.map(product => {
+                    <View style={{
+                        borderWidth: 1,
+                        borderColor: colors.borderColor,
+                        padding: metrics.baseMargin
+                    }}>
+                        <Text>{product.title}</Text>
 
-        const renderScene = SceneMap({
-            gas: GasScene,
-            water: WaterScene,
-        })
+                    </View>
+                })
+            }
+        </View>
+    )
 
-        const renderTabBar = props => (
-            <TabBar {...props}
-                indicatorStyle={{ backgroundColor: index == 0 ? 'orange' : colors.white }}
-                style={{ backgroundColor: colors.primary }}
-            />
-        )
-
-        return (
-            <TabView lazy
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                renderTabBar={renderTabBar}
-                onIndexChange={setIndex}
-                initialLayout={initialLayout}
-            />
-        )
-    }
-
-    // if (!interactionsComplete) { return <LoadingSpin /> }
+    if (!interactionsComplete) { return <LoadingSpin /> }
 
     return (
         <SafeAreaView style={general.background}>
-            {CustomTabView()}
-            <View style={{ backgroundColor: "#fff", height: metrics.tabBarHeight, elevation: 8, paddingHorizontal: 10 }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", height: "100%", alignItems: "center" }}>
-                    <View>
-                        <Text>Carrinho:</Text>
-                        <Text>{subtotalM} kz ({cartM.length} itens)</Text>
-                    </View>
-                    <TouchableOpacity activeOpacity={0.7}
-                        onPress={() => navigation.navigate('checkout', { cart: cart, subtotal: subtotal })}
-                        style={{
-                            borderRadius: 25,
-                            backgroundColor: index == 1 ? colors.primaryDark : "#E37E24",
-                            padding: 8, paddingHorizontal: 20
-                        }}>
-                        <Text style={{ color: colors.white }}>Fazer Pedido</Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={styles.scene}>
+                {renderProductsList()}
+                {
+                    cart.length == 0 ? null :
+                        <TouchableOpacity onPress={openCartModal} activeOpacity={0.7}
+                            style={[styles.fabPosition, styles.fabBagButton]}>
+                            <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
+                                <Text style={{ color: "#fff" }}>{cartSize}</Text>
+                            </View>
+                            <Entypo name="shopping-bag" color="#fff" size={25} />
+                        </TouchableOpacity>
+                }
+                <Modalize ref={modalizeRef} rootStyle={{ elevation: 3 }} modalHeight={height - 200}
+                    FooterComponent={
+                        <CustomButton primary style={styles.makeOrderButton} rounded title={`Fazer Pedido (${subtotal})`} />
+                    }>
+                    {renderCart()}
+                </Modalize>
             </View>
         </SafeAreaView>
     )
+}
+
+const numColumns = 2
+const formatData = (products, numColumns) => {
+    const numberOfFullRows = Math.floor(products.length / numColumns)
+    let numberOfElementsLastRow = products.length - (numberOfFullRows * numColumns)
+
+    while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+        products.push({ key: `blank-${numberOfElementsLastRow}`, empty: true })
+        numberOfElementsLastRow++
+    }
+    return products
 }
 
 
@@ -212,8 +221,26 @@ const styles = StyleSheet.create({
         //justifyContent: 'center',
         //alignItems: 'center',
     },
-    checkoutBtn: {
-
+    fabPosition: {
+        position: "absolute",
+        elevation: 3,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 25,
+    },
+    fabBagButton: {
+        backgroundColor: colors.primary,
+        right: 2,
+        bottom: 100,
+        width: 50,
+        height: 50,
+    },
+    fabBagButtonBadge: {
+        top: -3,
+        right: 0,
+        width: 20,
+        height: 20,
+        backgroundColor: "#E37E24",
     },
     categoryListContainer: {
         width: '100%',
@@ -233,5 +260,10 @@ const styles = StyleSheet.create({
         color: 'white',
         //fontFamily: 'Lato'
     },
-
+    makeOrderButton: {
+        width: 250,
+        height: 40,
+        marginVertical: 30,
+        alignSelf: "center"
+    }
 })

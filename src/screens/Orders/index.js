@@ -18,7 +18,7 @@ export default index = () => {
   const [loading, setLoading] = useState(true)
 
   const getOrders = () => {
-    api.get(`/orders?customer=${user.id}`)
+    api.get(`/orders?customer=${user}`)
       .then(response => {
         if (isMounted) {
           setOrders(response.data)

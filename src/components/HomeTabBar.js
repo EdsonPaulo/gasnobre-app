@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import { Fontisto } from '@expo/vector-icons'
 
 const { width } = Dimensions.get("window")
 
@@ -19,7 +19,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
       borderTopColor: colors.borderColor,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
-      padding: 5,
+      paddingHorizontal: 5,
       elevation: 8
     }}>
       {
@@ -48,13 +48,13 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
 
           let iconName
           if (route.name === 'homeStack')
-            iconName = 'ios-home'
+            iconName = 'home'
           else if (route.name === 'orderStack')
-            iconName = 'ios-grid'
+            iconName = 'prescription'
           else if (route.name === 'profileStack')
-            iconName = 'ios-person'
-          else if (route.name === 'productStack')
-            iconName = 'grid'
+            iconName = 'person'
+          else if (route.name === 'storeStack')
+            iconName = 'shopping-store'
 
           return (
             <TouchableOpacity key={route.key}
@@ -71,8 +71,12 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Ionicons name={iconName} style={{ color: isFocused ? colors.primary : colors.grayDark }} size={20} />
-                <Text style={{ fontSize: fonts.small, color: isFocused ? colors.primary : colors.grayDark }}>{label}</Text>
+                <Fontisto name={iconName} style={{ color: isFocused ? colors.primary : colors.grayDark, marginBottom: 2}} size={20} />
+                {
+                  !isFocused ? null :
+                    <Text style={{ fontSize: fonts.small, color: isFocused ? colors.primary : colors.grayDark }}>{label}</Text>
+                }
+
               </View>
             </TouchableOpacity>
           )

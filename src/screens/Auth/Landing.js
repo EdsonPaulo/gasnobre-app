@@ -26,9 +26,8 @@ const Landing = () => {
     }
 
 
-
     return (
-        <View style={[styles.background, { padding: metrics.doubleBaseMargin, }]}>
+        <SafeAreaView style={[styles.background, { padding: metrics.doubleBaseMargin, }]}>
             <StatusBar style="dark" barStyle='dark-content' backgroundColor={colors.white} />
 
             <Image source={require('../../assets/logo.png')} style={{ flex: 1.3 / 2, width: '100%'}} />
@@ -38,7 +37,7 @@ const Landing = () => {
                 <CustomButton title="Criar Conta" onPress={() => navigation.navigate('signup')} />
                 <Text style={styles.copyrightText}>c 2020 - GásNobre</Text>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 export default Landing

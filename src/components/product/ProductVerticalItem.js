@@ -8,28 +8,28 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors, metrics, fonts, general } from '../../constants'
 import PlaceholderImage from '../PlaceholderImage'
 
-const ProductVerticalItem = ({ item, handleQuantity }) => {
+const ProductVerticalItem = props => {
 
+    const { width, handleQuantity, ...item } = props
     const [quantity, setQuantity] = useState(0)
-
-    const containerWidth = 160
 
     const changeQuantity = (add) => {
         let auxQuantity = add ? (quantity + 1) : (quantity - 1)
         setQuantity(auxQuantity)
-        handleQuantity(auxQuantity, item)
+        handleQuantity(auxQuantity, item, (add === true))
     }
 
     return (
-        <View style={[general.card, styles.container, { width: containerWidth }]}>
+        <View style={[general.card, styles.container, { width }]}>
 
             <View style={styles.productImageContainer}>
                 <PlaceholderImage style={styles.productImage}
                     source={item.image ? { uri: item.image } : require('../../assets/noimage.png')} />
             </View>
 
-            <View style={{ height: "50%", justifyContent: "space-between", alignItems: "center" }}>
-                <Text style={styles.title}>{item.title}</Text>
+            <View style={styles.infoContainer}>
+                <Text style={styles.title}>{item.title} - {item.weight}</Text>
+                <Text style={styles.description}>6 garrafas de 5 litros</Text>
 
                 <Text style={styles.price}>
                     {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(item.price)}
@@ -41,19 +41,19 @@ const ProductVerticalItem = ({ item, handleQuantity }) => {
                             <View style={{ justifyContent: "center", alignItems: "center" }}>
                                 <TouchableOpacity style={[styles.btn, { backgroundColor: colors.primaryDark }]}
                                     onPress={() => changeQuantity(true)}>
-                                    <MaterialCommunityIcons size={20} color="#fff" name="plus" />
+                                    <MaterialCommunityIcons size={18} color="#fff" name="plus" />
                                 </TouchableOpacity>
                             </View>
                             :
                             <View style={styles.btnContainer}>
                                 <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => changeQuantity(false)}>
-                                    <MaterialCommunityIcons size={20} color={colors.primaryDark} name="minus" />
+                                    <MaterialCommunityIcons size={18} color={colors.primaryDark} name="minus" />
                                 </TouchableOpacity>
 
                                 <Text style={{ fontSize: 14, color: "#fff", marginHorizontal: 20 }}>{quantity}</Text>
 
                                 <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => changeQuantity(true)}>
-                                    <MaterialCommunityIcons size={20} color={colors.primaryDark} name="plus" />
+                                    <MaterialCommunityIcons size={18} color={colors.primaryDark} name="plus" />
                                 </TouchableOpacity>
                             </View>
                     }
@@ -65,9 +65,8 @@ const ProductVerticalItem = ({ item, handleQuantity }) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 160,
-        height: 240,
-        marginVertical: metrics.smallMargin,
+        height: 250,
+        marginVertical: 7,
         marginHorizontal: metrics.baseMargin,
         justifyContent: 'space-between',
         maxWidth: 200,
@@ -75,27 +74,40 @@ const styles = StyleSheet.create({
     },
     productImageContainer: {
         width: '100%',
-        height: "50%"
+        height: "50%",
     },
     productImage: {
         width: '100%',
         height: '100%'
     },
+    infoContainer: {
+        height: "50%",
+        width: '100%',
+        justifyContent: "center",
+        alignItems: "center"
+    },
     title: {
-        fontSize: 14,
+        fontSize: 13,
         textTransform: 'capitalize',
         textAlign: 'center',
         //fontFamily: 'Lato',
     },
+    description: {
+        fontSize: 11,
+        color: colors.grayDark,
+        textAlign: 'center',
+        marginVertical: 8,
+        //fontFamily: 'Lato',
+    },
     price: {
-        fontSize: 15,
+        fontSize: 13,
         color: colors.primaryDark,
         fontWeight: 'bold',
-        marginTop: 2,
+        marginBottom: 8,
     },
     btnContainer: {
         flexDirection: "row",
-        height: 25,
+        height: 20,
         backgroundColor: colors.primaryDark,
         borderRadius: 20,
         justifyContent: "space-between",
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15
     },
     btn: {
-        backgroundColor: "#fff", width: 25, height: 25,
+        backgroundColor: "#fff", width: 20, height: 20,
         borderRadius: 30,
         elevation: 3,
         justifyContent: "center",
