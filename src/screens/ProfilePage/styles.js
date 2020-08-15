@@ -47,9 +47,8 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontFamily: 'RobotoCondensed_400Regular',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: metrics.smallMargin,
     },
     userDetails: {
         fontFamily: 'RobotoCondensed_400Regular',

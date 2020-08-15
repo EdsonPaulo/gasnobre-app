@@ -8,8 +8,11 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     ScrollView,
-    Dimensions
+    Dimensions,
 } from 'react-native'
+
+import { PanGestureHandler, State } from 'react-native-gesture-handler'
+import Animated from "react-native-reanimated" 
 
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -17,10 +20,9 @@ import { Modalize } from 'react-native-modalize'
 
 import { Entypo } from '@expo/vector-icons'
 
-import { HeaderBar, ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
+import { ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
 import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 const data = require("../../services/mock/mock.json")
 
@@ -152,7 +154,7 @@ export default index = () => {
 
     const renderCart = () => (
         <View style={{ margin: 15, textAlign: "center" }}>
-            <Text style={{textAlign: "center", marginVertical: 15}}>SELECIONOU {cartSize} PRODUTO(S)</Text>
+            <Text style={{ textAlign: "center", marginVertical: 15 }}>SELECIONOU {cartSize} PRODUTO(S)</Text>
             {
                 cart.map(product => (
                     <View key={product.id} style={{
@@ -162,12 +164,32 @@ export default index = () => {
                         borderRadius: metrics.baseRadius,
                         marginBottom: metrics.smallMargin
                     }}>
-                        <Text style={{textAlign: "center"}}>{product.title} {product.weight} (x{product.quantity}) =  { transformPrice(product.price * product.quantity)}</Text>
+                        <Text style={{ textAlign: "center" }}>{product.title} {product.weight} (x{product.quantity}) =  {transformPrice(product.price * product.quantity)}</Text>
                     </View>
                 ))
             }
         </View>
     )
+
+    const translate = useRef(new Animated.Value()).current
+    
+    const onGestureEvent = Animated.event([
+        {
+            nativeEvent: {
+                translationX: translate.x,
+                translationY: translate.y,
+            }
+        }
+    ])
+
+    const onHandlerStateChange = event => {
+        if(event.nativeEvent.oldState === State.ACTIVE){
+            Animated.spring(translate, {
+                toValue: {x: 0, y: 0},
+                duration: 1000
+            }).start()
+        }
+    }
 
     if (!interactionsComplete) { return <LoadingSpin /> }
 
@@ -177,12 +199,22 @@ export default index = () => {
                 {renderProductsList()}
                 {
                     cart.length == 0 ? null :
-                        <TouchableOpacity onPress={openCartModal} activeOpacity={0.7}
-                            style={[styles.fabPosition, styles.fabBagButton]}>
-                            <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
-                                <Text style={{ color: "#fff" }}>{cartSize}</Text>
-                            </View>
-                            <Entypo name="shopping-bag" color="#fff" size={25} />
+                        <TouchableOpacity onPress={openCartModal} activeOpacity={0.7}>
+                            <PanGestureHandler onGestureEvent={onGestureEvent} onHandlerStateChange={onHandlerStateChange}>
+
+                                <Animated.View style={[styles.fabPosition, styles.fabBagButton, {
+                                    transform: [{
+                                        translateX: translate.x,
+                                        translateY: translate.y
+                                    }]
+                                }]}>
+                                    <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
+                                        <Text style={{ color: "#fff" }}>{cartSize}</Text>
+                                    </View>
+                                    <Entypo name="shopping-bag" color="#fff" size={25} />
+                                </Animated.View>
+                            </PanGestureHandler>
+
                         </TouchableOpacity>
                 }
                 <Modalize ref={modalizeRef} rootStyle={{ elevation: 3 }} modalHeight={height - 200}

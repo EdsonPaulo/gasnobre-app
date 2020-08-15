@@ -29,11 +29,11 @@ export default index = () => {
 
             <View style={styles.userContainer}>
                 <View style={styles.avatar}>
-                    <Text style={{ fontSize: 20, color: "#fff" }}>{user?.initials}</Text>
+                    <Text style={{ fontSize: 20, color: "#fff" }}>{user?.initials || "EP"}</Text>
                 </View>
                 <View style={styles.user}>
-                    <Text style={styles.userName}>{user?.name}</Text>
-                    <Text style={styles.userDetails}>{user?.phone}</Text>
+                    <Text style={styles.userName}>{user?.name || "Edson Paulo"}</Text>
+                    <Text style={styles.userDetails}>{user?.phone || "942 682 194"}</Text>
                 </View>
             </View>
 
