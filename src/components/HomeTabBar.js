@@ -15,11 +15,8 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
       height: metrics.tabBarHeight,
       backgroundColor: colors.white,
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       borderTopColor: colors.borderColor,
-      borderTopRightRadius: 25,
-      borderTopLeftRadius: 25,
-      paddingHorizontal: 5,
       elevation: 8
     }}>
       {

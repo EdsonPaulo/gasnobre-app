@@ -19,7 +19,7 @@ export default CustomInput = props => {
     paddingHorizontal: metrics.baseMargin,
     elevation: raised ? 5 : 0,
     width: '100%',
-    height: 45,
+    height: 50,
     backgroundColor: colors.grayLight,
     borderWidth: 1,
     borderColor: hasError ? 'red' : borderColor,
@@ -74,7 +74,6 @@ export default CustomInput = props => {
           placeholderTextColor={colors.grayDark}
           keyboardType={inputType}
           secureTextEntry={secureText}
-          //onChangeText={value => props.onChange(value)}
           onFocus={() => setBorderColor(colors.primary)}
           onBlur={() => setBorderColor(colors.borderColor)}
           onChange={props.onChangeNative}

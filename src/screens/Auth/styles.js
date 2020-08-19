@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         backgroundColor: colors.white,
-        padding: metrics.doubleBaseMargin
+        padding: metrics.doubleBaseMargin,
+        justifyContent: "space-between"
     },
     iconHeader: {
         color: colors.grayDark2,
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: colors.grayDark2,
         marginHorizontal: 0,
-        marginTop: metrics.smallMargin
+        marginTop: metrics.baseMargin
     },
     bottomText: {
         marginTop: metrics.smallMargin,

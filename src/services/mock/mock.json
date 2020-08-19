@@ -9,7 +9,6 @@
       "price": 4500,
       "image": "https://shop.roque-online.com/wp-content/uploads/2019/07/6l-small.png",
       "category": "2",
-      "type": "agua",
       "weight": "2L",
       "active": true,
       "brand": "Pura",
@@ -22,7 +21,6 @@
       "title": "Água Perla",
       "weight": "5L",
       "price": 500,
-      "type": "agua",
       "image": "https://i1.wp.com/zungueiraonline.com/wp-content/uploads/2020/06/%C3%81gua-Pura-600ml.png",
       "category": "2",
       "active": true,
@@ -35,7 +33,6 @@
       "id": 3,
       "title": "Água Pura",
       "weight": "2L",
-      "type": "agua",
       "price": 4500,
       "image": "https://www.atlantiswater.com.au/wp-content/uploads/2017/05/600ml.png",
       "category": "2",
@@ -49,7 +46,6 @@
       "id": 4,
       "title": "Água Pura",
       "weight": "2L",
-      "type": "agua",
       "price": 4000,
       "image": "https://www.atlantiswater.com.au/wp-content/uploads/2017/05/bottle.png",
       "category": "2",
@@ -63,7 +59,6 @@
       "id": 5,
       "title": "Água Bela Vida",
       "weight": "1L",
-      "type": "agua",
       "price": 3000,
       "image": "https://www.soba-store.com/wp-content/uploads/2019/09/Agua-Perla-5L-600x1209.png",
       "category": "2",
@@ -72,20 +67,7 @@
       "units": 6,
       "createdAt": "",
       "updatedAt": ""
-    },
-    {
-      "id": 6,
-      "title": "Água Perla",
-      "price": 1500,
-      "image": "https://lh3.googleusercontent.com/proxy/iSVKxymidl-DPYF6gbyLZL6RwC9aO-UfJZcFu2ChKF4yKvHhEgkvccaShYYv9o47FCAIvd5WEJiCocUFzLFKJc83WZI04eohqNI",
-      "category": null,
-      "type": "gas",
-      "weight": "3Kg",
-      "active": true,
-      "brand": null,
-      "units": 1,
-      "createdAt": "",
-      "updatedAt": ""
     }
+  
   ]
 }

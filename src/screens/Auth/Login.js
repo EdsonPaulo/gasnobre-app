@@ -3,6 +3,8 @@ import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform } f
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, colors } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
@@ -49,24 +51,28 @@ const Login = () => {
 
 
     return (
-        <KeyboardAvoidingView style={styles.background} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+        <SafeAreaView style={styles.background}>
             <StatusBar style='dark' backgroundColor={colors.white} />
+
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Icon style={styles.iconHeader} name='long-arrow-left' />
             </TouchableOpacity>
 
-            <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
+            <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+                <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
 
-                <Text style={[styles.title, {fontFamily: 'Amarante_400Regular'}]}>Entrar na Conta</Text>
+                    <Text style={[styles.title, { fontFamily: 'Amarante_400Regular' }]}>Entrar na Conta</Text>
 
-                <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
-                    <CustomInput label="Telefone" style={{ marginBottom: metrics.baseMargin }} name="phone" type="phone" placeholder="9XXXXXXXX" onChangeText={value => setPhone(value)} />
-                    <CustomInput label="Senha" name="password" type="password" placeholder="**********" onChangeText={value => setPassword(value)} />
-                    <CustomButton style={{ marginTop: 20 }} loading={loading} primary icon="ios-arrow-round-forward" title="Entrar" onPress={signIn} />
+                    <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
+                        <CustomInput label="Telefone" style={{ marginBottom: metrics.baseMargin }} name="phone" type="phone" placeholder="9XXXXXXXX" onChangeText={value => setPhone(value)} />
+                        <CustomInput label="Senha" name="password" type="password" placeholder="**********" onChangeText={value => setPassword(value)} />
+                        <CustomButton style={{ marginTop: 20 }} loading={loading} primary icon="ios-arrow-round-forward" title="Entrar" onPress={signIn} />
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
 
-            <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
+
+            <View style={{ width: '100%', marginVertical: metrics.doubleBaseMargin }}>
                 <TouchableOpacity onPress={() => navigation.navigate('signup')}>
                     <Text style={styles.bottomText}>Não possui uma conta?
                     <Text style={{ fontWeight: 'bold' }}>  Criar Conta</Text></Text>
@@ -76,7 +82,8 @@ const Login = () => {
                     <Text style={[styles.bottomText, { marginTop: metrics.doubleBaseMargin }]}>Esqueceu a sua senha?</Text>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
+
     )
 }
 export default Login

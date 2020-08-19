@@ -9,10 +9,11 @@ import {
     TouchableOpacity,
     ScrollView,
     Dimensions,
+    Animated
 } from 'react-native'
 
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
-import Animated from "react-native-reanimated" 
+//import Animated from "react-native-reanimated" 
 
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -25,7 +26,6 @@ import { colors, metrics, fonts, general } from '../../constants'
 import api from '../../services/api'
 
 const data = require("../../services/mock/mock.json")
-
 
 export default index = () => {
 
@@ -42,25 +42,10 @@ export default index = () => {
     const [cartSize, setCartSize] = useState(0)
     const [cart, setCart] = useState([])
 
-    const [categories, setCategories] = useState([{ id: null, name: 'Tudo' }])
-    const [categoryId, setCategoryId] = useState(81)
-
-    const openCartModal = () => {
-        modalizeRef.current?.open()
-    }
+    const openCartModal = () => modalizeRef.current?.open()
+    
 
     const transformPrice = value => Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value)
-
-    const getProductCategories = () => {
-        api.get('/products/categories')
-            .then(response => {
-                if (isMounted) {
-                    setCategories(response.data.filter(category => category.count > 0))
-                    setCategoryId(route.params?.categoryId || categoryId)
-                }
-            })
-            .catch(err => { console.log(err + ' ===> erro') })
-    }
 
     const getProducts = () => {
         api.get('/products')
@@ -83,26 +68,6 @@ export default index = () => {
         return () => isMounted = false
     }, [])
 
-
-    const renderCategoryList = () => {
-        const CategoryItem = (category) => (
-            <TouchableOpacity activeOpacity={0.8} onPress={() => setCategoryId(category.id)}
-                style={[styles.categoryItem, {
-                    borderColor: (categoryId === category.id) ? colors.white : 'transparent',
-                }]}>
-                <Text style={styles.categoryItemText}>{category.name} ({category.count || 0})</Text>
-            </TouchableOpacity>
-        )
-        return (
-            <FlatList horizontal bounces
-                showsHorizontalScrollIndicator={false}
-                data={categories}
-                contentContainerStyle={{}}
-                renderItem={({ item }) => <CategoryItem {...item} />}
-                keyExtractor={(item, index) => index.toString()}
-            />
-        )
-    }
 
     const handleQuantity = (quantity, item, increment) => {
         const updatedItemIndex = cart.findIndex(product => product.id === item.id)
@@ -171,8 +136,8 @@ export default index = () => {
         </View>
     )
 
-    const translate = useRef(new Animated.Value()).current
-    
+    const translate = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current
+
     const onGestureEvent = Animated.event([
         {
             nativeEvent: {
@@ -180,13 +145,14 @@ export default index = () => {
                 translationY: translate.y,
             }
         }
-    ])
+    ], { useNativeDriver: false })
 
     const onHandlerStateChange = event => {
-        if(event.nativeEvent.oldState === State.ACTIVE){
-            Animated.spring(translate, {
-                toValue: {x: 0, y: 0},
-                duration: 1000
+        if (event.nativeEvent.oldState === State.ACTIVE) {
+            Animated.timing(translate, {
+                toValue: { y: 0 },
+                duration: 2000,
+                useNativeDriver: true
             }).start()
         }
     }
@@ -199,22 +165,11 @@ export default index = () => {
                 {renderProductsList()}
                 {
                     cart.length == 0 ? null :
-                        <TouchableOpacity onPress={openCartModal} activeOpacity={0.7}>
-                            <PanGestureHandler onGestureEvent={onGestureEvent} onHandlerStateChange={onHandlerStateChange}>
-
-                                <Animated.View style={[styles.fabPosition, styles.fabBagButton, {
-                                    transform: [{
-                                        translateX: translate.x,
-                                        translateY: translate.y
-                                    }]
-                                }]}>
-                                    <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
-                                        <Text style={{ color: "#fff" }}>{cartSize}</Text>
-                                    </View>
-                                    <Entypo name="shopping-bag" color="#fff" size={25} />
-                                </Animated.View>
-                            </PanGestureHandler>
-
+                        <TouchableOpacity onPress={()=> openCartModal()} activeOpacity={0.7} style={[styles.fabPosition, styles.fabBagButton]}>
+                            <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
+                                <Text style={{ color: "#fff" }}>{cartSize}</Text>
+                            </View>
+                            <Entypo name="shopping-bag" color="#fff" size={25} />
                         </TouchableOpacity>
                 }
                 <Modalize ref={modalizeRef} rootStyle={{ elevation: 3 }} modalHeight={height - 200}
@@ -250,8 +205,6 @@ const styles = StyleSheet.create({
     },
     scene: {
         flex: 1,
-        //justifyContent: 'center',
-        //alignItems: 'center',
     },
     fabPosition: {
         position: "absolute",

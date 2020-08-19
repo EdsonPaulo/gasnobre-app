@@ -1,5 +1,5 @@
 const colors = {
-    bgColor: '#FBFBFB',
+    bgColor: '#FCFCFC',
     borderColor: '#E1E1E1',
 
     primaryDark: '#0D64A4',

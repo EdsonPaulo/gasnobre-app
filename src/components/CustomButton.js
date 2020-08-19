@@ -3,12 +3,13 @@ import { View, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'rea
 import Icon from "@expo/vector-icons/Ionicons"
 
 import { colors, metrics, fonts } from '../constants'
+import { RectButton } from 'react-native-gesture-handler'
 
 const CustomButton = props => {
     const { rounded, primary, title, onPress, style, loading, icon } = props
 
     return (
-        <TouchableOpacity activeOpacity={0.6} disabled={loading || false} onPress={onPress} style={[styles.buttonContainer, style, {
+        <RectButton disabled={loading || false} onPress={onPress} style={[styles.buttonContainer, style, {
             backgroundColor: primary ? colors.primary : colors.grayLight,
             borderRadius: rounded ? metrics.formInputRadius : 8,
         }]}>
@@ -24,7 +25,7 @@ const CustomButton = props => {
                         <Icon name={icon} size={30} color={primary ? colors.white : colors.grayDark2} />
                     </View>
             }
-        </TouchableOpacity>
+        </RectButton>
     )
 }
 
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        elevation: 2,
-        height: 45,
+        elevation: 3,
+        height: 50,
         marginVertical: metrics.baseMargin,
         borderColor: colors.primaryDark,
     },

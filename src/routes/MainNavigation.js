@@ -31,14 +31,14 @@ const stackScreenGlobalOptions = {
   headerTitleStyle: { fontSize: 18, fontFamily: "Amarante_400Regular" },
   headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.white,
-  headerStyle: { backgroundColor: colors.primary, height: 60 }
+  headerStyle: { backgroundColor: colors.primary, height: 50 }
 }
 
 const HomeTabs = () => {
   const Tabs = createBottomTabNavigator()
   return (
     <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
-      <Tabs.Screen name="homeStack" component={HomeStack} options={{ tabBarLabel: 'início' }} />
+      <Tabs.Screen name="homeStack" component={HomePage} options={{ tabBarLabel: 'início' }} />
       <Tabs.Screen name="storeStack" component={StoreStack} options={{ tabBarLabel: 'Produtos', tabBarVisible: false }} />
       <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Pedidos' }} />
       <Tabs.Screen name="profileStack" component={ProfileStack} options={{ tabBarLabel: 'Perfil' }} />
@@ -67,7 +67,7 @@ const HomeStack = () => {
       <Stack.Screen name="home" options={{
         headerTitleAlign: "left",
         headerTitleStyle: { fontSize: 30, fontFamily: "Amarante_400Regular" },
-        headerTitle: "Gás Nobre",
+        headerTitle: "Água Nobre",
       }} component={HomePage} />
     </Stack.Navigator>
   )

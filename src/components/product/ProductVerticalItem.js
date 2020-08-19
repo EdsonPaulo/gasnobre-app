@@ -87,27 +87,27 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     title: {
-        fontSize: 13,
+        fontSize: 14,
         textTransform: 'capitalize',
         textAlign: 'center',
         fontFamily: 'RobotoCondensed_400Regular',
     },
     description: {
-        fontSize: 11,
+        fontSize: 12,
         color: colors.grayDark,
         textAlign: 'center',
         marginVertical: 8,
         fontFamily: 'RobotoCondensed_400Regular',
     },
     price: {
-        fontSize: 13,
+        fontSize: 14,
         color: colors.primaryDark,
         fontWeight: 'bold',
         marginBottom: 8,
     },
     btnContainer: {
         flexDirection: "row",
-        height: 20,
+        height: 30,
         backgroundColor: colors.primaryDark,
         borderRadius: 20,
         justifyContent: "space-between",
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15
     },
     btn: {
-        backgroundColor: "#fff", width: 20, height: 20,
+        backgroundColor: "#fff", width: 30, height: 30,
         borderRadius: 30,
         elevation: 3,
         justifyContent: "center",

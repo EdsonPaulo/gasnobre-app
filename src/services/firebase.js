@@ -7,10 +7,10 @@ import "firebase/firestore"
 
 const firebaseConfig = {
     apiKey: "AIzaSyBPWuICePw26MQgTHBosbzXn7pfMSLfHS4",
-    authDomain: "gasnobre-c0671.firebaseapp.com",
-    databaseURL: "https://gasnobre-c0671.firebaseio.com",
-    projectId: "gasnobre-c0671",
-    storageBucket: "gasnobre-c0671.appspot.com",
+    authDomain: "aguanobre-c0671.firebaseapp.com",
+    databaseURL: "https://aguanobre-c0671.firebaseio.com",
+    projectId: "aguanobre-c0671",
+    storageBucket: "aguanobre-c0671.appspot.com",
     messagingSenderId: "477628288432",
     appId: "1:477628288432:web:a3960e2f80139b5f685a75",
     measurementId: "G-9F8ZXG21XY"
