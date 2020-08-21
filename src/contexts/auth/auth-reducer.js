@@ -9,6 +9,7 @@ export const authReducer = (prevState, action) => {
       return {
         ...prevState,
         token: action.token,
+        role: action.role,
         user: action.user,
         isLogged: !!action.token,
         isLoading: false
@@ -17,6 +18,7 @@ export const authReducer = (prevState, action) => {
       return {
         ...prevState,
         user: action.user,
+        role: action.role,
         token: action.token,
         isLogged: true
       }
@@ -24,6 +26,7 @@ export const authReducer = (prevState, action) => {
       return {
         ...prevState,
         user: null,
+        role: null,
         token: null,
         isLogged: false
       }

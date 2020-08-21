@@ -22,9 +22,9 @@ const colors = {
     lightDark: '#aaa',
 
     // ACTIONS
-    success: '#3adb76',
-    warning: '#ffae00',
-    alert: '#cc4b37',
+    success: 'darkgreen',
+    warning: 'darkorange',
+    alert: 'darkred',
 
     // GRAYSCALE
     grayLight: '#F0F2F5',

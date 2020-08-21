@@ -22,7 +22,9 @@ import {
   Checkout,
   ProductsPage,
   OrderDetails,
-  PlansPage
+  PlansPage,
+
+  HomeAdmin
 } from '../screens'
 
 const stackScreenGlobalOptions = {
@@ -53,9 +55,9 @@ const MainNavigation = () => {
       <Stack.Screen name="homeTabs" component={HomeTabs} options={{ headerShown: false }} />
       <Stack.Screen name="address" component={AddressPage} options={{ headerTitle: "Meus Endereços" }} />
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
-      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais" }} />
-      <Stack.Screen name="plans" component={PlansPage} options={{ headerTitle: "Planos de Serviço" }} />
+      <Stack.Screen name="kamba" component={PlansPage} options={{ headerTitle: "Plano Kamba" }} />
       <Stack.Screen name="checkout" component={Checkout} options={{ headerTitle: "Fazer Pedido" }} />
+      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais", headerStyle: {elevation: 0, backgroundColor: colors.primary, height: 50 } }} />
     </Stack.Navigator>
   )
 }
@@ -106,11 +108,28 @@ const AuthNavigation = () => {
     <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal", }}>
       <AuthStack.Screen name="landing" component={Landing} />
       <AuthStack.Screen name="welcome" component={Welcome} />
-
       <AuthStack.Screen name="login" component={Login} />
       <AuthStack.Screen name="signup" component={SignUp} />
       <AuthStack.Screen name="forgot" component={Forgot} />
     </AuthStack.Navigator>
   )
 }
-export { MainNavigation, AuthNavigation }
+
+const AdminNavigation = () => {
+  const AdminStack = createStackNavigator()
+  return (
+    <AdminStack.Navigator screenOptions={{
+      ...stackScreenGlobalOptions,
+      headerStyle: { backgroundColor: colors.dark, height: 50 }
+    }}>
+      <AdminStack.Screen name="home" component={HomeAdmin} />
+      <AdminStack.Screen name="customers" component={HomeAdmin} />
+      <AdminStack.Screen name="customerDetails" component={HomeAdmin} />
+      <AdminStack.Screen name="products" component={HomeAdmin} />
+      <AdminStack.Screen name="productDetails" component={HomeAdmin} />
+      <AdminStack.Screen name="orders" component={HomeAdmin} />
+      <AdminStack.Screen name="orderDetails" component={OrderDetails} />
+    </AdminStack.Navigator>
+  )
+}
+export { MainNavigation, AuthNavigation, AdminNavigation }

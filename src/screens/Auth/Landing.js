@@ -28,8 +28,6 @@ const Landing = () => {
 
     return (
         <SafeAreaView style={[styles.background, { padding: metrics.doubleBaseMargin, }]}>
-            <StatusBar style="dark" barStyle='dark-content' backgroundColor={colors.white} />
-
             <Image resizeMode="contain" source={require('../../assets/logo.png')} style={{ flex: 1.3 / 2, width: '100%'}} />
 
             <View style={{ width: '100%', flex: 0.7 / 2, justifyContent: "flex-end", paddingHorizontal: metrics.baseMargin }}>
@@ -37,6 +35,7 @@ const Landing = () => {
                 <CustomButton title="Criar Conta" onPress={() => navigation.navigate('signup')} />
                 <Text style={styles.copyrightText}>c 2020 - ÁguaNobre</Text>
             </View>
+            <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />    
         </SafeAreaView>
     )
 }

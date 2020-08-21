@@ -1,8 +1,9 @@
 import React, { } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, StatusBar } from 'react-native'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar'
 
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, colors } from '../../constants'
@@ -14,7 +15,6 @@ const Forgot = () => {
 
     return (
         <SafeAreaView style={styles.background}>
-            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Icon style={styles.iconHeader} name='long-arrow-left' />
             </TouchableOpacity>
@@ -32,6 +32,7 @@ const Forgot = () => {
                 </View>
             </KeyboardAvoidingView>
             <View />
+            <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />    
         </SafeAreaView>
     )
 }

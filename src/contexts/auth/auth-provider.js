@@ -10,32 +10,22 @@ const AuthProvider = props => {
 
   const [authState, dispatch] = useReducer(authReducer, {
     user: null,
+    role: null,
     token: null,
     isLogged: false,
     isLoading: true
   })
 
-  const checkLoggedState = async () => {
-    try {
-      const token = await AsyncStorage.getItem(constants.TOKEN_KEY)
-      console.log('esta logado?: ' + !!token)
-      if (token)
-        return true
-      return false
-    } catch (error) {
-      throw new Error(error)
-    }
-  }
-
-  const login = async (user, token) => {
+  const login = async (user, token, role) => {
     try {
       await AsyncStorage.multiSet([
         [constants.USER_KEY, JSON.stringify(user)],
-        [constants.TOKEN_KEY, token]
+        [constants.TOKEN_KEY, token],
+        [constants.ROLE_KEY, role]
       ])
       console.log('logou: ' + authState.isLogged)
       //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-      dispatch({ type: LOGIN, user, token })
+      dispatch({ type: LOGIN, user, token, role })
     } catch (error) {
       throw new Error(error)
     }
@@ -46,6 +36,7 @@ const AuthProvider = props => {
       //REMOVE DATA
       await AsyncStorage.multiRemove([
         constants.TOKEN_KEY,
+        constants.ROLE_KEY,
         constants.USER_KEY
       ])
       //  delete axios.defaults.headers.common["Authorization"]
@@ -59,23 +50,25 @@ const AuthProvider = props => {
     let user, token
     try {
       token = await AsyncStorage.getItem(constants.TOKEN_KEY)
+      role = await AsyncStorage.getItem(constants.ROLE_KEY)
       user = await AsyncStorage.getItem(constants.USER_KEY)
     } catch (e) {
       // Restoring token failed
     }
 
     // After restoring token, we may need to validate it in production apps
-    dispatch({ type: RETRIEVE_TOKEN, token, user })
+    dispatch({ type: RETRIEVE_TOKEN, token, user, role })
   }
 
-  const register = async (user, token) => {
+  const register = async (user, token, role) => {
     try {
       await AsyncStorage.multiSet([
         [constants.USER_KEY, JSON.stringify(user)],
-        [constants.TOKEN_KEY, token]
+        [constants.TOKEN_KEY, token],
+        [constants.ROLE_KEY, role],
       ])
       //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-      dispatch({ type: REGISTER, user, token })
+      dispatch({ type: REGISTER, user, token, role })
     } catch (error) {
       throw new Error(error)
     }
@@ -86,6 +79,7 @@ const AuthProvider = props => {
     return {
       user: authState.user,
       token: authState.token,
+      role: authState.role,
       isLogged: !!authState.token,
       isLoading: authState.isLoading,
 
@@ -93,7 +87,6 @@ const AuthProvider = props => {
       logout: logout,
       register: register,
       retrieveToken: retrieveToken,
-      checkLoggedState: checkLoggedState
     }
   })
 

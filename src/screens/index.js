@@ -1,16 +1,27 @@
 import { Welcome, Landing, Login, SignUp, Forgot } from './Auth'
-import HomePage from './HomePage'
-import Checkout from './Checkout'
-import Orders from './Orders'
-import ProfilePage from './ProfilePage'
-import ProfileDetails from './ProfileDetails'
-import ProductsPage from './ProductsPage'
-import PlansPage from './PlansPage'
-import OrderDetails from './OrderDetails'
-import AddressPage from './AddressPage'
 
-export { 
+import { 
+    HomeAdmin
+} from './Admin'
+
+import {
+    HomePage,
+    Checkout,
+    Orders,
+    ProfilePage,
+    PlansPage,
+    AddressPage,
+    ProductsPage,
+    OrderDetails,
+    ProfileDetails
+} from './Customer'
+
+export {
     Welcome, Landing, Login, SignUp, Forgot,
+
     HomePage, OrderDetails, PlansPage,
-    ProductsPage, ProfilePage, ProfileDetails, Checkout, Orders, AddressPage
+    ProductsPage, ProfilePage, ProfileDetails, 
+    Checkout, Orders, AddressPage,
+
+    HomeAdmin
 }

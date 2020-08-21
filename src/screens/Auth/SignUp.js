@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform, StatusBar } from 'react-native'
+import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar'
 
 import AuthContext from '../../contexts/auth/auth-context'
 import { CustomButton, CustomInput } from '../../components'
@@ -44,8 +45,6 @@ const SignUp = () => {
 
     return (
         <SafeAreaView style={styles.background}>
-            <StatusBar barStyle='dark-content' backgroundColor={colors.white} />
-
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Icon style={styles.iconHeader} name='long-arrow-left' />
             </TouchableOpacity>
@@ -73,6 +72,7 @@ const SignUp = () => {
                     </Text>
                 </TouchableOpacity>
             </View>
+            <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />    
         </SafeAreaView>
     )
 }

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar'
 
 import { CustomButton, CustomInput } from '../../components'
 import { metrics, colors } from '../../constants'
@@ -52,8 +52,6 @@ const Login = () => {
 
     return (
         <SafeAreaView style={styles.background}>
-            <StatusBar style='dark' backgroundColor={colors.white} />
-
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Icon style={styles.iconHeader} name='long-arrow-left' />
             </TouchableOpacity>
@@ -82,8 +80,8 @@ const Login = () => {
                     <Text style={[styles.bottomText, { marginTop: metrics.doubleBaseMargin }]}>Esqueceu a sua senha?</Text>
                 </TouchableOpacity>
             </View>
+            <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />    
         </SafeAreaView>
-
     )
 }
 export default Login
