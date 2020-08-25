@@ -12,9 +12,9 @@ export default Router = () => {
     //isLogged, isLoading, 
     retrieveToken } = useContext(AuthContext)
 
-  const role = "customer"
+  const role = "admin"
   const isLogged = true
-  const isLoading = true
+  const isLoading = false
 
   useEffect(() => {
     const bootstrapAsync = async () => {

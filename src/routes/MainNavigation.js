@@ -57,7 +57,7 @@ const MainNavigation = () => {
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
       <Stack.Screen name="kamba" component={PlansPage} options={{ headerTitle: "Plano Kamba" }} />
       <Stack.Screen name="checkout" component={Checkout} options={{ headerTitle: "Fazer Pedido" }} />
-      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais", headerStyle: {elevation: 0, backgroundColor: colors.primary, height: 50 } }} />
+      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais", headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 50 } }} />
     </Stack.Navigator>
   )
 }
@@ -122,7 +122,7 @@ const AdminNavigation = () => {
       ...stackScreenGlobalOptions,
       headerStyle: { backgroundColor: colors.dark, height: 50 }
     }}>
-      <AdminStack.Screen name="home" component={HomeAdmin} />
+      <AdminStack.Screen name="home" options={{ headerTitle: "Água Nobre - Gestão" }} component={HomeAdmin} />
       <AdminStack.Screen name="customers" component={HomeAdmin} />
       <AdminStack.Screen name="customerDetails" component={HomeAdmin} />
       <AdminStack.Screen name="products" component={HomeAdmin} />

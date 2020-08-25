@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, ScrollView, AsyncStorage, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { general, metrics, constants, colors } from '../../constants'
-import { CustomButton, HeaderBar } from '../../components'
+import { general, metrics, constants, colors } from '../../../constants'
+import { CustomButton } from '../../../components'
 
 
 const AddressPage = () => {

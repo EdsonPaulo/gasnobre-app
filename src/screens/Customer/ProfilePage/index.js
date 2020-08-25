@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar'
 
-import { general, colors } from '../../constants'
-import AuthContext from '../../contexts/auth/auth-context'
+import { general, colors } from '../../../constants'
+import AuthContext from '../../../contexts/auth/auth-context'
 
 import styles from './styles'
 

@@ -21,7 +21,7 @@ import {
 import styles from './styles'
 
 import { colors, metrics, general, fonts, constants } from '../../../constants'
-import { HeaderBar, ProductHorizontalList, CategoryList, SwiperCards } from '../../../components'
+import { SwiperCards } from '../../../components'
 import { RectButton } from 'react-native-gesture-handler'
 
 const index = () => {
@@ -69,7 +69,7 @@ const index = () => {
 
                         <View style={{ width: 100, height: 50, }}>
                             <Image style={{ width: "100%", height: "100%" }}
-                                resizeMode="contain" source={require("../../assets/logo-transparent.png")} />
+                                resizeMode="contain" source={require("../../../assets/logo-transparent.png")} />
                         </View>
 
                         <TouchableOpacity onPress={() => { }}>

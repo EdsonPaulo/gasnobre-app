@@ -16,11 +16,11 @@ import { Modalize } from 'react-native-modalize'
 import { StatusBar } from 'expo-status-bar'
 import { Entypo } from '@expo/vector-icons'
 
-import { ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
-import { colors, metrics, fonts, general } from '../../constants'
-import api from '../../services/api'
+import { ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../../components'
+import { colors, metrics, fonts, general } from '../../../constants'
+import api from '../../../services/api'
 
-const data = require("../../services/mock/mock.json")
+const data = require("../../../services/mock/mock.json")
 
 export default index = () => {
 

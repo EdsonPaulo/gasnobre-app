@@ -6,12 +6,12 @@ import Icon from "@expo/vector-icons/FontAwesome5"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
-import authContext from '../../contexts/auth/auth-context'
+import authContext from '../../../contexts/auth/auth-context'
 
 import { StyleSheet } from 'react-native'
 
-import { colors, metrics, general, fonts, constants } from '../../constants'
-import api from '../../services/api'
+import { colors, metrics, general, fonts, constants } from '../../../constants'
+import api from '../../../services/api'
 
 export default index = () => {
 
@@ -19,35 +19,35 @@ export default index = () => {
   const { user } = useContext(authContext)
 
   return (
-    <SafeAreaView style={general.background}>
-      <View>
+    <SafeAreaView style={[general.background, { justifyContent: "center", padding: 25, alignItems: "center" }]}>
+      <View style={{ flexDirection: "row", margin: 5 }}>
         <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("orders")}>
-          <Icon name="box" style={styles.optionIcon} size={35} />
+          <Icon name="bullhorn" style={styles.optionIcon} size={35} />
           <Text bold>Pedidos</Text>
         </RectButton>
-        <RectButton style={[styles.option]} onPress={() => { }}>
-          <Icon name="handshake" style={styles.optionIcon} size={35} />
+        <RectButton style={[styles.option]} onPress={() => navigation.navigate("products")}>
+          <Icon name="store-alt" style={styles.optionIcon} size={35} />
           <Text bold>Produtos</Text>
         </RectButton>
       </View>
-      <View>
-        <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("solicitacoes")}>
-          <Icon name="bullhorn" style={styles.optionIcon} size={35} />
-          <Text bold>Fretes Disponíveis</Text>
+      <View style={{ flexDirection: "row", margin: 5 }}>
+        <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("plan")}>
+          <Icon name="handshake" style={styles.optionIcon} size={35} />
+          <Text bold>Plano Kamba</Text>
         </RectButton>
-        <RectButton style={[styles.option]} onPress={() => navigation.navigate("profile")}>
-          <Icon name="user-edit" style={styles.optionIcon} size={35} />
-          <Text bold>Meu Perfil</Text>
+        <RectButton style={[styles.option]} onPress={() => navigation.navigate("customers")}>
+          <Icon name="users" style={styles.optionIcon} size={35} />
+          <Text bold>Clientes</Text>
         </RectButton>
       </View>
-      <View>
+      <View style={{ flexDirection: "row", margin: 5 }}>
         <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("profile")}>
           <Icon name="cog" style={styles.optionIcon} size={35} />
           <Text bold>Configurações</Text>
         </RectButton>
         <View style={{ flex: 1 / 2 }} />
       </View>
-      <StatusBar style="dark" backgroundColor="#fff" translucent={false} />
+      <StatusBar style="light" backgroundColor={colors.dark} translucent={false} />
     </SafeAreaView>
   )
 }

@@ -5,8 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { Ionicons, Feather, FontAwesome5 } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar'
 
-import { CustomInput, CustomButton } from '../../components'
-import { colors, metrics, general } from '../../constants'
+import { CustomInput, CustomButton } from '../../../components'
+import { colors, metrics, general } from '../../../constants'
 import { RectButton } from 'react-native-gesture-handler'
 
 export default index = () => {

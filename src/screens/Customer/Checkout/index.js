@@ -6,9 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Picker } from '@react-native-community/picker'
 import { StatusBar } from 'expo-status-bar'
 
-import { colors, metrics, general, constants, fonts } from '../../constants'
-import { HeaderBar, CustomButton } from '../../components'
-import api from '../../services/api'
+import { colors, metrics, general, constants, fonts } from '../../../constants'
+import { HeaderBar, CustomButton } from '../../../components'
+import api from '../../../services/api'
 import styles from './styles'
 
 const { height } = Dimensions.get('window')

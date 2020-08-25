@@ -4,7 +4,7 @@ import { useRoute } from "@react-navigation/native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
-import { colors, metrics, general, fonts } from "../../constants"
+import { colors, metrics, general, fonts } from "../../../constants"
 
 export default index = () => {
 

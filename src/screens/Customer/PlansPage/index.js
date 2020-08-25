@@ -3,8 +3,8 @@ import { View, StyleSheet, ScrollView, AsyncStorage, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
-import { general, constants, colors } from '../../constants'
-import { CustomButton, HeaderBar } from '../../components'
+import { general, constants, colors } from '../../../constants'
+import { CustomButton, HeaderBar } from '../../../components'
 
 
 const Plan = () => {
