@@ -12,7 +12,7 @@ export default Router = () => {
     //isLogged, isLoading, 
     retrieveToken } = useContext(AuthContext)
 
-  const role = "admin"
+  const role = "customer"
   const isLogged = true
   const isLoading = false
 
