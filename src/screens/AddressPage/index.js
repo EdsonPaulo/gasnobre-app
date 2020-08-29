@@ -39,7 +39,6 @@ const AddressPage = () => {
     }
 
     useEffect(() => {
-        getAddress()
         return () => isMounted = false
     }, [])
 

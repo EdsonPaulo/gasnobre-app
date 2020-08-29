@@ -21,7 +21,8 @@
     ],
     "android": {
       "package": "com.gruponobre.deliverynobre",
-      "versionCode": 1
+      "versionCode": 1,
+      "useNextNotificationsApi": true
     },
     "ios": {
       "supportsTablet": true,

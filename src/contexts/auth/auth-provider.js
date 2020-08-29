@@ -47,12 +47,13 @@ const AuthProvider = props => {
 
   const retrieveToken = async () => {
     let user, token, role
-    try {
-      token = await AsyncStorage.getItem(constants.TOKEN_KEY)
-      role = await AsyncStorage.getItem(constants.ROLE_KEY)
+    try { 
       user = await AsyncStorage.getItem(constants.USER_KEY)
+      role = await AsyncStorage.getItem(constants.ROLE_KEY)
+      token = await AsyncStorage.getItem(constants.TOKEN_KEY)
     } catch (e) {
       // Restoring token failed
+      console.log(e)
     }
 
     // After restoring token, we may need to validate it in production apps

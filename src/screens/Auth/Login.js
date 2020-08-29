@@ -34,7 +34,7 @@ const Login = () => {
                 try {
                     const response = await api(null).post('/users/authenticate', { email, password })
                     if (response.data) 
-                        login(response.data.user, response.data?.token, response.data?.role)
+                        login({...response.data?.user, ...response.data?.customer}, response.data?.token, response.data?.role)
                 }
                 catch (error) {
                     console.log(error)
