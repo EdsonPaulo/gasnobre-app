@@ -33,7 +33,7 @@ const stackScreenGlobalOptions = {
   headerTitleStyle: { fontSize: 18, fontFamily: "Amarante_400Regular" },
   headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.white,
-  headerStyle: { backgroundColor: colors.primary, height: 50 }
+  headerStyle: { backgroundColor: colors.primary, height: 55 }
 }
 
 const HomeTabs = () => {
@@ -57,7 +57,7 @@ const MainNavigation = () => {
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
       <Stack.Screen name="kamba" component={PlansPage} options={{ headerTitle: "Plano Kamba" }} />
       <Stack.Screen name="checkout" component={Checkout} options={{ headerTitle: "Fazer Pedido" }} />
-      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais", headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 50 } }} />
+      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais", headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 55 } }} />
     </Stack.Navigator>
   )
 }
@@ -88,7 +88,7 @@ const ProfileStack = () => {
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="profile" options={{
         headerTitle: "Definições e Perfil",
-        headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 40 }
+        headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 55 }
       }} component={ProfilePage} />
     </Stack.Navigator>
   )
@@ -120,7 +120,7 @@ const AdminNavigation = () => {
   return (
     <AdminStack.Navigator screenOptions={{
       ...stackScreenGlobalOptions,
-      headerStyle: { backgroundColor: colors.dark, height: 50 }
+      headerStyle: { backgroundColor: colors.dark, height: 55 }
     }}>
       <AdminStack.Screen name="home" options={{ headerTitle: "Água Nobre - Gestão" }} component={HomeAdmin} />
       <AdminStack.Screen name="customers" component={HomeAdmin} />

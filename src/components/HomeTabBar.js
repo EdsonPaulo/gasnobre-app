@@ -16,6 +16,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
       backgroundColor: colors.white,
       alignItems: 'center',
       justifyContent: 'space-around',
+      borderTopWidth: 1,
       borderTopColor: colors.borderColor,
       elevation: 8
     }}>
