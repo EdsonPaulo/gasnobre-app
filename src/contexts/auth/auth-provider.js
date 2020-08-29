@@ -23,7 +23,6 @@ const AuthProvider = props => {
         [constants.TOKEN_KEY, token],
         [constants.ROLE_KEY, role]
       ])
-      console.log('logou: ' + authState.isLogged)
       //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
       dispatch({ type: LOGIN, user, token, role })
     } catch (error) {
@@ -47,7 +46,7 @@ const AuthProvider = props => {
   }
 
   const retrieveToken = async () => {
-    let user, token
+    let user, token, role
     try {
       token = await AsyncStorage.getItem(constants.TOKEN_KEY)
       role = await AsyncStorage.getItem(constants.ROLE_KEY)

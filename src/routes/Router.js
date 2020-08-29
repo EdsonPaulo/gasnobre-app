@@ -8,17 +8,16 @@ import Splash from '../components/Splash'
 
 export default Router = () => {
 
-  const { 
-    //isLogged, isLoading, 
-    retrieveToken } = useContext(AuthContext)
+  const { role, isLogged, isLoading, retrieveToken } = useContext(AuthContext)
 
-  const role = "customer"
-  const isLogged = true
-  const isLoading = false
+ // const role = "customer"
+ // const isLogged = true
+  //const isLoading = false
 
   useEffect(() => {
     const bootstrapAsync = async () => {
       retrieveToken()
+      console.log(role)
     }
     bootstrapAsync()
   }, [])

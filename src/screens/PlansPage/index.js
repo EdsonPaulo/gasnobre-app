@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, ScrollView, AsyncStorage, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar'
 
-import { general, metrics, constants, colors } from '../../../constants'
-import { CustomButton } from '../../../components'
+import { general, constants, colors } from '../../constants'
+import { CustomButton, HeaderBar } from '../../components'
 
 
-const AddressPage = () => {
+const Plan = () => {
 
     let isMounted = true
 
     const [editing, setEditing] = useState(false)
     const [address, setAddress] = useState([])
-    const address_item = {
-        address_1: '',
-        city: '',
-        country: ''
-    }
+   
 
     const getAddress = async () => {
         try {
@@ -46,18 +43,14 @@ const AddressPage = () => {
     return (
         <SafeAreaView style={general.background}>
 
-            <Text>Endereços</Text>
+            <Text>Plano</Text>
+            <StatusBar style="light" backgroundColor={colors.primary} translucent={false} />
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    addressContainer: {
-
-    },
-    addAdressContainer: {
-
-    }
+   
 })
 
-export default AddressPage
+export default Plan

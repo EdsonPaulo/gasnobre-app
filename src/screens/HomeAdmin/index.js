@@ -6,12 +6,12 @@ import Icon from "@expo/vector-icons/FontAwesome5"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
-import authContext from '../../../contexts/auth/auth-context'
+import authContext from '../../contexts/auth/auth-context'
 
 import { StyleSheet } from 'react-native'
 
-import { colors, metrics, general, fonts, constants } from '../../../constants'
-import api from '../../../services/api'
+import { colors, metrics, general, fonts, constants } from '../../constants'
+import api from '../../services/api'
 
 export default index = () => {
 

@@ -4,9 +4,7 @@ import HomeTabBar from './HomeTabBar'
 import LoadingSpin from './LoadingSpin'
 import PlaceholderImage from './PlaceholderImage'
 import SwiperCards from './SwiperCards'
-import ProductVerticalItem from './product/ProductVerticalItem'
-import ProductVerticalList from './product/ProductVerticalList'
-import ProductVerticalList2 from './product/ProductVerticalList2'
+import ProductVerticalItem from './ProductVerticalItem'
 
 export { 
     CustomButton,
@@ -15,7 +13,5 @@ export {
     LoadingSpin,
     SwiperCards,
     PlaceholderImage,
-    ProductVerticalItem,
-    ProductVerticalList,
-    ProductVerticalList2,
+    ProductVerticalItem
 }

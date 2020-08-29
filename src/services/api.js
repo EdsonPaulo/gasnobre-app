@@ -1,8 +1,20 @@
+
+import React from 'react'
 import axios from 'axios'
 
-const api = axios.create({
-    baseURL: 'http://localhost:3000/api/v1'
-    //headers: {'X-Custom-Header': 'foobar'}
-})
+const api = (token) => {
+  if (token) {
+    const authorizationString = `Bearer ${token}`
+    return axios.create({
+      baseURL: 'https://agua-nobre.herokuapp.com/api/v1',
+      //baseURL: 'http://192.168.1.27/pombo-correio/public/api',
+      headers: {
+        Authorization: authorizationString,
+        'x-access-token': token
+      }
+    })
+  }
+  else return axios.create({ baseURL: 'https://agua-nobre.herokuapp.com/api/v1' })
+}
 
 export default api

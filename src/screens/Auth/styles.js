@@ -45,7 +45,26 @@ const styles = StyleSheet.create({
         bottom: 10,
         textAlign: 'center',
         marginTop: metrics.tripleBaseMargin
+    },
+    modalView: {
+        width: '70%',
+        height: '50%',
+        borderRadius: 8,
+        borderColor: colors.borderColor,
+        borderWidth: 1,
+        elevation: 6,
+        alignSelf: 'center',
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modalText: {
+        textAlign: "center",
+        color: colors.textDark,
+        fontSize: 16,
+        fontFamily: 'RobotoCondensed_400Regular'
     }
+
 })
 
 export default styles

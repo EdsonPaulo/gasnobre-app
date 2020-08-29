@@ -34,6 +34,7 @@ export const authReducer = (prevState, action) => {
       return {
         ...prevState,
         user: action.user,
+        role: action.role,
         token: action.token,
         isLogged: true
       }

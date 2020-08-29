@@ -10,6 +10,5 @@ export default React.createContext({
     login: (user, token, role) => {},
     logout: () => {},
     register: (user, token, role) => {},
-    retrieveToken: () => {},
-    checkLoggedState: () => {}
+    retrieveToken: () => {}
 })

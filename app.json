@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "aguanobre-app",
-    "slug": "aguanobre-app",
+    "name": "Delivery Nobre",
+    "slug": "delivery-nobre",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,8 +19,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.gruponobre.deliverynobre",
+      "versionCode": 1
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gruponobre.deliverynobre",
+      "buildNumber": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
