@@ -58,14 +58,15 @@ const index = () => {
         let order = orderDetails
         setLoading(true)
         cart.map(product => {
+            console.log(product._id)
             products.push({
                 product: product._id,
                 quantity: product.quantity
             })
         })
-        order.products = products
+        order.products = [...products]
         console.log(order)
-        api(token).post('orders', order).then(response => {
+        api(token).post('/orders', order).then(response => {
             console.log(response.data)
             console.log(response.data.message)
         }).catch(error => {
