@@ -9,11 +9,13 @@ import { general, colors } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
 
 import styles from './styles'
+import { RectButton } from 'react-native-gesture-handler'
 
 export default index = () => {
 
     const navigation = useNavigation()
     const { logout, user } = useContext(AuthContext)
+    const userInitials = user.name.split(" ")[0][0] + (user.name.split(" ")[1] ? user.name.split(" ")[1][0] : "")
 
     const Logout = () => {
         Alert.alert(
@@ -30,23 +32,23 @@ export default index = () => {
 
             <View style={styles.userContainer}>
                 <View style={styles.avatar}>
-                    <Text style={{ fontSize: 20, color: "#fff" }}>{user?.initials || "EP"}</Text>
+                    <Text style={{ fontSize: 20, color: colors.dark }}>{userInitials || "EPA"}</Text>
                 </View>
                 <View style={styles.user}>
-                    <Text style={styles.userName}>{user?.name || "Edson Paulo"}</Text>
-                    <Text style={styles.userDetails}>{user?.phone || "942 682 194"}</Text>
+                    <Text style={styles.userName}>{user?.name}</Text>
+                    <Text style={styles.userDetails}>{user?.phone}</Text>
                 </View>
             </View>
 
             <View style={styles.container}>
                 <Text style={styles.sectionTitle}>Meus Dados</Text>
-                <TouchableOpacity activeOpacity={0.7} style={styles.btn} onPress={() => { navigation.navigate('profileDetails') }}>
+                <RectButton activeOpacity={0.7} style={styles.btn} onPress={() => { navigation.navigate('profileDetails') }}>
                     <View style={{ flexDirection: "row", alignItems: 'center' }}>
                         <Ionicons name='ios-person' style={styles.icons} />
                         <Text style={styles.textStyle}>Dados Pessoais</Text>
                     </View>
                     <Ionicons name="ios-arrow-forward" size={18} />
-                </TouchableOpacity>
+                </RectButton>
 
                 <TouchableOpacity activeOpacity={0.7} style={styles.btn} onPress={() => { navigation.navigate('address') }}>
                     <View style={{ flexDirection: "row", alignItems: 'center' }}>
@@ -90,7 +92,7 @@ export default index = () => {
                     <Ionicons name="ios-arrow-forward" size={18} />
                 </TouchableOpacity>
             </View>
-            <StatusBar style="light" backgroundColor={colors.primary} translucent={false} />
+            <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
         </SafeAreaView>
     )
 }

@@ -22,7 +22,7 @@ const Landing = () => {
             <View style={{ width: '100%', flex: 0.7 / 2, justifyContent: "flex-end", paddingHorizontal: metrics.baseMargin }}>
                 <CustomButton primary title="ENTRAR NA CONTA" onPress={() => navigation.navigate('login')} />
                 <CustomButton title="Criar Conta" onPress={() => navigation.navigate('signup')} />
-                <Text style={styles.copyrightText}>c 2020 - ÁguaNobre</Text>
+                <Text style={styles.copyrightText}>© 2020 - ÁguaNobre</Text>
             </View>
             <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />    
         </SafeAreaView>

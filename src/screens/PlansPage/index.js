@@ -25,7 +25,7 @@ const Plan = () => {
     <SafeAreaView style={general.background}>
       <Text>Plano</Text>
       <Text>{JSON.stringify(user)}</Text>
-      <StatusBar style="light" backgroundColor={colors.primary} translucent={false} />
+      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }

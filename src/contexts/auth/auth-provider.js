@@ -1,19 +1,22 @@
 import React, { useReducer, useMemo } from 'react'
-//import axios from "axios"
-import { AsyncStorage } from "react-native"
-
+import { AsyncStorage } from 'react-native'
+import {
+  authReducer,
+  LOGIN,
+  LOGOUT,
+  REGISTER,
+  RETRIEVE_TOKEN,
+} from './auth-reducer'
 import AuthContext from './auth-context'
-import { authReducer, LOGIN, LOGOUT, REGISTER, RETRIEVE_TOKEN } from './auth-reducer'
 import { constants } from '../../constants'
 
-const AuthProvider = props => {
-
+const AuthProvider = (props) => {
   const [authState, dispatch] = useReducer(authReducer, {
-    user: null,
-    role: null,
+    user: {},
     token: null,
+    role: null,
     isLogged: false,
-    isLoading: true
+    isLoading: true,
   })
 
   const login = async (user, token, role) => {
@@ -21,9 +24,8 @@ const AuthProvider = props => {
       await AsyncStorage.multiSet([
         [constants.USER_KEY, JSON.stringify(user)],
         [constants.TOKEN_KEY, token],
-        [constants.ROLE_KEY, role]
+        [constants.ROLE_KEY, role],
       ])
-      //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
       dispatch({ type: LOGIN, user, token, role })
     } catch (error) {
       throw new Error(error)
@@ -36,9 +38,8 @@ const AuthProvider = props => {
       await AsyncStorage.multiRemove([
         constants.TOKEN_KEY,
         constants.ROLE_KEY,
-        constants.USER_KEY
+        constants.USER_KEY,
       ])
-      //  delete axios.defaults.headers.common["Authorization"]
       dispatch({ type: LOGOUT })
     } catch (error) {
       throw new Error(error)
@@ -47,15 +48,14 @@ const AuthProvider = props => {
 
   const retrieveToken = async () => {
     let user, token, role
-    try { 
+    try {
       user = await AsyncStorage.getItem(constants.USER_KEY)
+      user = JSON.parse(user)
       role = await AsyncStorage.getItem(constants.ROLE_KEY)
       token = await AsyncStorage.getItem(constants.TOKEN_KEY)
     } catch (e) {
       // Restoring token failed
-      console.log(e)
     }
-
     // After restoring token, we may need to validate it in production apps
     dispatch({ type: RETRIEVE_TOKEN, token, user, role })
   }
@@ -64,16 +64,14 @@ const AuthProvider = props => {
     try {
       await AsyncStorage.multiSet([
         [constants.USER_KEY, JSON.stringify(user)],
-        [constants.TOKEN_KEY, token],
         [constants.ROLE_KEY, role],
+        [constants.TOKEN_KEY, token],
       ])
-      //    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
       dispatch({ type: REGISTER, user, token, role })
     } catch (error) {
       throw new Error(error)
     }
   }
-
 
   const value = useMemo(() => {
     return {
@@ -91,9 +89,7 @@ const AuthProvider = props => {
   })
 
   return (
-    <AuthContext.Provider value={value}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
   )
 }
 

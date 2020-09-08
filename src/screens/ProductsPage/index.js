@@ -63,7 +63,6 @@ export default index = () => {
     api(null).get(`/products?page=${page}`)
       .then(response => {
         if (isMounted) {
-          console.log(response.data)
           setTotal(response.data?.total)
           if (refreshing)
             setProducts(response.data?.data)
@@ -201,7 +200,7 @@ export default index = () => {
               <Entypo name="shopping-bag" color="#fff" size={25} />
             </TouchableOpacity>
         }
-        <Modalize ref={modalizeRef} rootStyle={{ elevation: 3 }} modalHeight={height - 200}
+        <Modalize ref={modalizeRef} rootStyle={{ elevation: 5 }} modalHeight={height - 200}
           FooterComponent={
             <CustomButton primary style={styles.makeOrderButton} rounded
               onPress={() => navigation.navigate("checkout", { cart, subtotal })}
@@ -211,7 +210,7 @@ export default index = () => {
           {renderCart()}
         </Modalize>
       </View>
-      <StatusBar style="light" backgroundColor={colors.primary} translucent={false} />
+      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
   },
   fabPosition: {
     position: "absolute",
-    elevation: 3,
+    elevation: 5,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,

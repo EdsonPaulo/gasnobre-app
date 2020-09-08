@@ -127,7 +127,7 @@ export default index = () => {
               : (total == 0 && !loading) ? renderEmptyOrders() : null
         }
       </View>
-      <StatusBar style="light" backgroundColor={colors.primary} translucent={false} />
+      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }

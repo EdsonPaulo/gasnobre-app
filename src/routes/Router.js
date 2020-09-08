@@ -17,7 +17,7 @@ import { constants } from '../constants'
 export default Router = () => {
 
   const { role, isLogged, isLoading, retrieveToken } = useContext(AuthContext)
-  const [pushToken, setPushToken] = useState(null)
+  const [pushToken, setPushToken] = useState("")
   const [notification, setNotification] = useState(false)
   const notificationListener = useRef();
   const responseListener = useRef()
@@ -46,7 +46,7 @@ export default Router = () => {
         else console.log("permissão garantida")
 
         const token = await Notifications.getExpoPushTokenAsync()
-        await AsyncStorage.setItem(constants.PUSH_TOKEN_KEY, JSON.stringify(token.data))
+        await AsyncStorage.setItem(constants.PUSH_TOKEN_KEY, token.data)
         console.log("PUSH TOKEN: " + token)
         setPushToken(token?.data)
       }
@@ -82,7 +82,7 @@ export default Router = () => {
       sound: 'default',
       title: 'Delivery Nobre - Um cliente fez um pedido.',
       body: 'O cliente Edson Customer fez um pedido,',
-      data: { data: 'goes here' },
+      data: { order: 'goes here' },
     }
 
     await fetch('https://exp.host/--/api/v2/push/send', {
@@ -98,15 +98,15 @@ export default Router = () => {
 
 
   useEffect(() => {
-    await verifyExpoPushToken()
+    verifyExpoPushToken()
     retrieveToken()
-    if (pushToken)
-      sendPushNotification()
+    // if (pushToken)  sendPushNotification(pushToken)
+    console.log(pushToken)
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification)
-      console.log("Notifição: ", notification)
+      // console.log("Notificação: ", notification)
     })
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)

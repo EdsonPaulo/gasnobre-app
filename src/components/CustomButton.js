@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        elevation: 3,
+        elevation: 5,
         height: 50,
         marginVertical: metrics.baseMargin,
         borderColor: colors.primaryDark,

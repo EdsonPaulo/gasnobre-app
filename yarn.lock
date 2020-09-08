@@ -948,10 +948,10 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
-"@expo-google-fonts/amarante@^0.1.0":
+"@expo-google-fonts/acme@^0.1.0":
   version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/amarante/-/amarante-0.1.0.tgz#2720acb2ed4d15bd799511f440afa13666f8a9d3"
-  integrity sha512-1ZFgc6CZPU3ECUeR15Ejb70ZTUbBQ6BniFk7kZ0/cNhEojzlcUqU8ocwixHWixmIB7CL7ELRVAErtnS04SdYTg==
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/acme/-/acme-0.1.0.tgz#255c346f3c140e303d3d9af7198c41b2bb022735"
+  integrity sha512-yFOj7rc2iJ9631UiFGbmXxqJABmwCge00xvFaYPbgux7vXEZt5YRqpNc9a1plutRxr61HsyDiTi2+nd/9sNoJw==
 
 "@expo-google-fonts/roboto-condensed@^0.1.0":
   version "0.1.0"

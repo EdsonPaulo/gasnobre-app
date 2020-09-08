@@ -1,7 +1,7 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
-import { Fontisto } from '@expo/vector-icons'
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
 
 const { width } = Dimensions.get("window")
 
@@ -13,7 +13,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
     <View style={{
       flexDirection: 'row',
       height: metrics.tabBarHeight,
-      backgroundColor: colors.white,
+      backgroundColor: colors.primary,
       alignItems: 'center',
       justifyContent: 'space-around',
       borderTopWidth: 1,
@@ -44,15 +44,15 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
             })
           }
 
-          let iconName
+          let iconName 
           if (route.name === 'homeStack')
             iconName = 'home'
           else if (route.name === 'orderStack')
-            iconName = 'prescription'
+            iconName = 'list'
           else if (route.name === 'profileStack')
-            iconName = 'person'
+            iconName = 'user'
           else if (route.name === 'storeStack')
-            iconName = 'shopping-store'
+            iconName = 'shopping-bag'
 
           return (
             <TouchableOpacity key={route.key}
@@ -64,13 +64,21 @@ const HomeTabBar = ({ state, descriptors, navigation }) => (
               onPress={onPress}
               onLongPress={onLongPress}>
               <View style={{
-                width: width / 3 - 30,
-                height: '100%',
+                width: "auto",
+                height: 35,
+                paddingHorizontal: 15,
+                marginHorizontal: 10,
+                borderRadius: 15,
+                backgroundColor: isFocused ? colors.primaryDark : "transparent",
+                flexDirection: "row",
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Fontisto name={iconName} style={{ color: isFocused ? colors.primary : colors.grayDark, marginBottom: 2 }} size={18} />
-                <Text style={{ fontSize: fonts.small, color: isFocused ? colors.primary : colors.grayDark }}>{label}</Text>
+                <Entypo name={iconName} style={{ color: isFocused ? colors.white : colors.grayLight, marginRight: 7 }} size={18} />
+                {
+                  !isFocused ? null :
+                    <Text style={{ fontSize: 13, letterSpacing: 0.3, fontFamily: "RobotoCondensed_400Regular", color: isFocused ? colors.white : colors.grayLight }}>{label}</Text>
+                }
               </View>
             </TouchableOpacity>
           )

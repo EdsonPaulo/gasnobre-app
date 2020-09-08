@@ -13,26 +13,14 @@ import authContext from '../../contexts/auth/auth-context'
 export default index = () => {
 
   const navigation = useNavigation()
-  const { user } = useContext(authContext)
+  const { user, role } = useContext(authContext)
   const [editable, setEditable] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [userInfo, setUserInfo] = useState({})
-
-
-  const getUserInfo = async () => {
-    try {
-      const data = await AsyncStorage.getItem(constants.USER_KEY)
-      if (data)
-        setUserInfo(JSON.parse(data))
-        console.log("sdasd",data)
-    } catch (error) {
-
-    }
-  }
+  const [userInfo, setUserInfo] = useState({...user})
+ 
 
   useEffect(() => {
-
-    getUserInfo()
+ 
     return () => {
       //salvar dados dos inputs
     }
@@ -53,8 +41,9 @@ export default index = () => {
   return (
     <SafeAreaView style={general.background}>
       <View style={styles.topContainer}>
-        <FontAwesome5 name="user-circle" color="white" size={40} />
+        <FontAwesome5 name="user-circle" color={colors.dark} size={40} />
         <Text style={[styles.userName, styles.userDetails]}>{userInfo?.name}</Text>
+        <Text style={styles.userDetails}>{role === "customer" ? "Cliente" : "Gerente"}</Text>
         <Text style={styles.userDetails}>{userInfo?.phone}</Text>
       </View>
 
@@ -94,7 +83,7 @@ export default index = () => {
             </View>
         }
       </View>
-      <StatusBar style="light" backgroundColor={colors.primary} translucent={false} />
+      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }
@@ -105,11 +94,15 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     height: "auto",
-    backgroundColor: colors.primary,
-    elevation: 3,
+    width: 200,
+    alignSelf: "center",
+    margin: 10,
+    backgroundColor: colors.white,
+    elevation: 5,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
+    padding: 15,
   },
   userName: {
     fontSize: 18,
@@ -117,7 +110,7 @@ const styles = StyleSheet.create({
   },
   userDetails: {
     fontFamily: 'RobotoCondensed_400Regular',
-    color: "white",
+    color: colors.dark,
   },
   labelStyle: {
     color: colors.grayDark,

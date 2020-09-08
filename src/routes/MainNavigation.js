@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Icon from "@expo/vector-icons/FontAwesome"
+import Icon from "@expo/vector-icons/MaterialCommunityIcons"
 
 import { HomeTabBar } from '../components'
 
@@ -28,12 +28,12 @@ import {
 } from '../screens'
 
 const stackScreenGlobalOptions = {
-  headerBackImage: (props => <Icon name="long-arrow-left" size={25} color={props.tintColor} />),
+  headerBackImage: (props => <Icon name="keyboard-backspace" size={30} color={props.tintColor} />),
   headerTitleAlign: "center",
-  headerTitleStyle: { fontSize: 18, fontFamily: "Amarante_400Regular" },
-  headerLeftContainerStyle: { marginLeft: 5 },
-  headerTintColor: colors.white,
-  headerStyle: { backgroundColor: colors.primary, height: 55 }
+  headerTitleStyle: { fontSize: 24, fontFamily: "Acme_400Regular", marginLeft: 0 },
+  headerLeftContainerStyle: { marginLeft: 5, flexDirection: "column" },
+  headerTintColor: colors.dark,
+  headerStyle: { backgroundColor: colors.bgColor, height: 65, elevation: 0 }
 }
 
 const HomeTabs = () => {
@@ -57,23 +57,11 @@ const MainNavigation = () => {
       <Stack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
       <Stack.Screen name="kamba" component={PlansPage} options={{ headerTitle: "Plano Kamba" }} />
       <Stack.Screen name="checkout" component={Checkout} options={{ headerTitle: "Fazer Pedido" }} />
-      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais", headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 55 } }} />
+      <Stack.Screen name="profileDetails" component={ProfileDetails} options={{ headerTitle: "Dados Pessoais" }} />
     </Stack.Navigator>
   )
 }
-
-const HomeStack = () => {
-  const Stack = createStackNavigator()
-  return (
-    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
-      <Stack.Screen name="home" options={{
-        headerTitleAlign: "left",
-        headerTitleStyle: { fontSize: 30, fontFamily: "Amarante_400Regular" },
-        headerTitle: "Água Nobre",
-      }} component={HomePage} />
-    </Stack.Navigator>
-  )
-}
+ 
 const OrderStack = () => {
   const Stack = createStackNavigator()
   return (
@@ -88,7 +76,6 @@ const ProfileStack = () => {
     <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
       <Stack.Screen name="profile" options={{
         headerTitle: "Definições e Perfil",
-        headerStyle: { elevation: 0, backgroundColor: colors.primary, height: 55 }
       }} component={ProfilePage} />
     </Stack.Navigator>
   )

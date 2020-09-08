@@ -8,9 +8,9 @@ export const authReducer = (prevState, action) => {
     case RETRIEVE_TOKEN:
       return {
         ...prevState,
-        token: action.token,
-        role: action.role,
         user: action.user,
+        role: action.role,
+        token: action.token,
         isLogged: !!action.token,
         isLoading: false
       }
@@ -25,10 +25,10 @@ export const authReducer = (prevState, action) => {
     case LOGOUT:
       return {
         ...prevState,
-        user: null,
+        user: {},
         role: null,
         token: null,
-        isLogged: false
+        isLogged: false,
       }
     case REGISTER:
       return {
@@ -39,7 +39,5 @@ export const authReducer = (prevState, action) => {
         isLogged: true
       }
   }
-
-  
 }
 

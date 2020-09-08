@@ -35,7 +35,7 @@ const index = () => {
   const getOrders = () => {
 
     setLoading(true)
-    api(token).get(`/orders?perPage=3`)
+    api(token).get(`/orders?perPage=4`)
       .then(response => {
         if (isMounted)
           setOrders(response.data?.data)

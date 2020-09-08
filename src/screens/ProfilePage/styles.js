@@ -8,9 +8,7 @@ const styles = StyleSheet.create({
     },
     topContainer: {
         height: 50,
-        marginBottom: 35,
-        backgroundColor: colors.primary,
-        elevation: 3,
+        marginBottom: 45,
         position: "relative"
     },
     userContainer: {
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         position: "absolute",
         padding: metrics.doubleBaseMargin,
-        backgroundColor: colors.white,
+        backgroundColor: "#fff",
         flexDirection: "row",
         alignItems: "center",
         borderRadius: metrics.baseRadius,
@@ -33,12 +31,12 @@ const styles = StyleSheet.create({
         marginRight: metrics.baseMargin,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.primaryDark
+        backgroundColor: colors.grayLight
     },
     sectionTitle: {
         fontFamily: 'RobotoCondensed_400Regular',
         fontSize: fonts.regular,
-        color: colors.grayMedium,
+        color: colors.grayDark,
         marginTop: metrics.smallMargin,
     },
     user: {
@@ -48,11 +46,13 @@ const styles = StyleSheet.create({
     userName: {
         fontFamily: 'RobotoCondensed_400Regular',
         fontSize: 16,
+        color: colors.dark,
         fontWeight: 'bold',
     },
     userDetails: {
         fontFamily: 'RobotoCondensed_400Regular',
-        textAlign: 'justify'
+        textAlign: 'justify',
+        color: colors.dark
     },
     inputContainer: {
         marginVertical: metrics.smallMargin
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         width: '100%',
         borderRadius: 5,
-        elevation: 2,
+        elevation: 3,
         backgroundColor: "white",
         marginVertical: metrics.smallMargin,
         padding: metrics.baseMargin,
