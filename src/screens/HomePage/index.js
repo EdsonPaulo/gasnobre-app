@@ -138,10 +138,11 @@ const index = () => {
                 </TouchableOpacity>
               ))
             }
-            <RectButton style={styles.seeMore} onPress={() => navigation.navigate("orderStack")}>
-              <Text>Ver mais</Text>
-            </RectButton>
+
           </ScrollView>
+          <RectButton style={styles.seeMore} onPress={() => navigation.navigate("orderStack")}>
+            <Text>Ver mais</Text>
+          </RectButton>
 
         </View>
       </View>

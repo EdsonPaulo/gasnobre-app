@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderWidth: 1,
+    position: "relative",
     borderColor: colors.borderColor,
   },
   history: {
@@ -81,13 +82,16 @@ const styles = StyleSheet.create({
     height: 70,
   },
   seeMore: {
-    padding: 5,
+    padding: 10,
     borderRadius: 10,
-    width: 85,
-    
+    backgroundColor: "white",
     justifyContent: "center",
     alignSelf: "center",
-    marginTop: 5
+    alignItems: "center",
+    marginTop: 5,
+    bottom: -15,
+    position: "absolute",
+    elevation: 15
   },
   rowContainer: {
     flex: 1 / 2,

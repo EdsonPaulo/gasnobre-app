@@ -65,11 +65,11 @@ const ProductVerticalItem = props => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 250,
+        height: 270,
         marginVertical: 7,
         marginHorizontal: metrics.baseMargin,
         justifyContent: 'space-between',
-        maxWidth: 200,
+        //maxWidth: 200,
         alignItems: 'center',
     },
     productImageContainer: {
