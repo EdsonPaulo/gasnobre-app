@@ -34,16 +34,16 @@ export default index = () => {
           <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{convertDate(order.createdAt)}</Text>
         </View>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Produtos</Text>
+          <Text style={styles.sectionTitle}>Lista de Produtos</Text>
           <View>
             {
               order?.products.map(item => (
-                <View key={item._id}>
+                <View key={item._id} style={{ marginBottom: 3 }}>
                   <Text style={{ textTransform: 'capitalize' }}>{item.product.name}</Text>
-    
+
                   <View style={styles.textContainer}>
-                    <Text> {item.quantity} x {item.product.price}Kz</Text>
-                    <Text>{transformPrice(item.product.subtotal)} </Text>
+                    <Text> {item.quantity} x {transformPrice(item.product.price)}</Text>
+                    <Text>{transformPrice(item.quantity * item.product.price)} </Text>
                   </View>
                 </View>
               ))
@@ -51,7 +51,7 @@ export default index = () => {
           </View>
         </View>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Custo</Text>
+          <Text style={styles.sectionTitle}>Custos</Text>
           <View style={styles.textContainer}>
             <Text>Subtotal</Text>
             <Text>{transformPrice(order.subtotal)} </Text>
@@ -83,7 +83,6 @@ export default index = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: metrics.baseMargin
   },
   sectionTitle: {
@@ -94,9 +93,9 @@ const styles = StyleSheet.create({
     marginBottom: metrics.baseMargin
   },
   section: {
-    flex: 1,
     backgroundColor: 'white',
     elevation: 1,
+    height: "auto",
     padding: metrics.baseMargin,
     marginVertical: metrics.smallMargin,
     borderWidth: 1,

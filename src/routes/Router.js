@@ -51,7 +51,7 @@ export default Router = () => {
         setPushToken(token?.data)
       }
       else {
-        alert('Must use physical device for Push Notifications')
+        //alert('Must use physical device for Push Notifications')
       }
       if (Platform.OS === 'android') {
         Notifications.createChannelAndroidAsync('default', {

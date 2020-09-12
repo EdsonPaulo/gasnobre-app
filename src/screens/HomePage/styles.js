@@ -25,11 +25,14 @@ const styles = StyleSheet.create({
   },
   banners: {
     height: 190,
-    elevation: 5,
+  //  elevation: 5,
     width: "100%",
     alignSelf: "center",
     backgroundColor: "transparent",
-    borderRadius: 25
+    borderRadius: 5,
+    
+    borderWidth: 1,
+    borderColor: colors.borderColor,
   },
   optionContainer: {
     flexDirection: "row",
@@ -54,12 +57,16 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4
   },
   historyContainer: {
+    flex: 1,
     height: "auto",
-    padding: 10,
-    maxHeight: 250,
+    padding: 15,
+  //  maxHeight: 250,
     marginVertical: 5,
-    backgroundColor: "#f9f8f8",
+    marginTop: 20,
+    backgroundColor: "#f4f4f4",
     borderRadius: 5,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
     borderWidth: 1,
     borderColor: colors.borderColor,
   },
@@ -77,6 +84,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 10,
     width: 85,
+    
     justifyContent: "center",
     alignSelf: "center",
     marginTop: 5
@@ -89,7 +97,8 @@ const styles = StyleSheet.create({
     marginVertical: metrics.smallMargin
   },
   statusText: {
-    fontSize: 13,
+    color: colors.dark,
+    fontSize: 15,
     fontWeight: "bold",
     textTransform: "uppercase",
     fontFamily: "RobotoCondensed_400Regular"

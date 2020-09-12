@@ -8,7 +8,6 @@ const SwiperCards = ({  }) => {
     return (
         <Swiper style={styles.wrapper} height="100%" dotColor={colors.grayLight} activeDotColor={colors.primaryDark} autoplay>
             <Image style={styles.slide} borderRadius={15} resizeMode="cover" source={require("../assets/banners/banner1.jpg")} />
-            <Image style={styles.slide} borderRadius={15}  resizeMode="cover" source={require("../assets/banners/banner2.png")} />
             <Image style={styles.slide} borderRadius={15}  resizeMode="cover" source={require("../assets/banners/banner3.jpg")} />
             <Image style={styles.slide} borderRadius={15}  resizeMode="cover" source={require("../assets/banners/banner4.jpg")} />
             <Image style={styles.slide} borderRadius={15}  resizeMode="cover" source={require("../assets/banners/banner6.png")} />
