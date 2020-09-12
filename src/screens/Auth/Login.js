@@ -55,7 +55,7 @@ const Login = () => {
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
 
-                    <Text style={[styles.title, { fontFamily: 'Amarante_400Regular' }]}>Entrar na Conta</Text>
+                    <Text style={[styles.title, { fontFamily: 'Acme_400Regular' }]}>Entrar na Conta</Text>
 
                     <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
                         <CustomInput label="Email" style={{ marginBottom: metrics.baseMargin }} name="email" type="email" placeholder="user@example.com" onChangeText={value => setEmail(value)} />

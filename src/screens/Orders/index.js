@@ -14,7 +14,7 @@ export default index = () => {
 
   let isMounted = true
   const navigation = useNavigation()
-  const { user, token } = useContext(AuthContext)
+  const { user, token, role } = useContext(AuthContext)
 
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(false)

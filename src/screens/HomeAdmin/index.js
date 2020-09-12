@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { View, ScrollView, Text } from 'react-native'
+import { View, ScrollView, Image, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
 import Icon from "@expo/vector-icons/FontAwesome5"
@@ -19,33 +19,34 @@ export default index = () => {
   const { user } = useContext(authContext)
 
   return (
-    <SafeAreaView style={[general.background, { justifyContent: "center", padding: 25, alignItems: "center" }]}>
-      <View style={{ flexDirection: "row", margin: 5 }}>
-        <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("orders")}>
-          <Icon name="bullhorn" style={styles.optionIcon} size={35} />
-          <Text bold>Pedidos</Text>
-        </RectButton>
-        <RectButton style={[styles.option]} onPress={() => navigation.navigate("products")}>
-          <Icon name="store-alt" style={styles.optionIcon} size={35} />
-          <Text bold>Produtos</Text>
-        </RectButton>
+    <SafeAreaView style={[general.background]}>
+
+      <View style={{ width: 130, height: 80, alignSelf: "center" }}>
+        <Image style={{ width: "100%", height: "100%" }}
+          resizeMode="contain" source={require("../../assets/logo.png")} />
       </View>
-      <View style={{ flexDirection: "row", margin: 5 }}>
-        <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("plan")}>
-          <Icon name="handshake" style={styles.optionIcon} size={35} />
-          <Text bold>Plano Kamba</Text>
-        </RectButton>
-        <RectButton style={[styles.option]} onPress={() => navigation.navigate("customers")}>
-          <Icon name="users" style={styles.optionIcon} size={35} />
-          <Text bold>Clientes</Text>
-        </RectButton>
-      </View>
-      <View style={{ flexDirection: "row", margin: 5 }}>
-        <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("profile")}>
-          <Icon name="cog" style={styles.optionIcon} size={35} />
-          <Text bold>Configurações</Text>
-        </RectButton>
-        <View style={{ flex: 1 / 2 }} />
+
+      <View style={styles.container}>
+        <View style={{ flexDirection: "row", margin: 5 }}>
+          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("orders")}>
+            <Icon name="bullhorn" style={styles.optionIcon} size={35} />
+            <Text bold>Pedidos</Text>
+          </RectButton>
+          <RectButton style={[styles.option]} onPress={() => navigation.navigate("products")}>
+            <Icon name="store-alt" style={styles.optionIcon} size={35} />
+            <Text bold>Produtos</Text>
+          </RectButton>
+        </View>
+        <View style={{ flexDirection: "row", margin: 5 }}>
+          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("customers")}>
+            <Icon name="users" style={styles.optionIcon} size={35} />
+            <Text bold>Clientes</Text>
+          </RectButton>
+          <RectButton style={[styles.option]} onPress={() => navigation.navigate("profile")}>
+            <Icon name="cog" style={styles.optionIcon} size={35} />
+            <Text bold>Configurações</Text>
+          </RectButton>
+        </View>
       </View>
       <StatusBar style="light" backgroundColor={colors.dark} translucent={false} />
     </SafeAreaView>
@@ -55,6 +56,12 @@ export default index = () => {
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 25,
+    alignItems: "center"
+  },
   option: {
     flex: 1 / 2,
     width: "100%",

@@ -1,8 +1,9 @@
 import { Alert, ToastAndroid } from 'react-native'
 import Rate, { AndroidMarket } from 'react-native-rate'
+import api from './api'
 //import Share from 'react-native-share'
 
-const onRate = async () => {
+export const onRate = async () => {
     const options = {
         AppleAppID: "2193813192",
         GooglePackageName: "com.carnesul.deltacorp",
@@ -26,7 +27,7 @@ const onRate = async () => {
     ], { cancelable: true })
 }
 
-const onShare = () => {
+export const onShare = () => {
     /** 
     try {
         const result = await Share.share({
@@ -79,6 +80,21 @@ const onShare = () => {
 }
 
 //save in async storage
+ 
 
+export const uploadImage = (file, token) => {
+    const nameFile = `file_name_${Math.random().toString(36).substring(7)}`
+    const formData = new FormData()
+    formData.append("file", {
+        name: file.fileName || nameFile,
+        type: file.mime,
+        uri: file.path
+    })
 
-export { onRate, onShare }
+    return api(token).post("/files"), formDaa, {
+        headers: {
+            Accept: "aplication/json",
+            "Content-Type": "multipart/form-data"
+        }
+    }
+}

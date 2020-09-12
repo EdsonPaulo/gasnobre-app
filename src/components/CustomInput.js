@@ -48,8 +48,9 @@ export default CustomInput = props => {
     case 'password': { inputType = 'default', iconName = 'lock' } break
     case 'name': { inputType = 'default', iconName = 'user' } break
     case 'email': { inputType = 'email-address', iconName = 'mail' } break
-    case 'number': { inputType = 'numeric', iconName = 'smartphone' } break
+    case 'number': { inputType = 'number-pad', iconName = 'smartphone' } break
     case 'search': { inputType = 'web-search', iconName = 'search' } break
+    case 'code': { inputType = 'number-pad', iconName = 'hash' } break
 
     default: inputType = iconName = 'default'
   }

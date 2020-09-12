@@ -19,11 +19,12 @@ const Landing = () => {
         <SafeAreaView style={[styles.background, { padding: metrics.doubleBaseMargin, }]}>
             <Image resizeMode="contain" source={require('../../assets/logo.png')} style={{ flex: 1.3 / 2, width: '100%'}} />
 
-            <View style={{ width: '100%', flex: 0.7 / 2, justifyContent: "flex-end", paddingHorizontal: metrics.baseMargin }}>
+            <View style={{ width: '100%', flex: 0.7 / 2, justifyContent: "flex-start", paddingHorizontal: metrics.baseMargin }}>
                 <CustomButton primary title="ENTRAR NA CONTA" onPress={() => navigation.navigate('login')} />
                 <CustomButton title="Criar Conta" onPress={() => navigation.navigate('signup')} />
-                <Text style={styles.copyrightText}>© 2020 - ÁguaNobre</Text>
             </View>
+            <Text style={styles.copyrightText}>© 2020 - Delivery Nobre</Text>
+
             <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />    
         </SafeAreaView>
     )

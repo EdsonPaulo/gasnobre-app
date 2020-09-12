@@ -7,7 +7,7 @@ import { colors, metrics, general, constants, fonts } from '../../constants'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
+    padding: 20,
     justifyContent: "space-between"
   },
   addressContainer: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    elevation: 1,
+    elevation: 3,
     borderWidth: 1,
     borderColor: colors.borderColor,
   },

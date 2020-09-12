@@ -68,11 +68,9 @@ const index = () => {
       <View style={styles.container}>
         <View style={{}}>
           <View style={{ marginBottom: 30, width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            <TouchableOpacity onPress={() => { }}>
-              <Icon name="bell-o" color="darkblue" size={25} />
-            </TouchableOpacity>
+          
 
-            <View style={{ width: 100, height: 50, }}>
+            <View style={{ width: 130, height: 80, }}>
               <Image style={{ width: "100%", height: "100%" }}
                 resizeMode="contain" source={require("../../assets/logo-transparent.png")} />
             </View>

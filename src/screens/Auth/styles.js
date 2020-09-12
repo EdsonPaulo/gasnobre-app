@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
         padding: metrics.tripleBaseMargin,
     },
     title: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
         color: colors.grayDark2,
-        fontFamily: 'Amarante_400Regular',
+        fontFamily: 'Acme_400Regular',
         textAlign: 'center'
     },
     subtitle: {
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     copyrightText: {
         fontSize: fonts.regular, 
         color: colors.grayDark,
-        letterSpacing: 1.4,
-        bottom: 10,
+        letterSpacing: 0.1,
+        bottom: 15,
         textAlign: 'center',
         marginTop: metrics.tripleBaseMargin
     },

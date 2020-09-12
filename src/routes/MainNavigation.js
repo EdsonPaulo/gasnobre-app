@@ -31,7 +31,7 @@ const stackScreenGlobalOptions = {
   headerBackImage: (props => <Icon name="keyboard-backspace" size={30} color={props.tintColor} />),
   headerTitleAlign: "center",
   headerTitleStyle: { fontSize: 24, fontFamily: "Acme_400Regular", marginLeft: 0 },
-  headerLeftContainerStyle: { marginLeft: 5, flexDirection: "column" },
+  //headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.dark,
   headerStyle: { backgroundColor: colors.bgColor, height: 65, elevation: 0 }
 }
@@ -40,8 +40,8 @@ const HomeTabs = () => {
   const Tabs = createBottomTabNavigator()
   return (
     <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
-      <Tabs.Screen name="homeStack" component={HomePage} options={{ tabBarLabel: 'início' }} />
-      <Tabs.Screen name="storeStack" component={StoreStack} options={{ tabBarLabel: 'Produtos', tabBarVisible: false }} />
+      <Tabs.Screen name="homeStack" component={HomePage} options={{ tabBarLabel: 'Início' }} />
+      <Tabs.Screen name="storeStack" component={StoreStack} options={{ tabBarLabel: 'Produtos' }} />
       <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Pedidos' }} />
       <Tabs.Screen name="profileStack" component={ProfileStack} options={{ tabBarLabel: 'Perfil' }} />
     </Tabs.Navigator>
@@ -61,7 +61,7 @@ const MainNavigation = () => {
     </Stack.Navigator>
   )
 }
- 
+
 const OrderStack = () => {
   const Stack = createStackNavigator()
   return (
@@ -104,19 +104,31 @@ const AuthNavigation = () => {
 
 const AdminNavigation = () => {
   const AdminStack = createStackNavigator()
+  const Tabs = createBottomTabNavigator()
+
+  const AdminHomeTabs = () => (
+    <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
+      <Tabs.Screen name="homeStack" component={HomeAdmin} options={{ tabBarLabel: 'Início' }} />
+      <Tabs.Screen name="storeStack" component={ProductsPage} options={{ tabBarLabel: 'Produtos' }} />
+      <Tabs.Screen name="orderStack" component={Orders} options={{ tabBarLabel: 'Pedidos' }} />
+      <Tabs.Screen name="customers" component={OrderStack} options={{ tabBarLabel: 'Clientes' }} />
+      <Tabs.Screen name="settings" component={ProfilePage} options={{ tabBarLabel: 'Configurações' }} />
+    </Tabs.Navigator>
+  )
+
   return (
     <AdminStack.Navigator screenOptions={{
       ...stackScreenGlobalOptions,
-      headerStyle: { backgroundColor: colors.dark, height: 55 }
+      headerStyle: { backgroundColor: colors.dark, height: 55 },
+      headerTitleStyle: { fontSize: 20, marginLeft: 0, color: colors.white },
     }}>
-      <AdminStack.Screen name="home" options={{ headerTitle: "Água Nobre - Gestão" }} component={HomeAdmin} />
-      <AdminStack.Screen name="customers" component={HomeAdmin} />
+      <AdminStack.Screen name="home" options={{ headerShown: false }} component={AdminHomeTabs} />
       <AdminStack.Screen name="customerDetails" component={HomeAdmin} />
-      <AdminStack.Screen name="products" component={HomeAdmin} />
       <AdminStack.Screen name="productDetails" component={HomeAdmin} />
-      <AdminStack.Screen name="orders" component={HomeAdmin} />
-      <AdminStack.Screen name="orderDetails" component={OrderDetails} />
+      <AdminStack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
     </AdminStack.Navigator>
   )
 }
+
+
 export { MainNavigation, AuthNavigation, AdminNavigation }

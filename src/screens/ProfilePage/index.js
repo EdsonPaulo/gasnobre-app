@@ -15,7 +15,7 @@ export default index = () => {
 
     const navigation = useNavigation()
     const { logout, user } = useContext(AuthContext)
-    const userInitials = user.name.split(" ")[0][0] + (user.name.split(" ")[1] ? user.name.split(" ")[1][0] : "")
+    const userInitials = user?.name?.split(" ")[0][0] + (user?.name?.split(" ")[1] ? user?.name?.split(" ")[1][0] : "")
 
     const Logout = () => {
         Alert.alert(
@@ -32,7 +32,7 @@ export default index = () => {
 
             <View style={styles.userContainer}>
                 <View style={styles.avatar}>
-                    <Text style={{ fontSize: 20, color: colors.dark }}>{userInitials || "EPA"}</Text>
+                    <Text style={{ fontSize: 20, color: colors.dark }}>{userInitials || null}</Text>
                 </View>
                 <View style={styles.user}>
                     <Text style={styles.userName}>{user?.name}</Text>
