@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: metrics.doubleBaseMargin,
     backgroundColor: 'white',
     borderWidth: 1,
-    elevation: 1,
+    elevation: 2,
     borderRadius: metrics.baseRadius,
     borderColor: colors.borderColor,
     marginVertical: metrics.smallMargin

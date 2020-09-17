@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     userContainer: {
         top: 10,
         height: 70,
-        width: "80%",
+        width: "90%",
         elevation: 4,
         alignSelf: "center",
         position: "absolute",

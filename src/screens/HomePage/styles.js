@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   historyContainer: {
     flex: 1,
     height: "auto",
-    padding: 15,
+    padding: 10,
   //  maxHeight: 250,
     marginVertical: 5,
     marginTop: 20,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   history: {
     padding: metrics.baseMargin,
     borderWidth: 1,
-    elevation: 1,
+    elevation: 2,
     backgroundColor: "#fff",
     borderRadius: metrics.baseRadius,
     borderColor: colors.borderColor,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     bottom: -15,
     position: "absolute",
-    elevation: 15
+    elevation: 3
   },
   rowContainer: {
     flex: 1 / 2,

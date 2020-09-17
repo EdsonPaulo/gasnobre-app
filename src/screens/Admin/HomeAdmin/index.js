@@ -6,12 +6,12 @@ import Icon from "@expo/vector-icons/FontAwesome5"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 
-import authContext from '../../contexts/auth/auth-context'
+import authContext from '../../../contexts/auth/auth-context'
 
 import { StyleSheet } from 'react-native'
 
-import { colors, metrics, general, fonts, constants } from '../../constants'
-import api from '../../services/api'
+import { colors, metrics, general, fonts, constants } from '../../../constants'
+import api from '../../../services/api'
 
 export default index = () => {
 
@@ -23,7 +23,7 @@ export default index = () => {
 
       <View style={{ width: 130, height: 80, alignSelf: "center" }}>
         <Image style={{ width: "100%", height: "100%" }}
-          resizeMode="contain" source={require("../../assets/logo.png")} />
+          resizeMode="contain" source={require("../../../assets/logo.png")} />
       </View>
 
       <View style={styles.container}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    elevation: 6,
+    elevation: 4,
     borderWidth: 1,
   },
   optionIcon: {

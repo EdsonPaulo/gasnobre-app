@@ -37,7 +37,7 @@ const Login = () => {
                         login({...response.data?.user, ...response.data?.customer}, response.data?.token, response.data?.role)
                 }
                 catch (error) {
-                    console.log(error)
+                    console.log(error, error?.response?.data)
                     setErrorModalVisible(true)
                 }
                 finally { setLoading(false) }

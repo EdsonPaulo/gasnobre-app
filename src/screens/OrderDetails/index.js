@@ -21,7 +21,7 @@ export default index = () => {
   const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
 
   return (
-    <SafeAreaView style={[general.background, { backgroundColor: 'white' }]}>
+    <SafeAreaView style={[general.background, { }]}>
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.textContainer}>
@@ -89,12 +89,13 @@ const styles = StyleSheet.create({
     color: colors.grayDark,
     fontWeight: 'bold',
     fontSize: 15,
+    textAlign: "center",
     fontFamily: 'RobotoCondensed_400Regular',
     marginBottom: metrics.baseMargin
   },
   section: {
     backgroundColor: 'white',
-    elevation: 1,
+    elevation: 2,
     height: "auto",
     padding: metrics.baseMargin,
     marginVertical: metrics.smallMargin,

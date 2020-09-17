@@ -24,6 +24,7 @@ import {
   OrderDetails,
   PlansPage,
 
+  ProductsAdmin,
   HomeAdmin
 } from '../screens'
 
@@ -109,7 +110,7 @@ const AdminNavigation = () => {
   const AdminHomeTabs = () => (
     <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
       <Tabs.Screen name="homeStack" component={HomeAdmin} options={{ tabBarLabel: 'Início' }} />
-      <Tabs.Screen name="storeStack" component={ProductsPage} options={{ tabBarLabel: 'Produtos' }} />
+      <Tabs.Screen name="storeStack" component={ProductsAdmin} options={{ tabBarLabel: 'Produtos' }} />
       <Tabs.Screen name="orderStack" component={Orders} options={{ tabBarLabel: 'Pedidos' }} />
       <Tabs.Screen name="customers" component={OrderStack} options={{ tabBarLabel: 'Clientes' }} />
       <Tabs.Screen name="settings" component={ProfilePage} options={{ tabBarLabel: 'Configurações' }} />

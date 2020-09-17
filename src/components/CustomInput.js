@@ -19,7 +19,7 @@ export default CustomInput = props => {
     paddingHorizontal: metrics.baseMargin,
     elevation: raised ? 5 : 0,
     width: '100%',
-    height: 50,
+    height: 45,
     backgroundColor: colors.grayLight,
     borderWidth: 1,
     borderColor: hasError ? 'red' : borderColor,

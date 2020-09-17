@@ -1,5 +1,5 @@
 const colors = {
-    bgColor: '#FCFCFC',
+    bgColor: '#F9F9F9',
     borderColor: '#E1E1E1',
     
 
@@ -7,6 +7,9 @@ const colors = {
     primary: '#0D7AC9',
     primaryLight: '#747d8c', 
     accent: '#3081B5',
+
+    primaryDark: '#006daa',
+    primary: '#0088d5',
    
     darkblue: '#1e3c72',
     magenta: '#474787', 

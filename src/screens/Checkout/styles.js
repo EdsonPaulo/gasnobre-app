@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 15,
         marginTop: 10,
-        elevation: 1,
+        elevation: 2,
         borderWidth: 1,
         borderColor: colors.borderColor,
         borderRadius: metrics.baseRadius

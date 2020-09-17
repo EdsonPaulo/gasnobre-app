@@ -1,5 +1,8 @@
 import { Welcome, Landing, Login, SignUp, Forgot } from './Auth'
-import HomeAdmin from './HomeAdmin'
+
+import HomeAdmin from './Admin/HomeAdmin'
+import ProductsAdmin from './Admin/Products'
+
 import HomePage from './HomePage'
 import Checkout from './Checkout'
 import Orders from './Orders'
@@ -17,5 +20,5 @@ export {
     ProductsPage, ProfilePage, ProfileDetails,
     Checkout, Orders, AddressPage,
 
-    HomeAdmin
+    HomeAdmin, ProductsAdmin
 }

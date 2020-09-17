@@ -127,7 +127,7 @@ const index = () => {
                       fontWeight: "bold",
                       textTransform: "capitalize",
                       color: order.status === 'concluido' ? 'green'
-                        : order.status === 'cancelado' ? colors.alert : colors.primary
+                        : order.status === 'cancelado' ? colors.alert : colors.primaryDark
                     }]}>
                       {order.status}
                     </Text>

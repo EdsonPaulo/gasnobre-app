@@ -61,7 +61,7 @@ export default Router = () => {
           vibrate: [0, 250, 250, 250],
         })
       }
-    } catch (error) { console.log(error) }
+    } catch (error) { console.log(error, error?.response?.data) }
   }
 
 
@@ -71,7 +71,7 @@ export default Router = () => {
       if (expoPushToken) setPushToken(expoPushToken)
       else await registerForPushNotificationsAsync()
     }
-    catch (error) { console.log(error) }
+    catch (error) { console.log(error, error?.response?.data) }
   }
 
 

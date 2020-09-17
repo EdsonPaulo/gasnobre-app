@@ -75,7 +75,7 @@ const index = () => {
       Alert.alert("Sucesso", response.data.message)
       navigation.navigate("orders")
     }).catch(error => {
-      console.log(error)
+      console.log(error, error?.response?.data)
     }).finally(() => setLoading(false))
   }
 
