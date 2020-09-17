@@ -72,7 +72,7 @@ export default CustomInput = props => {
         }
         <TextInput  {...rest}
           style={inputStyle}
-          placeholderTextColor={colors.grayDark}
+          placeholderTextColor={colors.grayMedium}
           keyboardType={inputType}
           secureTextEntry={secureText}
           onFocus={() => setBorderColor(colors.primary)}
