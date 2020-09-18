@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, ActivityIndicator, Text, Image } from 'react-native'
+import { ActivityIndicator, Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 import { colors } from '../constants'
+
 
 const Splash = ({ text }) => (
     <SafeAreaView style={{

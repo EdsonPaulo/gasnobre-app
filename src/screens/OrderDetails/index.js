@@ -1,11 +1,10 @@
+import { useNavigation, useRoute } from "@react-navigation/native"
 import React, { useState } from "react"
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from "react-native"
-import { useRoute, useNavigation } from "@react-navigation/native"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
+import { CustomButton, CustomStatusBar } from "../../components"
+import { colors, fonts, general, metrics } from "../../constants"
 
-import { colors, metrics, general, fonts } from "../../constants"
-import { CustomButton } from "../../components"
 
 export default index = () => {
 
@@ -21,14 +20,16 @@ export default index = () => {
   const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
 
   return (
-    <SafeAreaView style={[general.background, { }]}>
+    <SafeAreaView style={[general.background, {}]}>
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.textContainer}>
           <Text>Estado:
                     <Text style={[styles.statusText, {
-              color: order.status === 'concluído' ? 'lightgreen'
-                : order.status === 'cancelado' ? colors.alert : colors.primaryDark
+              color: order.status === 'pendente' ? colors.accent
+                : order.status === 'cancelado' ? colors.alert
+                  : order.status === 'concluido' ? colors.success : colors.dark
             }]}> {order.status}
             </Text></Text>
           <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{convertDate(order.createdAt)}</Text>
@@ -75,7 +76,6 @@ export default index = () => {
 
         <CustomButton title="Voltar a pedir" primary onPress={() => navigation.navigate("checkout", { cart: [...order.products], subtotal: order.subtotal || 0 })} />
       </ScrollView>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }

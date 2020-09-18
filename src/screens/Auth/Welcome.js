@@ -1,10 +1,6 @@
-import React, { } from 'react'
-import { Image, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-//import Onboarding from 'react-native-onboarding-swiper'
-
-import { colors } from '../../constants'
-import styles from './styles'
+import React from 'react'
+import { View } from 'react-native'
 
 
 const Welcome = () => {

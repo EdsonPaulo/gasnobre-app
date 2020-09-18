@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
-import { Text, View, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity, RefreshControl } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useNavigation } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-
+import { useNavigation } from '@react-navigation/native'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { CustomStatusBar, LoadingSpin } from '../../components'
+import { colors, general, metrics } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
-import { colors, metrics, general } from '../../constants'
-import { LoadingSpin } from '../../components'
 import api from '../../services/api'
+
 
 export default index = () => {
 
@@ -78,8 +77,9 @@ export default index = () => {
         <Text style={styles.statusText}>Estado:
         <Text style={{
             fontWeight: "bold",
-            color: order.status === 'pendente' ? colors.success
-              : order.status === 'cancelado' ? colors.alert : colors.dark
+            color: order.status === 'pendente' ? colors.accent
+              : order.status === 'cancelado' ? colors.alert
+                : order.status === 'concluido' ? colors.success : colors.dark
           }}> {order.status}
           </Text></Text>
         <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.primaryDark }}>
@@ -120,6 +120,8 @@ export default index = () => {
 
   return (
     <SafeAreaView style={general.background}>
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+
       <View style={{ flex: 1 }}>
         {
           (loading && orders.length == 0) ? <LoadingSpin />
@@ -127,7 +129,6 @@ export default index = () => {
               : (total == 0 && !loading) ? renderEmptyOrders() : null
         }
       </View>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }

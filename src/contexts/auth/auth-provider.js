@@ -1,14 +1,14 @@
-import React, { useReducer, useMemo } from 'react'
+import React, { useMemo, useReducer } from 'react'
 import { AsyncStorage } from 'react-native'
+import { constants } from '../../constants'
+import AuthContext from './auth-context'
 import {
   authReducer,
   LOGIN,
   LOGOUT,
   REGISTER,
-  RETRIEVE_TOKEN,
+  RETRIEVE_TOKEN
 } from './auth-reducer'
-import AuthContext from './auth-context'
-import { constants } from '../../constants'
 
 const AuthProvider = (props) => {
   const [authState, dispatch] = useReducer(authReducer, {

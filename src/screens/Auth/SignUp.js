@@ -1,21 +1,18 @@
-import React, { useContext, useState } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform, ScrollView } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome'
+import { useNavigation } from '@react-navigation/native'
+import React, { useContext, useState } from 'react'
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
-
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
+import { colors, metrics } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
-import { CustomButton, CustomInput } from '../../components'
-import { metrics, colors } from '../../constants'
 import api from '../../services/api'
-
 import styles from './styles'
 
 const SignUp = () => {
-
   const navigation = useNavigation()
   const { register } = useContext(AuthContext)
+
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(1)
   const [userData, setUserData] = useState({
@@ -62,33 +59,28 @@ const SignUp = () => {
   }
 
 
-
   return (
     <SafeAreaView style={styles.background}>
+      <CustomStatusBar barStyle="dark-content" style="dark" backgroundColor={colors.bgColor} translucent={false} />
+
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon style={styles.iconHeader} name='long-arrow-left' />
         </TouchableOpacity>
 
         <Text style={styles.title}>Criar Conta</Text>
-
-        <View />
       </View>
-
-      <Text style={{ position: "absolute", top: 50, right: 50 }}></Text>
-
 
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : undefined}>
         <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={[{ paddingHorizontal: metrics.baseMargin, justifyContent: "center" }]}>
           <Text style={styles.title}>
             <Text style={[styles.title, { color: colors.primaryDark }]}>{step}</Text> / 3
           </Text>
-
           <View style={{ marginTop: metrics.doubleBaseMargin, }}>
-
             {
               step == 1 ?
                 <View>
+                  <Text style={styles.subtitle}>Informe seus dados pessoais</Text>
                   <CustomInput type="name" placeholder="Nome e Sobrenome" onChangText={value => setUserData({ ...userData, name: value })} />
                   <CustomInput style={{ marginVertical: 15 }} type="phone" maxLength={9} placeholder="Telefone (obrigatório)" onChangText={value => setUserData({ ...userData, phone: value })} />
                   <CustomInput type="email" placeholder="Email (obrigatório)" onChangText={value => setUserData({ ...userData, email: value })} />
@@ -120,13 +112,12 @@ const SignUp = () => {
 
           <View style={{ width: '100%', marginBottom: metrics.doubleBaseMargin }}>
             <TouchableOpacity onPress={() => navigation.navigate('login')}>
-              <Text style={styles.bottomText}>Já tens uma conta?
+              <Text style={styles.bottomText}>Já tem uma conta?
                         <Text style={{ fontWeight: 'bold' }}> Fazer Login</Text>
               </Text>
             </TouchableOpacity>
           </View>
       }
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }

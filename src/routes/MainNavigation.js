@@ -1,40 +1,29 @@
-import React from 'react'
-import { createStackNavigator } from "@react-navigation/stack"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Icon from "@expo/vector-icons/MaterialCommunityIcons"
-
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { useNavigation } from '@react-navigation/native'
+import { createStackNavigator } from "@react-navigation/stack"
+import React from 'react'
+import { RectButton } from 'react-native-gesture-handler'
 import { HomeTabBar } from '../components'
-
-import { colors } from '../constants'
-
+import { colors, general } from '../constants'
 import {
-  Welcome,
-  Landing,
-  Login,
-  SignUp,
-  Forgot,
-
-  HomePage,
-  ProfilePage,
-  ProfileDetails,
-  Orders,
   AddressPage,
-  Checkout,
-  ProductsPage,
-  OrderDetails,
+  Checkout, Forgot,
+  HomeAdmin, HomePage, Landing,
+  Login,
+  OrderDetails, Orders,
   PlansPage,
-
-  ProductsAdmin,
-  HomeAdmin
+  ProductsAdmin, ProductsPage, ProfileDetails, ProfilePage, SignUp, Welcome
 } from '../screens'
 
+
 const stackScreenGlobalOptions = {
-  headerBackImage: (props => <Icon name="keyboard-backspace" size={30} color={props.tintColor} />),
+  headerBackImage: (props => <Icon name="keyboard-backspace" size={30} color="white" />),
   headerTitleAlign: "center",
-  headerTitleStyle: { fontSize: 24, fontFamily: "Acme_400Regular", marginLeft: 0 },
+  headerTitleStyle: { fontSize: 22, fontFamily: "Acme_400Regular", marginLeft: 0, color: "white" },
   //headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.dark,
-  headerStyle: { backgroundColor: colors.bgColor, height: 65, elevation: 0 }
+  headerStyle: { backgroundColor: colors.primaryDark, height: 60, elevation: 0 }
 }
 
 const HomeTabs = () => {
@@ -65,8 +54,18 @@ const MainNavigation = () => {
 
 const OrderStack = () => {
   const Stack = createStackNavigator()
+  const navigation = useNavigation()
+
   return (
-    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
+    <Stack.Navigator screenOptions={{
+      ...stackScreenGlobalOptions,
+      /**
+      headerLeft: props =>
+        <RectButton style={general.headerButton} onPress={() => navigation.toggleDrawer()}>
+          <Icon name="text" size={30} color="white" />
+        </RectButton>
+         */
+    }}>
       <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos" }} component={Orders} />
     </Stack.Navigator>
   )
@@ -74,7 +73,9 @@ const OrderStack = () => {
 const ProfileStack = () => {
   const Stack = createStackNavigator()
   return (
-    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
+    <Stack.Navigator screenOptions={{
+      ...stackScreenGlobalOptions,
+    }}>
       <Stack.Screen name="profile" options={{
         headerTitle: "Definições e Perfil",
       }} component={ProfilePage} />
@@ -84,7 +85,9 @@ const ProfileStack = () => {
 const StoreStack = () => {
   const Stack = createStackNavigator()
   return (
-    <Stack.Navigator screenOptions={stackScreenGlobalOptions}>
+    <Stack.Navigator screenOptions={{
+      ...stackScreenGlobalOptions
+    }}>
       <Stack.Screen name="products" options={{ headerTitle: "Produtos Disponíveis" }} component={ProductsPage} />
     </Stack.Navigator>
   )
@@ -133,3 +136,4 @@ const AdminNavigation = () => {
 
 
 export { MainNavigation, AuthNavigation, AdminNavigation }
+

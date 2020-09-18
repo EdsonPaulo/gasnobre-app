@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
-
-
 import { Feather, MaterialIcons } from '@expo/vector-icons'
-
-import { colors, fonts, metrics } from '../constants'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { colors, fonts, metrics } from '../constants'
 
 export default CustomInput = props => {
 
@@ -17,24 +14,25 @@ export default CustomInput = props => {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: metrics.baseMargin,
-    elevation: raised ? 5 : 0,
+    elevation: raised ? 3 : 0,
     width: '100%',
-    height: 45,
+    height: 40,
     backgroundColor: colors.grayLight,
     borderWidth: 1,
     borderColor: hasError ? 'red' : borderColor,
-    borderRadius: rounded ? metrics.formInputRadius : 8,
+    borderRadius: rounded ? metrics.formInputRadius : 6,
   }
   const inputStyle = {
     fontSize: fonts.input,
     height: '100%',
+    fontFamily: 'RobotoCondensed_400Regular',
     flex: 1
   }
   const labelStyle = {
     fontSize: fonts.regular,
-    letterSpacing: 1.1,
     color: colors.dark,
     marginVertical: 2,
+    fontFamily: 'RobotoCondensed_400Regular',
     marginLeft: metrics.smallMargin
   }
   useEffect(() => {
@@ -109,11 +107,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: fonts.regular,
     color: colors.grayMedium,
+    fontFamily: 'RobotoCondensed_400Regular'
   },
   errorText: {
     fontSize: fonts.regular,
     color: 'darkred',
     textAlign: 'right',
+    fontFamily: 'RobotoCondensed_400Regular',
     marginRight: metrics.doubleBaseMargin
   },
   inputIcon: {

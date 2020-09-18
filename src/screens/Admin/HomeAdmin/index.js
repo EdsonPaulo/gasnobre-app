@@ -1,17 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { View, ScrollView, Image, Text } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { RectButton } from 'react-native-gesture-handler'
 import Icon from "@expo/vector-icons/FontAwesome5"
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-
+import React, { useContext } from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { colors, general } from '../../../constants'
 import authContext from '../../../contexts/auth/auth-context'
-
-import { StyleSheet } from 'react-native'
-
-import { colors, metrics, general, fonts, constants } from '../../../constants'
-import api from '../../../services/api'
 
 export default index = () => {
 

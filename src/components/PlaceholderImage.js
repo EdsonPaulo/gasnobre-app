@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-
-import { View, Image, Animated, ActivityIndicator } from 'react-native'
+import { ActivityIndicator, Animated, View } from 'react-native'
 import { colors } from '../constants'
+
 
 export default PlaceholderImage = props => {
 
@@ -20,11 +20,12 @@ export default PlaceholderImage = props => {
 
   return (
     <View style={{
-      backgroundColor: '#fff',
+     // backgroundColor: 'red',
       width: style?.width || '100%',
       height: style?.height || '100%',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      alignSelf: "center"
     }}>
       { !loading ? null : <ActivityIndicator color={colors.primary} size="small" /> }
       <Animated.Image {...props} resizeMode="contain"

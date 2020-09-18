@@ -1,23 +1,19 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
-
-import {
-  Text, View,
-  FlatList, Alert,
-  StyleSheet,
-  InteractionManager,
-  ActivityIndicator,
-  TouchableOpacity,
-  RefreshControl,
-  Dimensions,
-} from 'react-native'
-import { useRoute, useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Modalize } from 'react-native-modalize'
-import { StatusBar } from 'expo-status-bar'
+//import { StatusBar } from 'expo-status-bar'
 import { Entypo } from '@expo/vector-icons'
-
-import { ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../components'
-import { colors, metrics, fonts, general } from '../../constants'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import {
+  ActivityIndicator,
+  Dimensions, FlatList,
+  InteractionManager,
+  RefreshControl, StyleSheet, Text,
+  TouchableOpacity, View
+} from 'react-native'
+import { Modalize } from 'react-native-modalize'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { CustomButton, CustomStatusBar, LoadingSpin, ProductVerticalItem } from '../../components'
+import { colors, fonts, general, metrics } from '../../constants'
+import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 
 //const data = require("../../services/mock/mock.json")
@@ -25,11 +21,12 @@ import api from '../../services/api'
 export default index = () => {
   let isMounted = true
   const route = useRoute()
+  const { token } = useContext(authContext)
   const modalizeRef = useRef(null)
   const navigation = useNavigation()
   const { width, height } = Dimensions.get('window')
-  const [interactionsComplete, setInteractionsComplete] = useState(false)
 
+  const [interactionsComplete, setInteractionsComplete] = useState(false)
   const [loading, setLoading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
   const [total, setTotal] = useState(0)
@@ -60,7 +57,7 @@ export default index = () => {
       return
     }
     setLoading(true)
-    api(null).get(`/products?page=${page}`)
+    api(token).get(`/products?page=${page}`)
       .then(response => {
         if (isMounted) {
           setTotal(response.data?.total)
@@ -120,28 +117,17 @@ export default index = () => {
     }
   }
 
-  //rederiza o product card ou um espaco com largura equivalente se não tiver produto
-  const renderItem = ({ item }) => {
-    if (item.empty)
-      return <View style={styles.itemInvisible} />
-    else
-      return <ProductVerticalItem width={(width / 2 - 20)} handleQuantity={handleQuantity}  {...item} />
-  }
-
   const renderProductsList = () => {
-    if (loading && products.length == 0)
-      return <LoadingSpin />
+    if (loading && products.length == 0) return <LoadingSpin />
     return (
-      <FlatList bounces numColumns={numColumns}
-        data={formatData(products, numColumns)}
-        contentContainerStyle={{ paddingVertical: 15 }}
-        renderItem={renderItem}
+      <FlatList bounces horizontal data={products}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ padding: 15 }}
+        renderItem={({ item }) => <ProductVerticalItem handleQuantity={handleQuantity}  {...item} />}
         keyExtractor={(item, index) => index.toString()}
         onEndReached={getProducts}
         onEndReachedThreshold={0.5}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         ListFooterComponent={
           products.length !== total && loading ?
             <View style={{ margin: metrics.doubleBaseMargin }}>
@@ -185,14 +171,16 @@ export default index = () => {
 
   return (
     <SafeAreaView style={general.background}>
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+
       <View style={styles.scene}>
         {
-          (total == 0 && !loading)
+          (total === 0 && !loading)
             ? renderEmpty()
             : renderProductsList()
         }
         {
-          cart.length == 0 ? null :
+          cart.length === 0 ? null :
             <TouchableOpacity onPress={() => openCartModal()} activeOpacity={0.7} style={[styles.fabPosition, styles.fabBagButton]}>
               <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
                 <Text style={{ color: "#fff" }}>{cartSize}</Text>
@@ -204,29 +192,14 @@ export default index = () => {
           FooterComponent={
             <CustomButton primary style={styles.makeOrderButton} rounded
               onPress={() => navigation.navigate("checkout", { cart, subtotal })}
-
               title={`Fazer Pedido (${transformPrice(subtotal)})`} />
           }>
           {renderCart()}
         </Modalize>
       </View>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }
-
-const numColumns = 2
-const formatData = (products, numColumns) => {
-  const numberOfFullRows = Math.floor(products.length / numColumns)
-  let numberOfElementsLastRow = products.length - (numberOfFullRows * numColumns)
-
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    products.push({ key: `blank-${numberOfElementsLastRow}`, empty: true })
-    numberOfElementsLastRow++
-  }
-  return products
-}
-
 
 const styles = StyleSheet.create({
   container: {
@@ -245,7 +218,7 @@ const styles = StyleSheet.create({
   fabBagButton: {
     backgroundColor: colors.primary,
     right: 2,
-    bottom: 100,
+    bottom: 15,
     width: 50,
     height: 50,
   },

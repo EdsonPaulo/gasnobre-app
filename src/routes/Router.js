@@ -1,18 +1,14 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from "@react-navigation/stack"
 import Constants from 'expo-constants'
 import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
-
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AsyncStorage, Platform } from "react-native"
-
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from "@react-navigation/stack"
-
-import { AuthNavigation, MainNavigation, AdminNavigation } from './MainNavigation'
-
-import AuthContext from '../contexts/auth/auth-context'
 import Splash from '../components/Splash'
 import { constants } from '../constants'
+import AuthContext from '../contexts/auth/auth-context'
+import { AdminNavigation, AuthNavigation, MainNavigation } from './MainNavigation'
 
 export default Router = () => {
 

@@ -1,8 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
+import { colors, metrics } from '../../constants'
 
 const { height } = Dimensions.get("window")
 
-import { colors, metrics, general, constants, fonts } from '../../constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -82,16 +82,16 @@ const styles = StyleSheet.create({
     height: 70,
   },
   seeMore: {
-    padding: 10,
-    borderRadius: 10,
+    padding:5,
+    borderRadius: 7,
     backgroundColor: "white",
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    marginTop: 5,
-    bottom: -15,
-    position: "absolute",
-    elevation: 3
+    marginVertical: 10,
+    bottom: 0,
+  //  position: "absolute",
+    elevation: 2
   },
   rowContainer: {
     flex: 1 / 2,

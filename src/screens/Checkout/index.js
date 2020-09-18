@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect, useContext } from 'react'
-import { Text, View, TextInput, Alert, AsyncStorage, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
-import { useNavigation, useRoute } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Picker } from '@react-native-community/picker'
-import { StatusBar } from 'expo-status-bar'
-
-import { colors, metrics, general, constants, fonts } from '../../constants'
-import { HeaderBar, CustomButton } from '../../components'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import React, { useContext, useEffect, useState } from 'react'
+import { Alert, AsyncStorage, Dimensions, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { CustomButton, CustomStatusBar } from '../../components'
+import { colors, constants, general } from '../../constants'
+import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 import styles from './styles'
-import authContext from '../../contexts/auth/auth-context'
+
 
 const { height } = Dimensions.get('window')
 
@@ -81,6 +80,8 @@ const index = () => {
 
   return (
     <SafeAreaView style={general.background}>
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+
       <ScrollView contentContainerStyle={{ paddingVertical: 10 }} showsVerticalScrollIndicator={false}>
 
         <View style={styles.sectionContainer}>
@@ -183,8 +184,7 @@ const index = () => {
         </View>
         <CustomButton loading={loading} primary title="Fazer Pedido" icon="ios-checkmark" style={{ margin: 20 }} onPress={() => makeOrder()} />
       </ScrollView>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
-    </SafeAreaView>
+        </SafeAreaView>
   )
 }
 

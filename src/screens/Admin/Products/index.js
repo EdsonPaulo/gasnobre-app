@@ -1,25 +1,19 @@
-import React, { useEffect, useState, useRef, useCallback, useContext } from 'react'
-
-import {
-  Text, View,
-  FlatList, Alert,
-  StyleSheet,
-  InteractionManager,
-  ActivityIndicator,
-  TouchableOpacity,
-  RefreshControl,
-  Dimensions,
-} from 'react-native'
-import { useRoute, useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Modalize } from 'react-native-modalize'
-import { StatusBar } from 'expo-status-bar'
 import { Entypo } from '@expo/vector-icons'
-
-import { ProductVerticalList, LoadingSpin, CustomButton, ProductVerticalItem, ProductHorizontalItem } from '../../../components'
-import { colors, metrics, fonts, general } from '../../../constants'
-import api from '../../../services/api'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import {
+  ActivityIndicator,
+  Dimensions, FlatList,
+  InteractionManager,
+  RefreshControl, StyleSheet, Text, View
+} from 'react-native'
+import { Modalize } from 'react-native-modalize'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { CustomButton, LoadingSpin } from '../../../components'
+import { colors, fonts, general, metrics } from '../../../constants'
 import authContext from '../../../contexts/auth/auth-context'
+import api from '../../../services/api'
 
 //const data = require("../../services/mock/mock.json")
 

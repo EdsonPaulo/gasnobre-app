@@ -17,7 +17,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
       <View style={{
         flexDirection: 'row',
         height: metrics.tabBarHeight,
-        backgroundColor: role === "customer" ? colors.primary : colors.dark,
+        backgroundColor: role === "customer" ? colors.primaryDark : colors.dark,
         alignItems: 'center',
         justifyContent: 'space-around',
         borderTopWidth: 1,
@@ -73,7 +73,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
                   paddingHorizontal: 15,
                   marginHorizontal: 10,
                   borderRadius: 13,
-                  backgroundColor: isFocused ? role == "customer" ? colors.primaryDark : colors.grayDark2 : "transparent",
+                  backgroundColor: isFocused ? role == "customer" ? colors.accent : colors.grayDark2 : "transparent",
                   flexDirection: "row",
                   alignItems: 'center',
                   justifyContent: 'center',

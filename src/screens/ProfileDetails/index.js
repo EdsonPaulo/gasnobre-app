@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { Text, View, ScrollView, AsyncStorage, TextInput, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Ionicons, Feather, FontAwesome5 } from '@expo/vector-icons'
-import { StatusBar } from 'expo-status-bar'
-
-import { CustomInput, CustomButton } from '../../components'
-import { colors, metrics, general, constants } from '../../constants'
+import React, { useContext, useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
+import { SafeAreaView } from "react-native-safe-area-context"
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
+import { colors, general } from '../../constants'
 import authContext from '../../contexts/auth/auth-context'
+
 
 export default index = () => {
 
@@ -40,6 +39,8 @@ export default index = () => {
 
   return (
     <SafeAreaView style={general.background}>
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+
       <View style={styles.topContainer}>
         <FontAwesome5 name="user-circle" color={colors.dark} size={40} />
         <Text style={[styles.userName, styles.userDetails]}>{userInfo?.name}</Text>
@@ -47,7 +48,7 @@ export default index = () => {
         <Text style={styles.userDetails}>{userInfo?.phone}</Text>
       </View>
 
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         {
           editable ? null :
             <RectButton style={{ alignSelf: "flex-end", padding: 7 }} onPress={() => setEditable(true)}>
@@ -82,8 +83,7 @@ export default index = () => {
               <CustomButton style={{ flex: 1 }} title="Cancelar" onPress={() => setEditable(false)} />
             </View>
         }
-      </View>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
+      </ScrollView>
     </SafeAreaView>
   )
 }

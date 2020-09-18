@@ -1,97 +1,95 @@
-import React, { useContext, useState } from 'react'
-import { Text, View, KeyboardAvoidingView, TouchableOpacity, Alert, Platform, Modal } from 'react-native'
+import Icon from '@expo/vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
-import {AntDesign, FontAwesome} from '@expo/vector-icons'
+import React, { useContext, useState } from 'react'
+import { Alert, KeyboardAvoidingView, Modal, Platform, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
-
-import { CustomButton, CustomInput } from '../../components'
-import { metrics, colors } from '../../constants'
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
+import { colors, metrics } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
-
 import styles from './styles'
-import { RectButton } from 'react-native-gesture-handler'
 
 const Login = () => {
+  const navigation = useNavigation()
+  const { login } = useContext(AuthContext)
 
-    const navigation = useNavigation()
-    const { login } = useContext(AuthContext)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [errorModalVisible, setErrorModalVisible] = useState(false)
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [loading, setLoading] = useState(false)
-    const [errorModalVisible, setErrorModalVisible] = useState(false)
-
-    const signIn = async () => {
-        if (!email || !password)
-            Alert.alert('Preencha todos os campos', 'Informe o telefone/email e a senha!')
-        else {
-            if (password.length < 6)
-                Alert.alert('Senha Inválida', 'A senha deve ter mais de 6 caracteres')
-            else {
-                setLoading(true)
-                try {
-                    const response = await api(null).post('/users/authenticate', { email, password })
-                    if (response.data) 
-                        login({...response.data?.user, ...response.data?.customer}, response.data?.token, response.data?.role)
-                }
-                catch (error) {
-                    console.log(error, error?.response?.data)
-                    setErrorModalVisible(true)
-                }
-                finally { setLoading(false) }
-            }
+  const signIn = async () => {
+    if (!email || !password)
+      Alert.alert('Preencha todos os campos', 'Informe o telefone/email e a senha!')
+    else {
+      if (password.length < 6)
+        Alert.alert('Senha Inválida', 'A senha deve ter mais de 6 caracteres')
+      else {
+        setLoading(true)
+        try {
+          const response = await api(null).post('/users/authenticate', { email, password })
+          if (response.data)
+            login({ ...response.data?.user, ...response.data?.customer }, response.data?.token, response.data?.role)
         }
+        catch (error) {
+          console.log(error, error?.response?.data)
+          setErrorModalVisible(true)
+        }
+        finally { setLoading(false) }
+      }
     }
+  }
 
 
-    return (
-        <SafeAreaView style={styles.background}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <FontAwesome style={styles.iconHeader} name='long-arrow-left' />
-            </TouchableOpacity>
+  return (
+    <SafeAreaView style={styles.background}>
+      <CustomStatusBar barStyle="dark-content" style="dark" backgroundColor={colors.bgColor} translucent={false} />
 
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon style={styles.iconHeader} name='long-arrow-left' />
+        </TouchableOpacity>
 
-                    <Text style={[styles.title, { fontFamily: 'Acme_400Regular' }]}>Entrar na Conta</Text>
+        <Text style={styles.title}>Entrar na Conta</Text>
+      </View>
 
-                    <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
-                        <CustomInput label="Email" style={{ marginBottom: metrics.baseMargin }} name="email" type="email" placeholder="user@example.com" onChangeText={value => setEmail(value)} />
-                        <CustomInput label="Senha" name="password" type="password" placeholder="**********" onChangeText={value => setPassword(value)} />
-                        <CustomButton style={{ marginTop: 20 }} loading={loading} primary icon="ios-arrow-round-forward" title="Entrar" onPress={signIn} />
-                    </View>
-                </View>
-            </KeyboardAvoidingView>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <View style={[{ paddingHorizontal: metrics.baseMargin, width: '100%' }]}>
+          <Text style={styles.subtitle}>Informe as suas credenciais (email e senha) para iniciar sessão na sua conta</Text>
+          <View style={{ width: '100%', marginTop: metrics.doubleBaseMargin }}>
+            <CustomInput label="Seu Email" style={{ marginBottom: metrics.baseMargin }} name="email" type="email" placeholder="user@example.com" onChangeText={value => setEmail(value)} />
+            <CustomInput label="Senha de acesso" name="password" type="password" placeholder="**********" onChangeText={value => setPassword(value)} />
+            <CustomButton style={{ marginTop: 20 }} loading={loading} primary icon="ios-arrow-round-forward" title="Entrar" onPress={signIn} />
+          </View>
+        </View>
+      </KeyboardAvoidingView>
 
-            <View style={{ width: '100%', marginVertical: metrics.doubleBaseMargin }}>
-                <TouchableOpacity onPress={() => navigation.navigate('signup')}>
-                    <Text style={styles.bottomText}>Não possui uma conta?
+      <View style={{ width: '100%', marginVertical: metrics.doubleBaseMargin }}>
+        <TouchableOpacity onPress={() => navigation.navigate('signup')}>
+          <Text style={styles.bottomText}>Não possui uma conta?
                     <Text style={{ fontWeight: 'bold' }}>  Criar Conta</Text></Text>
-                </TouchableOpacity>
+        </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('forgot')}>
-                    <Text style={[styles.bottomText, { marginTop: metrics.baseMargin }]}>Esqueceu a sua senha?</Text>
-                </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('forgot')}>
+          <Text style={[styles.bottomText, { marginTop: metrics.baseMargin }]}>Esqueceu a sua senha?</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Modal animationType="slide" transparent visible={errorModalVisible}>
+        <View style={{ flex: 1, justifyContent: 'center', backgroundColor: "#0000001a" }}>
+          <View style={styles.modalView}>
+            <Icon name="close" style={{ alignSelf: "center" }} size={50} color={colors.alert} />
+            <View style={{ padding: 25, alignItems: "center" }}>
+              <Text style={styles.modalText}>Email ou Senha incorreta!</Text>
+              <Text style={styles.modalText}>Verifique as suas credenciais.</Text>
             </View>
-
-            <Modal animationType="slide" transparent visible={errorModalVisible}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
-                    <View style={styles.modalView}>
-                        <AntDesign name="closecircleo" style={{ alignSelf: "center" }} size={50} color={colors.alert} />
-                        <View style={{ padding: 25, alignItems: "center" }}>
-                            <Text style={styles.modalText}>Email ou Senha inválida!</Text>
-                            <Text style={styles.modalText}>Verifique as suas credenciais.</Text>
-                        </View>
-                        <TouchableOpacity style={{padding: 10, width: 80}} onPress={() => setErrorModalVisible(false)}>
-                            <Text style={styles.modalText}>OK</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
-            <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
-        </SafeAreaView>
-    )
+            <TouchableOpacity style={{ padding: 10, width: 80 }} onPress={() => setErrorModalVisible(false)}>
+              <Text style={styles.modalText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </SafeAreaView>
+  )
 }
 export default Login

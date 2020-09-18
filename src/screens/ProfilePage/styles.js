@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors, metrics, fonts } from '../../constants'
+import { colors, fonts, metrics } from '../../constants'
 
 const styles = StyleSheet.create({
     container: {
@@ -8,13 +8,14 @@ const styles = StyleSheet.create({
     },
     topContainer: {
         height: 50,
+        backgroundColor: colors.primaryDark,
         marginBottom: 45,
         position: "relative"
     },
     userContainer: {
         top: 10,
         height: 70,
-        width: "90%",
+        width: "70%",
         elevation: 4,
         alignSelf: "center",
         position: "absolute",
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         elevation: 3,
         backgroundColor: "white",
-        marginVertical: metrics.smallMargin,
+        marginVertical: 7,
         padding: metrics.baseMargin,
         paddingHorizontal: metrics.doubleBaseMargin
     }

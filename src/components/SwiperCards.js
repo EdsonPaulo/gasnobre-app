@@ -1,7 +1,7 @@
-import React from  'react'
-import { View, Image, Dimensions, StyleSheet } from 'react-native'
+import React from 'react'
+import { Dimensions, Image, StyleSheet } from 'react-native'
 import Swiper from 'react-native-swiper'
-import { colors, metrics } from '../constants'
+import { colors } from '../constants'
 const { width } = Dimensions.get('window')
 
 const SwiperCards = ({  }) => {

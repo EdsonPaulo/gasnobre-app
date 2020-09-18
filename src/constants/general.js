@@ -1,5 +1,5 @@
-import metrics from './metrics'
 import colors from './colors'
+import metrics from './metrics'
 
 const general = {
   background: {
@@ -23,9 +23,10 @@ const general = {
   headerButton: {
     width: 40,
     height: 40,
-    borderRadius: 10,
+    marginLeft: 8,
+    borderRadius: 20,
     justifyContent:  'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
 }  
 

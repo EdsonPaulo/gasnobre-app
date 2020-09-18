@@ -1,28 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
 import Icon from "@expo/vector-icons/FontAwesome"
-import { RectButton } from 'react-native-gesture-handler'
-const { height, width } = Dimensions.get("window")
+import { useNavigation } from '@react-navigation/native'
+import React, { useContext, useEffect, useState } from 'react'
 import {
-  Text,
-  View,
-  Image,
-  Dimensions,
-  AsyncStorage,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground
+  Dimensions, Image,
+  ScrollView, Text,
+  TouchableOpacity, View
 } from 'react-native'
-
-import styles from './styles'
-
-import { colors, metrics, general, fonts, } from '../../constants'
-import authContext from '../../contexts/auth/auth-context'
+import { RectButton } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { SwiperCards } from '../../components'
+import CustomStatusBar from '../../components/CustomStatusBar'
+import { colors, general } from '../../constants'
+import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
+import styles from './styles'
+const { height, width } = Dimensions.get("window")
+
 
 const index = () => {
   let isMounted = true
@@ -31,9 +24,7 @@ const index = () => {
   const [loading, setLoading] = useState(false)
   const [orders, setOrders] = useState([])
 
-
   const getOrders = () => {
-
     setLoading(true)
     api(token).get(`/orders?perPage=4`)
       .then(response => {
@@ -57,14 +48,18 @@ const index = () => {
   const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
 
   const handlePlanoKamba = () => {
+    /*
     user?.kambaPlan?.active ? console.log("SHOW KAMBA INFO")
       : user?.kambaPlan?.left == 0 ? console.log("SHOW END PLAN INFO")
         : user?.kambaPlan?.left <= 5 ? console.log("SHOW left days INFO") : null
     navigation.navigate("kamba")
+    */
   }
 
   return (
     <SafeAreaView style={[general.background]}>
+      <CustomStatusBar barStyle="dark-content" style="dark" backgroundColor={colors.bgColor} translucent={false} />
+     
       <View style={styles.container}>
         <View style={{}}>
           <View style={{ marginBottom: 10, width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -83,7 +78,6 @@ const index = () => {
             <SwiperCards />
           </View>
         </View>
-
         {
           /**
            * 
@@ -126,12 +120,12 @@ const index = () => {
                     <Text style={[styles.statusText, {
                       fontWeight: "bold",
                       textTransform: "capitalize",
-                      color: order.status === 'concluido' ? 'green'
-                        : order.status === 'cancelado' ? colors.alert : colors.primaryDark
+                      color: order.status === 'concluido' ? colors.success
+                        : order.status === 'cancelado' ? colors.alert : colors.accent
                     }]}>
                       {order.status}
                     </Text>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.primaryDark }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.accent }}>
                       {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
                     </Text>
                   </View>
@@ -139,14 +133,15 @@ const index = () => {
               ))
             }
 
-          </ScrollView>
-          <RectButton style={styles.seeMore} onPress={() => navigation.navigate("orderStack")}>
+<RectButton style={styles.seeMore} onPress={() => navigation.navigate("orderStack")}>
             <Text>Ver mais</Text>
           </RectButton>
 
+          </ScrollView>
+
+
         </View>
       </View>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
     </SafeAreaView>
   )
 }
