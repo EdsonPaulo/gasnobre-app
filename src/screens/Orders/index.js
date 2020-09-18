@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 13,
+    fontFamily: 'RobotoCondensed_400Regular',
     textTransform: 'capitalize',
   }
 })

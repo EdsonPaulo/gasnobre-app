@@ -39,7 +39,7 @@ export default index = () => {
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>>
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionTitle}>Meus Dados</Text>
         <RectButton activeOpacity={0.7} style={styles.btn} onPress={() => { navigation.navigate('profileDetails') }}>
           <View style={{ flexDirection: "row", alignItems: 'center' }}>
@@ -51,8 +51,8 @@ export default index = () => {
 
         <TouchableOpacity activeOpacity={0.7} style={styles.btn} onPress={() => { navigation.navigate('address') }}>
           <View style={{ flexDirection: "row", alignItems: 'center' }}>
-            <MaterialCommunityIcons name='map' style={styles.icons} />
-            <Text style={styles.textStyle}> Meus Endereços </Text>
+            <MaterialCommunityIcons name='home-map-marker' style={styles.icons} />
+            <Text style={styles.textStyle}>Meus Endereços </Text>
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>
@@ -68,25 +68,24 @@ export default index = () => {
         <Text style={styles.sectionTitle}>Mais</Text>
         <TouchableOpacity activeOpacity={0.7} style={styles.btn} onPress={() => { onShare() }}>
           <View style={{ flexDirection: "row", alignItems: 'center' }}>
-
             <MaterialCommunityIcons name='share-variant' style={styles.icons} />
-            <Text style={styles.textStyle}>Partilhar </Text>
+            <Text style={styles.textStyle}>Partilhar</Text>
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.7} style={styles.btn}>
           <View style={{ flexDirection: "row", alignItems: 'center' }}>
-            <MaterialCommunityIcons name='account-supervisor' style={styles.icons} />
-            <Text style={styles.textStyle}>Ajuda e Suporte </Text>
+            <MaterialCommunityIcons name='headset' style={styles.icons} />
+            <Text style={styles.textStyle}>Ajuda e Suporte</Text>
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>
-
+ 
         <TouchableOpacity activeOpacity={0.7} style={styles.btn} onPress={() => Logout()}>
           <View style={{ flexDirection: "row", alignItems: 'center' }}>
-            <MaterialCommunityIcons name='logout' style={styles.icons} />
-            <Text style={styles.textStyle}> Terminar Sessão </Text>
+            <MaterialCommunityIcons name='power' style={styles.icons} />
+            <Text style={styles.textStyle}>Terminar Sessão</Text>
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>

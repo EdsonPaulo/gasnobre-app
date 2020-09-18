@@ -74,6 +74,9 @@ const styles = StyleSheet.create({
         marginVertical: 7,
         padding: metrics.baseMargin,
         paddingHorizontal: metrics.doubleBaseMargin
+    },
+    textStyle: {
+      fontFamily: 'RobotoCondensed_400Regular',
     }
 })
 

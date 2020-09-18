@@ -87,10 +87,9 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: colors.grayDark,
-    fontWeight: 'bold',
     fontSize: 15,
     textAlign: "center",
-    fontFamily: 'RobotoCondensed_400Regular',
+    fontFamily: 'RobotoCondensed_700Bold',
     marginBottom: metrics.baseMargin
   },
   section: {
@@ -111,10 +110,10 @@ const styles = StyleSheet.create({
   },
   totalText: {
     fontSize: fonts.input,
-    fontWeight: 'bold'
+    fontFamily: 'RobotoCondensed_700Bold',
   },
   statusText: {
-    fontWeight: 'bold',
+    fontFamily: 'RobotoCondensed_700Bold',
     textTransform: 'capitalize',
   }
 })
