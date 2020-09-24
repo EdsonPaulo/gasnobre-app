@@ -64,7 +64,7 @@ const index = () => {
         <View style={{}}>
           <View style={{ marginBottom: 10, width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
 
-            <View style={{ width: 130, height: 80, }}>
+            <View style={{ width: 130, height: 80}}>
               <Image style={{ width: "100%", height: "100%" }}
                 resizeMode="contain" source={require("../../assets/logo-transparent.png")} />
             </View>
@@ -118,14 +118,14 @@ const index = () => {
 
                   <View style={styles.rowContainer}>
                     <Text style={[styles.statusText, {
-                      fontWeight: "bold",
+                     fontFamily: 'RobotoCondensed_700Bold',
                       textTransform: "capitalize",
                       color: order.status === 'concluido' ? colors.success
                         : order.status === 'cancelado' ? colors.alert : colors.accent
                     }]}>
                       {order.status}
                     </Text>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.accent }}>
+                    <Text style={{ fontFamily: 'RobotoCondensed_700Bold', fontSize: 16, color: colors.accent }}>
                       {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
                     </Text>
                   </View>

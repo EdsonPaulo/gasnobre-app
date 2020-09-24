@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 24,
     color: colors.primaryDark,
-    fontWeight: 'bold',
+    fontFamily: 'RobotoCondensed_700Bold',
     marginBottom: 20,
   },
   btnContainer: {

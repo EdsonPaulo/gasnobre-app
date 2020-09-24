@@ -2,10 +2,11 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from "@react-navigation/stack"
-import React from 'react'
+import React, { useContext } from 'react'
 import { RectButton } from 'react-native-gesture-handler'
 import { HomeTabBar } from '../components'
 import { colors, general } from '../constants'
+import authContext from "../contexts/auth/auth-context"
 import {
   AddressPage,
   Checkout, Forgot,
@@ -54,27 +55,30 @@ const MainNavigation = () => {
 
 const OrderStack = () => {
   const Stack = createStackNavigator()
-  const navigation = useNavigation()
-
+  const { role } = useContext(authContext)
   return (
     <Stack.Navigator screenOptions={{
       ...stackScreenGlobalOptions,
-      /**
-      headerLeft: props =>
-        <RectButton style={general.headerButton} onPress={() => navigation.toggleDrawer()}>
-          <Icon name="text" size={30} color="white" />
-        </RectButton>
-         */
+      headerStyle: {
+        backgroundColor: role === "customer" ?
+          colors.primaryDark : colors.dark, height: 60, elevation: 0
+      }
     }}>
-      <Stack.Screen name="orders" options={{ headerTitle: "Meus Pedidos" }} component={Orders} />
+      <Stack.Screen name="orders" options={{ headerTitle: role === "customer" ? "Meus Pedidos" : "Pedidos de Clientes" }} component={Orders} />
     </Stack.Navigator>
   )
 }
+
 const ProfileStack = () => {
   const Stack = createStackNavigator()
+  const { role } = useContext(authContext)
   return (
     <Stack.Navigator screenOptions={{
       ...stackScreenGlobalOptions,
+      headerStyle: {
+        backgroundColor: role === "customer" ?
+          colors.primaryDark : colors.dark, height: 60, elevation: 0
+      }
     }}>
       <Stack.Screen name="profile" options={{
         headerTitle: "Definições e Perfil",
@@ -82,6 +86,7 @@ const ProfileStack = () => {
     </Stack.Navigator>
   )
 }
+
 const StoreStack = () => {
   const Stack = createStackNavigator()
   return (
@@ -96,7 +101,7 @@ const StoreStack = () => {
 const AuthNavigation = () => {
   const AuthStack = createStackNavigator()
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal", }}>
+    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal"}}>
       <AuthStack.Screen name="landing" component={Landing} />
       <AuthStack.Screen name="welcome" component={Welcome} />
       <AuthStack.Screen name="login" component={Login} />
@@ -109,14 +114,12 @@ const AuthNavigation = () => {
 const AdminNavigation = () => {
   const AdminStack = createStackNavigator()
   const Tabs = createBottomTabNavigator()
-
   const AdminHomeTabs = () => (
-    <Tabs.Navigator initialRouteName='home' tabBar={props => <HomeTabBar {...props} />}>
+    <Tabs.Navigator tabBar={props => <HomeTabBar {...props} />}>
       <Tabs.Screen name="homeStack" component={HomeAdmin} options={{ tabBarLabel: 'Início' }} />
       <Tabs.Screen name="storeStack" component={ProductsAdmin} options={{ tabBarLabel: 'Produtos' }} />
-      <Tabs.Screen name="orderStack" component={Orders} options={{ tabBarLabel: 'Pedidos' }} />
+      <Tabs.Screen name="orderStack" component={OrderStack} options={{ tabBarLabel: 'Pedidos' }} />
       <Tabs.Screen name="customers" component={OrderStack} options={{ tabBarLabel: 'Clientes' }} />
-      <Tabs.Screen name="settings" component={ProfilePage} options={{ tabBarLabel: 'Configurações' }} />
     </Tabs.Navigator>
   )
 

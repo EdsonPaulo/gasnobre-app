@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     text: {
         color: '#fff',
         fontSize: 30,
-        fontWeight: 'bold'
+        fontFamily: 'RobotoCondensed_700Bold',
     },
     image: {
         width,

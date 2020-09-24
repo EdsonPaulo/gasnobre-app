@@ -5,7 +5,6 @@ import HomeTabBar from './HomeTabBar'
 import LoadingSpin from './LoadingSpin'
 import PlaceholderImage from './PlaceholderImage'
 import ProductVerticalItem from './ProductVerticalItem'
-import SideBar from './SideBar'
 import SwiperCards from './SwiperCards'
 
 export {
@@ -13,7 +12,6 @@ export {
   CustomInput,
   CustomStatusBar,
   HomeTabBar,
-  SideBar,
   LoadingSpin,
   SwiperCards,
   PlaceholderImage,

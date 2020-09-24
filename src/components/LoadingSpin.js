@@ -13,7 +13,7 @@ const LoadingSpin = ({text}) => {
             backgroundColor: colors.bgColor
         }}>
             <ActivityIndicator size="large" color={colors.primary} />
-            <Text style={{ fontSize: 16 }}> {text || "Carregando.."}</Text>
+            <Text style={{ fontSize: 16,fontFamily: 'RobotoCondensed_400Regular'}}> {text || "Carregando"}</Text>
         </View>
     )
 }

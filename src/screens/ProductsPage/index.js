@@ -118,7 +118,7 @@ export default index = () => {
   }
 
   const renderProductsList = () => {
-    if (loading && products.length == 0) return <LoadingSpin />
+    if (loading && products.length == 0) return <LoadingSpin text="Carregando Produtos" />
     return (
       <FlatList bounces horizontal data={products}
         showsHorizontalScrollIndicator={false}
@@ -149,11 +149,11 @@ export default index = () => {
             borderColor: colors.borderColor,
             padding: metrics.baseMargin,
             borderRadius: metrics.baseRadius,
-            marginBottom: metrics.smallMargin
+            marginVertical: metrics.smallMargin
           }}>
             <Text style={{ textAlign: "center" }}>
-              {product.name} {product.weight <= 0.99 ? `${product.weight * 1000}ml` : `${product.weight}L`}
-                            (x{product.quantity}) =  {transformPrice(product.price * product.quantity)}</Text>
+              {product.name} - {product.weight <= 0.99 ? `${product.weight * 1000}ml` : `${product.weight}L`} ({product.quantity} embalagens de {product.bottles} garrafas)
+              = {transformPrice(product.price * product.quantity)}</Text>
           </View>
         ))
       }
@@ -167,11 +167,11 @@ export default index = () => {
     </View>
   )
 
-  if (!interactionsComplete) { return <LoadingSpin /> }
+  if (!interactionsComplete) { return <LoadingSpin  /> }
 
   return (
     <SafeAreaView style={general.background}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent  :  "#111"} translucent={false} />
 
       <View style={styles.scene}>
         {

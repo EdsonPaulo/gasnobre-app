@@ -20,26 +20,27 @@ export default index = () => {
         <Image style={{ width: "100%", height: "100%" }}
           resizeMode="contain" source={require("../../../assets/logo.png")} />
       </View>
+      <Text style={{ fontSize: 20, fontFamily: 'RobotoCondensed_700Bold',textAlign: "center" }}>ADMINISTRAÇÃO</Text>
 
       <View style={styles.container}>
         <View style={{ flexDirection: "row", margin: 5 }}>
-          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("orders")}>
+          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("orderStack")}>
             <Icon name="bullhorn" style={styles.optionIcon} size={35} />
-            <Text bold>Pedidos</Text>
+            <Text style={styles.optionText}>Pedidos</Text>
           </RectButton>
           <RectButton style={[styles.option]} onPress={() => navigation.navigate("products")}>
             <Icon name="store-alt" style={styles.optionIcon} size={35} />
-            <Text bold>Produtos</Text>
+            <Text style={styles.optionText}>Produtos</Text>
           </RectButton>
         </View>
         <View style={{ flexDirection: "row", margin: 5 }}>
           <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("customers")}>
             <Icon name="users" style={styles.optionIcon} size={35} />
-            <Text bold>Clientes</Text>
+            <Text style={styles.optionText}>Clientes</Text>
           </RectButton>
-          <RectButton style={[styles.option]} onPress={() => navigation.navigate("profile")}>
+          <RectButton style={[styles.option]} onPress={() => navigation.navigate("profilePage")}>
             <Icon name="cog" style={styles.optionIcon} size={35} />
-            <Text bold>Configurações</Text>
+            <Text style={styles.optionText}>Configurações</Text>
           </RectButton>
         </View>
       </View>
@@ -72,4 +73,8 @@ const styles = StyleSheet.create({
     color: colors.dark,
     marginBottom: 5
   },
+  optionText: {
+    fontFamily: 'RobotoCondensed_700Bold',
+
+  }
 })

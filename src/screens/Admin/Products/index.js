@@ -135,14 +135,14 @@ const renderItem = product => (
             : renderProductsList()
         }
        
-        <Modalize ref={modalizeRef} rootStyle={{ elevation: 5 }} modalHeight={height - 200}
+        <Modalize ref={modalizeRef} rootStyle={{ elevation: 5 }} modalHeight={height - 120}
           FooterComponent={
             <CustomButton primary style={styles.makeOrderButton} rounded
               onPress={() => navigation.navigate("checkout", { cart, subtotal })}
 
               title={`Fazer Pedido (${transformPrice(subtotal)})`} />
           }>
-          {renderCart()}
+         
         </Modalize>
       </View>
       <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />

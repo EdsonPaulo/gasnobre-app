@@ -21,7 +21,7 @@ export default index = () => {
 
   return (
     <SafeAreaView style={[general.background, {}]}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent  :  "#111"} translucent={false} />
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.textContainer}>
@@ -32,7 +32,7 @@ export default index = () => {
                   : order.status === 'concluido' ? colors.success : colors.dark
             }]}> {order.status}
             </Text></Text>
-          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{convertDate(order.createdAt)}</Text>
+          <Text style={{ fontSize: 15, fontFamily: 'RobotoCondensed_700Bold' }}>{convertDate(order.createdAt)}</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Lista de Produtos</Text>

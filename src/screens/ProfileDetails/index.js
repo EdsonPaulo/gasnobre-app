@@ -39,7 +39,7 @@ export default index = () => {
 
   return (
     <SafeAreaView style={general.background}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent  :  "#111"} translucent={false} />
 
       <View style={styles.topContainer}>
         <FontAwesome5 name="user-circle" color={colors.dark} size={40} />
@@ -52,7 +52,7 @@ export default index = () => {
         {
           editable ? null :
             <RectButton style={{ alignSelf: "flex-end", padding: 7 }} onPress={() => setEditable(true)}>
-              <Text style={{ fontWeight: "bold" }}><FontAwesome5 name="edit" /> Editar</Text>
+              <Text style={{ fontFamily: 'RobotoCondensed_700Bold'}}><FontAwesome5 name="edit" /> Editar</Text>
             </RectButton>
         }
         <Text style={styles.labelStyle}>Nome</Text>
@@ -71,7 +71,7 @@ export default index = () => {
           <Text style={styles.labelStyle}>
             Endereço Principal</Text>
           <TouchableOpacity onPress={() => navigation.navigate("address")}>
-            <Text style={{ fontSize: 15, }}>+ Alterar</Text>
+            <Text style={{ fontSize: 15}}>+ Alterar</Text>
           </TouchableOpacity>
         </View>
 
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'RobotoCondensed_700Bold',
   },
   userDetails: {
     fontFamily: 'RobotoCondensed_400Regular',
@@ -114,10 +114,9 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: colors.grayDark,
-    fontWeight: 'bold',
     marginTop: 10,
     marginBottom: 2,
     marginLeft: 10,
-    fontFamily: 'RobotoCondensed_400Regular',
+    fontFamily: 'RobotoCondensed_700Bold',
   },
 })

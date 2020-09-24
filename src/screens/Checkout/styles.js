@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         color: colors.accent,
-        fontWeight: 'bold',
+        fontFamily: 'RobotoCondensed_700Bold',
         marginLeft: metrics.smallMargin,
         fontSize: fonts.regular,
     },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     totalText: {
         fontSize: fonts.input,
-        fontWeight: 'bold'
+        fontFamily: 'RobotoCondensed_700Bold',
     },
     inputContainer: {
         marginVertical: 7

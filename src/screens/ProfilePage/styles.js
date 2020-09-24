@@ -45,10 +45,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     userName: {
-        fontFamily: 'RobotoCondensed_400Regular',
+        fontFamily: 'RobotoCondensed_700Bold',
         fontSize: 16,
-        color: colors.dark,
-        fontWeight: 'bold',
+        color: colors.dark, 
     },
     userDetails: {
         fontFamily: 'RobotoCondensed_400Regular',

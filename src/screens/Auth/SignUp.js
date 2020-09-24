@@ -76,7 +76,7 @@ const SignUp = () => {
           <Text style={styles.title}>
             <Text style={[styles.title, { color: colors.primaryDark }]}>{step}</Text> / 3
           </Text>
-          <View style={{ marginTop: metrics.doubleBaseMargin, }}>
+          <View style={{ marginTop: metrics.doubleBaseMargin}}>
             {
               step == 1 ?
                 <View>

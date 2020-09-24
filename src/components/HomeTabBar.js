@@ -52,11 +52,13 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
             if (route.name === 'homeStack')
               iconName = 'home'
             else if (route.name === 'orderStack')
-              iconName = 'list'
+              iconName = 'megaphone'
             else if (route.name === 'profileStack')
               iconName = 'user'
             else if (route.name === 'storeStack')
               iconName = 'shopping-bag'
+            else if (route.name === 'customers')
+              iconName = 'users' 
 
             return (
               <TouchableOpacity key={route.key}

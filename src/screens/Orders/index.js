@@ -39,6 +39,7 @@ export default index = () => {
     setLoading(true)
     api(token).get(`/orders?page=${page}`)
       .then(response => {
+        console.log(response.data)
         if (isMounted) {
           setTotal(response.data?.total)
           if (refreshing)
@@ -72,17 +73,20 @@ export default index = () => {
         <Text style={[styles.statusText]}>Referência: <Text style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>{order.number}</Text></Text>
         <Text style={styles.statusText}>{convertDate(order.createdAt)}</Text>
       </View>
-
+      {
+        role === "customer" ? null :
+          <Text style={[styles.statusText, { textAlign: "center" }]}>{order.customer?.name}</Text>
+      }
       <View style={styles.rowContainer}>
         <Text style={styles.statusText}>Estado:
         <Text style={{
-            fontWeight: "bold",
+            fontFamily: 'RobotoCondensed_700Bold',
             color: order.status === 'pendente' ? colors.accent
               : order.status === 'cancelado' ? colors.alert
                 : order.status === 'concluido' ? colors.success : colors.dark
           }}> {order.status}
           </Text></Text>
-        <Text style={{ fontWeight: 'bold', fontSize: 15, color: colors.primaryDark }}>
+        <Text style={{fontFamily: 'RobotoCondensed_700Bold', fontSize: 15, color: colors.primaryDark }}>
           {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
         </Text>
       </View>
@@ -120,7 +124,7 @@ export default index = () => {
 
   return (
     <SafeAreaView style={general.background}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent : "#111"} translucent={false} />
 
       <View style={{ flex: 1 }}>
         {

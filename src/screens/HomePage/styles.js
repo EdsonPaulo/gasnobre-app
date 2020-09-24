@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   homeTitle: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: 'RobotoCondensed_700Bold',
     color: colors.grayDark2,
     textAlign: "center",
     marginBottom: metrics.doubleBaseMargin
@@ -102,10 +102,9 @@ const styles = StyleSheet.create({
   },
   statusText: {
     color: colors.dark,
-    fontSize: 15,
-    fontWeight: "bold",
+    fontSize: 15, 
     textTransform: "uppercase",
-    fontFamily: "RobotoCondensed_400Regular"
+    fontFamily: 'RobotoCondensed_700Bold',
   }
 })
 

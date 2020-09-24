@@ -9,7 +9,7 @@ import styles from './styles'
 const Landing = () => {
   const navigation = useNavigation()
   return (
-    <SafeAreaView style={[styles.background, { padding: metrics.tripleBaseMargin, }]}>
+    <SafeAreaView style={[styles.background, { padding: metrics.tripleBaseMargin}]}>
       <CustomStatusBar barStyle="dark-content" style="dark" backgroundColor={colors.bgColor} translucent={false} />
 
       <View style={{ flex: 1.3 / 2, width: '100%' }}>
