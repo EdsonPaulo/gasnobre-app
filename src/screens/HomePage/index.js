@@ -58,13 +58,13 @@ const index = () => {
 
   return (
     <SafeAreaView style={[general.background]}>
-      <CustomStatusBar barStyle="dark-content" style="dark" backgroundColor={colors.bgColor} translucent={false} />
-     
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+
       <View style={styles.container}>
         <View style={{}}>
           <View style={{ marginBottom: 10, width: "100%", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
 
-            <View style={{ width: 130, height: 80}}>
+            <View style={{ width: 130, height: 80 }}>
               <Image style={{ width: "100%", height: "100%" }}
                 resizeMode="contain" source={require("../../assets/logo-transparent.png")} />
             </View>
@@ -118,14 +118,14 @@ const index = () => {
 
                   <View style={styles.rowContainer}>
                     <Text style={[styles.statusText, {
-                     fontFamily: 'RobotoCondensed_700Bold',
+                      fontFamily: 'RobotoCondensed_700Bold',
                       textTransform: "capitalize",
                       color: order.status === 'concluido' ? colors.success
                         : order.status === 'cancelado' ? colors.alert : colors.accent
                     }]}>
                       {order.status}
                     </Text>
-                    <Text style={{ fontFamily: 'RobotoCondensed_700Bold', fontSize: 16, color: colors.accent }}>
+                    <Text style={{ fontFamily: 'RobotoCondensed_700Bold', fontSize: 16, color: colors.success }}>
                       {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
                     </Text>
                   </View>
@@ -133,9 +133,9 @@ const index = () => {
               ))
             }
 
-<RectButton style={styles.seeMore} onPress={() => navigation.navigate("orderStack")}>
-            <Text>Ver mais</Text>
-          </RectButton>
+            <RectButton style={styles.seeMore} onPress={() => navigation.navigate("orderStack")}>
+              <Text>Ver mais</Text>
+            </RectButton>
 
           </ScrollView>
 

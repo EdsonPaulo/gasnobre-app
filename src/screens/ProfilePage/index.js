@@ -12,7 +12,7 @@ import styles from './styles'
 export default index = () => {
 
   const navigation = useNavigation()
-  const { logout, user } = useContext(AuthContext)
+  const { logout, user, role } = useContext(AuthContext)
   const userInitials = user?.name?.split(" ")[0][0] + (user?.name?.split(" ")[1] ? user?.name?.split(" ")[1][0] : "")
 
   const Logout = () => {

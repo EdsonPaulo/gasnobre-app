@@ -18,7 +18,7 @@ const SignUp = () => {
   const [userData, setUserData] = useState({
     name: null,
     phone: "+244",
-    email: "null",
+    email: null,
     password: null,
     code: null
   })
@@ -48,15 +48,26 @@ const SignUp = () => {
     }
   }
 
-  const nextStep = () => {
-    setStep(step + 1)
+  const nextStep = () => setStep(step + 1)
 
-  }
+  const prevStep = () => setStep(step - 1)
 
-  const prevStep = () => {
-    setStep(step - 1)
+  const renderStep1 = () => (
+    <View>
+      <Text style={styles.subtitle}>Informe seus dados pessoais</Text>
+      <CustomInput type="name" placeholder="Nome e Sobrenome" onChangText={value => setUserData({ ...userData, name: value })} />
+      <CustomInput style={{ marginVertical: 15 }} type="phone" maxLength={9} placeholder="Telefone (obrigatório)" onChangText={value => setUserData({ ...userData, phone: value })} />
+      <CustomInput type="email" placeholder="Email (obrigatório)" onChangText={value => setUserData({ ...userData, email: value })} />
+      <CustomInput style={{ marginVertical: 15 }} type="password" placeholder="Senha" onChangText={value => setUserData({ ...userData, password: value })} />
+    </View>
+  )
 
-  }
+  const renderStep2 = () => (
+    <View style={{ marginBottom: 15 }}>
+      <Text style={styles.subtitle}>Enviámos um código de 6 dígitos para {userData.email}</Text>
+      <CustomInput type="code" maxLength={6} placeholder="XXXXXX" onChangText={value => setUserData({ ...userData, code: value })} />
+    </View>
+  )
 
 
   return (
@@ -76,25 +87,18 @@ const SignUp = () => {
           <Text style={styles.title}>
             <Text style={[styles.title, { color: colors.primaryDark }]}>{step}</Text> / 3
           </Text>
-          <View style={{ marginTop: metrics.doubleBaseMargin}}>
+          <View style={{ marginTop: metrics.doubleBaseMargin }}>
             {
               step == 1 ?
-                <View>
-                  <Text style={styles.subtitle}>Informe seus dados pessoais</Text>
-                  <CustomInput type="name" placeholder="Nome e Sobrenome" onChangText={value => setUserData({ ...userData, name: value })} />
-                  <CustomInput style={{ marginVertical: 15 }} type="phone" maxLength={9} placeholder="Telefone (obrigatório)" onChangText={value => setUserData({ ...userData, phone: value })} />
-                  <CustomInput type="email" placeholder="Email (obrigatório)" onChangText={value => setUserData({ ...userData, email: value })} />
-                  <CustomInput style={{ marginVertical: 15 }} type="password" placeholder="Senha" onChangText={value => setUserData({ ...userData, password: value })} />
-                </View>
+                renderStep1()
                 : step == 2 ?
-                  <View style={{ marginBottom: 15 }}>
-                    <Text style={styles.subtitle}>Enviámos um código de 6 dígitos para {userData.email}</Text>
-                    <CustomInput type="code" maxLength={6} placeholder="XXXXXX" onChangText={value => setUserData({ ...userData, code: value })} />
-                  </View>
-                  :
-                  <View>
-
-                  </View>
+                  renderStep2()
+                  : step == 3 ?
+                    renderStep3()
+                    : step == 4 ?
+                      <View />
+                      :
+                      <View />
             }
             <View style={{ flexDirection: "row" }}>
               {

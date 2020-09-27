@@ -2,7 +2,7 @@ import Icon from "@expo/vector-icons/FontAwesome5"
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import React, { useContext } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Alert } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors, general } from '../../../constants'
@@ -11,7 +11,15 @@ import authContext from '../../../contexts/auth/auth-context'
 export default index = () => {
 
   const navigation = useNavigation()
-  const { user } = useContext(authContext)
+  const { user, logout } = useContext(authContext)
+  
+  const Logout = () => {
+    Alert.alert(
+      'Terminar Sessão', 'Deseja terminar sessão da sua conta?', [
+      { text: 'Não', style: 'cancel' },
+      { text: 'SIm', onPress: () => logout() },
+    ], { cancelable: true })
+  }
 
   return (
     <SafeAreaView style={[general.background]}>
@@ -38,10 +46,17 @@ export default index = () => {
             <Icon name="users" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Clientes</Text>
           </RectButton>
-          <RectButton style={[styles.option]} onPress={() => navigation.navigate("profilePage")}>
+          <RectButton style={[styles.option]} onPress={() => navigation.navigate("profile")}>
             <Icon name="cog" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Configurações</Text>
           </RectButton>
+        </View>
+        <View style={{ flexDirection: "row", margin: 5 }}>
+          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={Logout}>
+            <Icon name="power" style={styles.optionIcon} size={35} />
+            <Text style={styles.optionText}>Terminar Sessão</Text>
+          </RectButton>
+          <View style={{flex: 1}} />
         </View>
       </View>
       <StatusBar style="light" backgroundColor={colors.dark} translucent={false} />
@@ -59,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   option: {
-    flex: 1 / 2,
+    flex: 1 ,
     width: "100%",
     height: 130,
     borderRadius: 5,

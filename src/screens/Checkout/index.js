@@ -80,7 +80,7 @@ const index = () => {
 
   return (
     <SafeAreaView style={general.background}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent  :  "#111"} translucent={false} />
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
 
       <ScrollView contentContainerStyle={{ paddingVertical: 10 }} showsVerticalScrollIndicator={false}>
 
@@ -116,7 +116,7 @@ const index = () => {
 
             <View style={styles.textContainer}>
               <Text style={styles.totalText}>Total </Text>
-              <Text style={styles.totalText}> {transformPrice(subtotal + tax)} </Text>
+              <Text style={[styles.totalText, {color: colors.success}]}> {transformPrice(subtotal + tax)} </Text>
             </View>
           </View>
         </View>

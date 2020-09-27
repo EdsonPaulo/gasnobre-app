@@ -65,13 +65,16 @@ export default index = () => {
     return () => isMounted = false
   }, [])
 
-  const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
+  const convertDate = date => Intl.DateTimeFormat('pt-AO',
+    { weekday: 'long', day: 'numeric', month: 'numeric', year: 'numeric' }).format(new Date(date))
 
   const Order = ({ order }) => (
     <TouchableOpacity activeOpacity={0.7} style={styles.orderContainer} onPress={() => navigation.navigate('orderDetails', { order })}>
       <View style={styles.rowContainer}>
         <Text style={[styles.statusText]}>Referência: <Text style={{ textTransform: 'uppercase', fontWeight: 'bold' }}>{order.number}</Text></Text>
-        <Text style={styles.statusText}>{convertDate(order.createdAt)}</Text>
+        <Text style={{ fontFamily: 'RobotoCondensed_700Bold', fontSize: 15, color: colors.accent }}>
+          {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
+        </Text>
       </View>
       {
         role === "customer" ? null :
@@ -81,14 +84,13 @@ export default index = () => {
         <Text style={styles.statusText}>Estado:
         <Text style={{
             fontFamily: 'RobotoCondensed_700Bold',
-            color: order.status === 'pendente' ? colors.accent
+            color: order.status === 'pendente' ? colors.dark
               : order.status === 'cancelado' ? colors.alert
-                : order.status === 'concluido' ? colors.success : colors.dark
+                : order.status === 'concluido' ? colors.success : colors.accent
           }}> {order.status}
           </Text></Text>
-        <Text style={{fontFamily: 'RobotoCondensed_700Bold', fontSize: 15, color: colors.primaryDark }}>
-          {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(order.total)}
-        </Text>
+        <Text style={styles.statusText}>{convertDate(order.createdAt)}</Text>
+
       </View>
     </TouchableOpacity>
   )

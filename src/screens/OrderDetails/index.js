@@ -1,13 +1,15 @@
 import { useNavigation, useRoute } from "@react-navigation/native"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { ScrollView, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CustomButton, CustomStatusBar } from "../../components"
 import { colors, fonts, general, metrics } from "../../constants"
+import authContext from "../../contexts/auth/auth-context"
 
 
 export default index = () => {
 
+  const { role } = useContext(authContext)
   const route = useRoute()
   const navigation = useNavigation()
   const [loading, setLoading] = useState(false)
@@ -17,22 +19,25 @@ export default index = () => {
   console.log(order)
 
   const transformPrice = value => Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value)
-  const convertDate = date => Intl.DateTimeFormat('pt-AO').format(new Date(date))
+  const convertDate = date => Intl.DateTimeFormat('pt-AO', {
+    hour: 'numeric', minute: 'numeric',
+    day: 'numeric', month: 'numeric', year: 'numeric'
+  }).format(new Date(date))
 
   return (
     <SafeAreaView style={[general.background, {}]}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent  :  "#111"} translucent={false} />
+      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={role === "customer" ? colors.accent : "#111"} translucent={false} />
 
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.textContainer}>
           <Text>Estado:
                     <Text style={[styles.statusText, {
-              color: order.status === 'pendente' ? colors.accent
+              color: order.status === 'pendente' ? colors.dark
                 : order.status === 'cancelado' ? colors.alert
-                  : order.status === 'concluido' ? colors.success : colors.dark
+                  : order.status === 'concluido' ? colors.success : colors.accent
             }]}> {order.status}
             </Text></Text>
-          <Text style={{ fontSize: 15, fontFamily: 'RobotoCondensed_700Bold' }}>{convertDate(order.createdAt)}</Text>
+          <Text style={{ fontSize: 15, fontFamily: 'RobotoCondensed_400Regular', textTransform: "capitalize" }}>{convertDate(order.createdAt)}</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Lista de Produtos</Text>
@@ -63,7 +68,7 @@ export default index = () => {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.totalText}>Total </Text>
-            <Text style={styles.totalText}> {transformPrice(order.total)} </Text>
+            <Text style={[styles.totalText, { color: colors.accent }]}> {transformPrice(order.total)} </Text>
           </View>
         </View>
         <View style={styles.section}>
@@ -73,8 +78,10 @@ export default index = () => {
           <Text>Angola - {order.city}</Text>
           <Text>+244 {order.customer?.phone}</Text>
         </View>
-
-        <CustomButton title="Voltar a pedir" primary onPress={() => navigation.navigate("checkout", { cart: [...order.products], subtotal: order.subtotal || 0 })} />
+        {
+          order.status === "pendente" ? null :
+            <CustomButton title="Voltar a pedir" icon="md-refresh" primary onPress={() => navigation.navigate("checkout", { cart: [...order.products], subtotal: order.subtotal || 0 })} />
+        }
       </ScrollView>
     </SafeAreaView>
   )
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
   },
   section: {
     backgroundColor: 'white',
-    elevation: 2,
+    elevation: 1,
     height: "auto",
     padding: metrics.baseMargin,
     marginVertical: metrics.smallMargin,

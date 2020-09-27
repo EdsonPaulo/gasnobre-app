@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         elevation: 3,
-        height: 40,
+        height: 45,
         marginVertical: metrics.baseMargin,
         borderColor: colors.primaryDark,
     },

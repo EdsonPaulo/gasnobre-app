@@ -24,7 +24,7 @@ const stackScreenGlobalOptions = {
   headerTitleStyle: { fontSize: 22, fontFamily: "Acme_400Regular", marginLeft: 0, color: "white" },
   //headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.dark,
-  headerStyle: { backgroundColor: colors.primaryDark, height: 60, elevation: 0 }
+  headerStyle: { backgroundColor: colors.primaryDark, height: 55, elevation: 0 }
 }
 
 const HomeTabs = () => {
@@ -61,7 +61,7 @@ const OrderStack = () => {
       ...stackScreenGlobalOptions,
       headerStyle: {
         backgroundColor: role === "customer" ?
-          colors.primaryDark : colors.dark, height: 60, elevation: 0
+          colors.primaryDark : colors.dark, height: 55, elevation: 0
       }
     }}>
       <Stack.Screen name="orders" options={{ headerTitle: role === "customer" ? "Meus Pedidos" : "Pedidos de Clientes" }} component={Orders} />
@@ -77,7 +77,7 @@ const ProfileStack = () => {
       ...stackScreenGlobalOptions,
       headerStyle: {
         backgroundColor: role === "customer" ?
-          colors.primaryDark : colors.dark, height: 60, elevation: 0
+          colors.primaryDark : colors.dark, height: 55, elevation: 0
       }
     }}>
       <Stack.Screen name="profile" options={{
@@ -101,7 +101,7 @@ const StoreStack = () => {
 const AuthNavigation = () => {
   const AuthStack = createStackNavigator()
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal"}}>
+    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal" }}>
       <AuthStack.Screen name="landing" component={Landing} />
       <AuthStack.Screen name="welcome" component={Welcome} />
       <AuthStack.Screen name="login" component={Login} />
@@ -133,6 +133,7 @@ const AdminNavigation = () => {
       <AdminStack.Screen name="customerDetails" component={HomeAdmin} />
       <AdminStack.Screen name="productDetails" component={HomeAdmin} />
       <AdminStack.Screen name="orderDetails" options={{ headerTitle: "Detalhes do Pedido" }} component={OrderDetails} />
+      <AdminStack.Screen name="profile" options={{ headerTitle: "" }} component={ProfileDetails} />
     </AdminStack.Navigator>
   )
 }
