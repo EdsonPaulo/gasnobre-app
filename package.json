@@ -26,6 +26,7 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-confirmation-code-field": "^6.5.0",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-modalize": "^2.0.5",
     "react-native-rate": "^1.2.1",
@@ -34,7 +35,8 @@
     "react-native-screens": "^2.9.0",
     "react-native-swiper": "^1.6.0",
     "react-native-tab-view": "^2.15.0",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

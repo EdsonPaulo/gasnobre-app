@@ -69,6 +69,27 @@ const SignUp = () => {
     </View>
   )
 
+  const renderStep3 = () => (
+    <View style={{ marginBottom: 15 }}>
+      <Text style={styles.subtitle}>Muito Bem :)</Text>
+      <Text style={styles.subtitle}>Para terminar informe-nos o seu endereço principal (onde serão feitas as entregas)</Text>
+
+      <CustomInput showIcon={false} placeholder="ex: Maianga, Av. Deolinda Rodrigues" label="Município/Distrito (obrigatório)"
+        onChangText={value => setUserData({ ...userData, name: value })} />
+
+      <CustomInput containerStyle={{ marginVertical: 10 }} placeholder="ex: Bairro Cassenda"
+        label="Bairro (obrigatório)"
+        onChangText={value => setUserData({ ...userData, name: value })} />
+
+      <CustomInput placeholder="ex: Rua Cheguevara" label="Rua (obrigatório)"
+        onChangText={value => setUserData({ ...userData, name: value })} />
+
+      <CustomInput containerStyle={{ marginVertical: 10 }}
+        placeholder="Identificação da casa" label="Nº da Casa (caso tenha)"
+        onChangText={value => setUserData({ ...userData, name: value })} />
+    </View>
+  )
+
 
   return (
     <SafeAreaView style={styles.background}>
@@ -102,11 +123,11 @@ const SignUp = () => {
             }
             <View style={{ flexDirection: "row" }}>
               {
-                step == 1 ? null :
+                step == 1 || step == 3 ? null :
                   <CustomButton style={{ flex: 1, marginRight: 8 }} title="Anterior" onPress={prevStep} />
               }
-              <CustomButton primary style={{ flex: 1 }} loading={loading} title={step == 3 ? "Criar Conta" : "Seguinte"} onPress={nextStep}
-                icon={step == 4 ? "check" : step == 1 ? "ios-arrow-round-forward" : null} />
+              <CustomButton primary style={{ flex: 1 }} loading={loading} title={step == 3 ? "Concluir" : "Seguinte"} onPress={nextStep}
+                icon={step == 3 ? "ios-checkmark" : step == 1 ? "ios-arrow-round-forward" : null} />
             </View>
           </View>
         </ScrollView>
