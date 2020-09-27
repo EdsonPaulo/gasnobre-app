@@ -8,6 +8,8 @@ import { colors, metrics } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 import styles from './styles'
+import { Controller, useForm } from "react-hook-form"
+import * as yup from "yup"
 
 const Login = () => {
   const navigation = useNavigation()
@@ -22,24 +24,19 @@ const Login = () => {
     if (!email || !password)
       Alert.alert('Preencha todos os campos', 'Informe o telefone/email e a senha!')
     else {
-      if (password.length < 6)
-        Alert.alert('Senha Inválida', 'A senha deve ter mais de 6 caracteres')
-      else {
-        setLoading(true)
-        try {
-          const response = await api(null).post('/users/authenticate', { email, password })
-          if (response.data)
-            login({ ...response.data?.user, ...response.data?.customer }, response.data?.token, response.data?.role)
-        }
-        catch (error) {
-          console.log(error, error?.response?.data)
-          setErrorModalVisible(true)
-        }
-        finally { setLoading(false) }
+      setLoading(true)
+      try {
+        const response = await api(null).post('/users/authenticate', { email, password })
+        if (response.data)
+          login({ ...response.data?.user, ...response.data?.customer }, response.data?.token, response.data?.role)
       }
+      catch (error) {
+        console.log(error, error?.response?.data)
+        setErrorModalVisible(true)
+      }
+      finally { setLoading(false) }
     }
   }
-
 
   return (
     <SafeAreaView style={styles.background}>

@@ -52,10 +52,10 @@ export default CustomInput = props => {
 
     default: inputType = iconName = 'default'
   }
-
+ 
   const label = props.label ? <Text style={[labelStyle, props.labelStyle]}>{props.label}</Text> : null
   const help = props.help ? <Text style={styles.helpText}>{props.help}</Text> : null
-  const error = props.hasError && props.error ? <Text style={styles.errorText}>{props.error}</Text> : null
+  const error = props.error ? <Text style={styles.errorText}>{props.error}</Text> : null
 
   return (
     <View style={props.containerStyle}>

@@ -65,8 +65,30 @@ const styles = StyleSheet.create({
     color: colors.textDark,
     fontSize: 16,
     fontFamily: 'RobotoCondensed_400Regular'
-  }
+  },
 
+
+  root: { paddingHorizontal: 2 },
+   
+  cellRoot: {
+    flex: 1,
+    height: 50,
+    backgroundColor: colors.grayLight,
+    marginHorizontal: 2,
+    borderColor: colors.grayMedium,
+    borderWidth: 1,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cellText: {
+    color: colors.dark,
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  focusCell: {
+    borderColor: colors.primaryDark,
+  },
 })
 
 export default styles
