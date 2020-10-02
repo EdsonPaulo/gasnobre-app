@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     padding: metrics.doubleBaseMargin,
-    justifyContent: "space-between"
+    justifyContent: 'space-between',
   },
   iconHeader: {
     color: colors.grayDark2,
     width: 40,
     height: 40,
-    fontSize: 26
+    fontSize: 26,
   },
   container: {
     width: '100%',
@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 16,
     fontFamily: 'RobotoCondensed_700Bold',
     color: colors.grayDark2,
-    marginVertical: metrics.baseMargin
+    marginVertical: metrics.baseMargin,
   },
   bottomText: {
     marginTop: metrics.smallMargin,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     bottom: 15,
     textAlign: 'center',
     marginTop: metrics.tripleBaseMargin,
-    fontFamily: 'RobotoCondensed_400Regular'
+    fontFamily: 'RobotoCondensed_400Regular',
   },
   modalView: {
     width: '70%',
@@ -58,18 +58,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   modalText: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.textDark,
     fontSize: 16,
-    fontFamily: 'RobotoCondensed_400Regular'
+    fontFamily: 'RobotoCondensed_400Regular',
   },
 
-
   root: { paddingHorizontal: 2 },
-   
+
   cellRoot: {
     flex: 1,
     height: 50,

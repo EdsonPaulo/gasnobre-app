@@ -1,17 +1,32 @@
 //import { StatusBar } from 'expo-status-bar'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import {
   ActivityIndicator,
-  Dimensions, FlatList,
+  Dimensions,
+  FlatList,
   InteractionManager,
-  RefreshControl, StyleSheet, Text,
-  TouchableOpacity, View
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomButton, CustomStatusBar, LoadingSpin, ProductVerticalItem } from '../../components'
+import {
+  CustomButton,
+  CustomStatusBar,
+  LoadingSpin,
+  ProductVerticalItem,
+} from '../../components'
 import { colors, fonts, general, metrics } from '../../constants'
 import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
@@ -39,7 +54,10 @@ export default index = () => {
 
   const openCartModal = () => modalizeRef.current?.open()
 
-  const transformPrice = value => Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value)
+  const transformPrice = value =>
+    Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
+      value,
+    )
 
   const onRefresh = useCallback(() => {
     if (isMounted) {
@@ -57,14 +75,13 @@ export default index = () => {
       return
     }
     setLoading(true)
-    api(token).get(`/products?page=${page}`)
+    api(token)
+      .get(`/products?page=${page}`)
       .then(response => {
         if (isMounted) {
           setTotal(response.data?.total)
-          if (refreshing)
-            setProducts(response.data?.data)
-          else
-            setProducts([...products, ...response.data?.data])
+          if (refreshing) setProducts(response.data?.data)
+          else setProducts([...products, ...response.data?.data])
           setPage(page + 1)
         }
       })
@@ -86,7 +103,7 @@ export default index = () => {
       isMounted = true
       getProducts()
     })
-    return () => isMounted = false
+    return () => (isMounted = false)
   }, [])
 
   const handleQuantity = (quantity, item, increment) => {
@@ -95,22 +112,19 @@ export default index = () => {
       setCartSize(cartSize + 1)
       setSubtotal(subtotal + item.price)
 
-      if (updatedItemIndex < 0)
-        cart.push({ ...item, quantity: 1 })
+      if (updatedItemIndex < 0) cart.push({ ...item, quantity: 1 })
       else {
         cart.splice(updatedItemIndex, 1)
         cart.push({ ...item, quantity })
       }
-    }
-    else {
+    } else {
       setCartSize(cartSize - 1)
       setSubtotal(subtotal - item.price)
 
       if (quantity <= 0) {
         cart.splice(updatedItemIndex, 1)
-        console.log("removendo o item")
-      }
-      else {
+        console.log('removendo o item')
+      } else {
         cart.splice(updatedItemIndex, 1)
         cart.push({ ...item, quantity })
       }
@@ -118,82 +132,118 @@ export default index = () => {
   }
 
   const renderProductsList = () => {
-    if (loading && products.length == 0) return <LoadingSpin text="Carregando Produtos" />
+    if (loading && products.length == 0)
+      return <LoadingSpin text="Carregando Produtos" />
     return (
-      <FlatList bounces horizontal data={products}
+      <FlatList
+        bounces
+        horizontal
+        data={products}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ padding: 15 }}
-        renderItem={({ item }) => <ProductVerticalItem handleQuantity={handleQuantity}  {...item} />}
+        renderItem={({ item }) => (
+          <ProductVerticalItem handleQuantity={handleQuantity} {...item} />
+        )}
         keyExtractor={(item, index) => index.toString()}
         onEndReached={getProducts}
         onEndReachedThreshold={0.5}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         ListFooterComponent={
-          products.length !== total && loading ?
+          products.length !== total && loading ? (
             <View style={{ margin: metrics.doubleBaseMargin }}>
               <ActivityIndicator color={colors.dark} size="small" />
-            </View> : null
+            </View>
+          ) : null
         }
       />
     )
   }
 
-
   const renderCart = () => (
-    <View style={{ margin: 15, textAlign: "center" }}>
-      <Text style={{ textAlign: "center", marginVertical: 15 }}>SELECIONOU {cartSize} PRODUTO(S)</Text>
-      {
-        cart.map(product => (
-          <View key={product._id} style={{
+    <View style={{ margin: 15, textAlign: 'center' }}>
+      <Text style={{ textAlign: 'center', marginVertical: 15 }}>
+        SELECIONOU {cartSize} PRODUTO(S)
+      </Text>
+      {cart.map(product => (
+        <View
+          key={product._id}
+          style={{
             borderWidth: 1,
             borderColor: colors.borderColor,
             padding: metrics.baseMargin,
             borderRadius: metrics.baseRadius,
-            marginVertical: metrics.smallMargin
-          }}>
-            <Text style={{ textAlign: "center" }}>
-              {product.name} - {product.weight <= 0.99 ? `${product.weight * 1000}ml` : `${product.weight}L`} ({product.quantity} embalagens de {product.bottles} garrafas)
-              = {transformPrice(product.price * product.quantity)}</Text>
-          </View>
-        ))
-      }
+            marginVertical: metrics.smallMargin,
+          }}
+        >
+          <Text style={{ textAlign: 'center' }}>
+            {product.name} -{' '}
+            {product.weight <= 0.99
+              ? `${product.weight * 1000}ml`
+              : `${product.weight}L`}{' '}
+            ({product.quantity} embalagens de {product.bottles} garrafas) ={' '}
+            {transformPrice(product.price * product.quantity)}
+          </Text>
+        </View>
+      ))}
     </View>
   )
   const renderEmpty = () => (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Entypo name="emoji-sad" size={40} color={colors.grayDark} />
-      <Text style={{ marginVertical: 4, color: colors.grayDark }}>Falha ao carregar os produtos.</Text>
-      <Text style={{ color: colors.grayDark }}>Verifique a sua internet ou tente mais tarde!</Text>
+      <Text style={{ marginVertical: 4, color: colors.grayDark }}>
+        Falha ao carregar os produtos.
+      </Text>
+      <Text style={{ color: colors.grayDark }}>
+        Verifique a sua internet ou tente mais tarde!
+      </Text>
     </View>
   )
 
-  if (!interactionsComplete) { return <LoadingSpin  /> }
+  if (!interactionsComplete) {
+    return <LoadingSpin />
+  }
 
   return (
     <SafeAreaView style={general.background}>
-      <CustomStatusBar barStyle="light-content" style="light" backgroundColor={colors.accent} translucent={false} />
+      <CustomStatusBar
+        barStyle="light-content"
+        style="light"
+        backgroundColor={colors.accent}
+        translucent={false}
+      />
 
       <View style={styles.scene}>
-        {
-          (total === 0 && !loading)
-            ? renderEmpty()
-            : renderProductsList()
-        }
-        {
-          cart.length === 0 ? null :
-            <TouchableOpacity onPress={() => openCartModal()} activeOpacity={0.7} style={[styles.fabPosition, styles.fabBagButton]}>
-              <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
-                <Text style={{ color: "#fff" }}>{cartSize}</Text>
-              </View>
-              <Entypo name="shopping-bag" color="#fff" size={25} />
-            </TouchableOpacity>
-        }
-        <Modalize ref={modalizeRef} rootStyle={{ elevation: 5 }} modalHeight={height - 200}
+        {total === 0 && !loading ? renderEmpty() : renderProductsList()}
+        {cart.length === 0 ? null : (
+          <TouchableOpacity
+            onPress={() => openCartModal()}
+            activeOpacity={0.7}
+            style={[styles.fabPosition, styles.fabBagButton]}
+          >
+            <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
+              <Text style={{ color: '#fff' }}>{cartSize}</Text>
+            </View>
+            <Entypo name="shopping-bag" color="#fff" size={25} />
+          </TouchableOpacity>
+        )}
+        <Modalize
+          ref={modalizeRef}
+          rootStyle={{ elevation: 5 }}
+          modalHeight={height - 200}
           FooterComponent={
-            <CustomButton primary style={styles.makeOrderButton} rounded
-              onPress={() => navigation.navigate("checkout", { cart, subtotal })}
-              title={`Fazer Pedido (${transformPrice(subtotal)})`} />
-          }>
+            <CustomButton
+              primary
+              style={styles.makeOrderButton}
+              rounded
+              onPress={() =>
+                navigation.navigate('checkout', { cart, subtotal })
+              }
+              title={`Fazer Pedido (${transformPrice(subtotal)})`}
+            />
+          }
+        >
           {renderCart()}
         </Modalize>
       </View>
@@ -209,10 +259,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fabPosition: {
-    position: "absolute",
+    position: 'absolute',
     elevation: 5,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 25,
   },
   fabBagButton: {
@@ -227,7 +277,7 @@ const styles = StyleSheet.create({
     right: 0,
     width: 20,
     height: 20,
-    backgroundColor: "#E37E24",
+    backgroundColor: '#E37E24',
   },
   categoryListContainer: {
     width: '100%',
@@ -245,12 +295,12 @@ const styles = StyleSheet.create({
     fontSize: fonts.input,
     textTransform: 'capitalize',
     color: 'white',
-    fontFamily: 'RobotoCondensed_400Regular'
+    fontFamily: 'RobotoCondensed_400Regular',
   },
   makeOrderButton: {
     width: 250,
     height: 40,
     marginVertical: 30,
-    alignSelf: "center"
-  }
+    alignSelf: 'center',
+  },
 })

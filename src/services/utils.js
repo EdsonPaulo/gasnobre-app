@@ -4,31 +4,36 @@ import api from './api'
 //import Share from 'react-native-share'
 
 export const onRate = async () => {
-    const options = {
-        AppleAppID: "2193813192",
-        GooglePackageName: "com.carnesul.deltacorp",
-        //  AmazonPackageName: "com.carnesul.deltacorp",
-        // OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
-        preferredAndroidMarket: AndroidMarket.Google,
-        preferInApp: false,
-        openAppStoreIfInAppFails: true,
-        fallbackPlatformURL: "http://deltacorp.co.ao/",
-    }
-    Alert.alert(
-        'Avaliar o Carnesul', 'Avalie-nos, comente o que achou e em que podemos melhorar!', [
-        { text: 'Não, Obrigado', style: 'cancel' },
-        { 
-            text: 'Avaliar', onPress: () => {
-                Rate.rate(options, success => {
-                    if (success) ToastAndroid.show('Obrigado por Avaliar-nos!')
-                })
-            }
+  const options = {
+    AppleAppID: '2193813192',
+    GooglePackageName: 'com.carnesul.deltacorp',
+    //  AmazonPackageName: "com.carnesul.deltacorp",
+    // OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
+    preferredAndroidMarket: AndroidMarket.Google,
+    preferInApp: false,
+    openAppStoreIfInAppFails: true,
+    fallbackPlatformURL: 'http://deltacorp.co.ao/',
+  }
+  Alert.alert(
+    'Avaliar o Carnesul',
+    'Avalie-nos, comente o que achou e em que podemos melhorar!',
+    [
+      { text: 'Não, Obrigado', style: 'cancel' },
+      {
+        text: 'Avaliar',
+        onPress: () => {
+          Rate.rate(options, success => {
+            if (success) ToastAndroid.show('Obrigado por Avaliar-nos!')
+          })
         },
-    ], { cancelable: true })
+      },
+    ],
+    { cancelable: true },
+  )
 }
 
 export const onShare = () => {
-    /** 
+  /** 
     try {
         const result = await Share.share({
             title: 'CarneSul',
@@ -80,21 +85,24 @@ export const onShare = () => {
 }
 
 //save in async storage
- 
 
 export const uploadImage = (file, token) => {
-    const nameFile = `file_name_${Math.random().toString(36).substring(7)}`
-    const formData = new FormData()
-    formData.append("file", {
-        name: file.fileName || nameFile,
-        type: file.mime,
-        uri: file.path
-    })
+  const nameFile = `file_name_${Math.random().toString(36).substring(7)}`
+  const formData = new FormData()
+  formData.append('file', {
+    name: file.fileName || nameFile,
+    type: file.mime,
+    uri: file.path,
+  })
 
-    return api(token).post("/files"), formDaa, {
-        headers: {
-            Accept: "aplication/json",
-            "Content-Type": "multipart/form-data"
-        }
+  return (
+    api(token).post('/files'),
+    formDaa,
+    {
+      headers: {
+        Accept: 'aplication/json',
+        'Content-Type': 'multipart/form-data',
+      },
     }
+  )
 }

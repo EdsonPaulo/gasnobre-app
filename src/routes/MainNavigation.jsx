@@ -1,12 +1,12 @@
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import React, { useContext } from "react";
-import { RectButton } from "react-native-gesture-handler";
-import { HomeTabBar } from "../components";
-import { colors, general } from "../constants";
-import authContext from "../contexts/auth/auth-context";
+import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { useNavigation } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import React, { useContext } from 'react'
+import { RectButton } from 'react-native-gesture-handler'
+import { HomeTabBar } from '../components'
+import { colors, general } from '../constants'
+import authContext from '../contexts/auth/auth-context'
 import {
   AddressPage,
   Checkout,
@@ -24,18 +24,18 @@ import {
   ProfilePage,
   SignUp,
   Welcome,
-} from "../screens";
+} from '../screens'
 
 const stackScreenGlobalOptions = {
-  headerBackImage: (props) => (
+  headerBackImage: props => (
     <Icon name="keyboard-backspace" size={30} color="white" />
   ),
-  headerTitleAlign: "center",
+  headerTitleAlign: 'center',
   headerTitleStyle: {
     fontSize: 22,
-    fontFamily: "Acme_400Regular",
+    fontFamily: 'Acme_400Regular',
     marginLeft: 0,
-    color: "white",
+    color: 'white',
   },
   //headerLeftContainerStyle: { marginLeft: 5 },
   headerTintColor: colors.dark,
@@ -44,41 +44,41 @@ const stackScreenGlobalOptions = {
     height: 55,
     elevation: 0,
   },
-};
+}
 
 const HomeTabs = () => {
-  const Tabs = createBottomTabNavigator();
+  const Tabs = createBottomTabNavigator()
   return (
     <Tabs.Navigator
       initialRouteName="home"
-      tabBar={(props) => <HomeTabBar {...props} />}
+      tabBar={props => <HomeTabBar {...props} />}
     >
       <Tabs.Screen
         name="homeStack"
         component={HomePage}
-        options={{ tabBarLabel: "Início" }}
+        options={{ tabBarLabel: 'Início' }}
       />
       <Tabs.Screen
         name="storeStack"
         component={StoreStack}
-        options={{ tabBarLabel: "Produtos" }}
+        options={{ tabBarLabel: 'Produtos' }}
       />
       <Tabs.Screen
         name="orderStack"
         component={OrderStack}
-        options={{ tabBarLabel: "Pedidos" }}
+        options={{ tabBarLabel: 'Pedidos' }}
       />
       <Tabs.Screen
         name="profileStack"
         component={ProfileStack}
-        options={{ tabBarLabel: "Perfil" }}
+        options={{ tabBarLabel: 'Perfil' }}
       />
     </Tabs.Navigator>
-  );
-};
+  )
+}
 
 const MainNavigation = () => {
-  const Stack = createStackNavigator();
+  const Stack = createStackNavigator()
   return (
     <Stack.Navigator
       initialRouteName="homeTabs"
@@ -92,42 +92,42 @@ const MainNavigation = () => {
       <Stack.Screen
         name="address"
         component={AddressPage}
-        options={{ headerTitle: "Meus Endereços" }}
+        options={{ headerTitle: 'Meus Endereços' }}
       />
       <Stack.Screen
         name="orderDetails"
-        options={{ headerTitle: "Detalhes do Pedido" }}
+        options={{ headerTitle: 'Detalhes do Pedido' }}
         component={OrderDetails}
       />
       <Stack.Screen
         name="kamba"
         component={PlansPage}
-        options={{ headerTitle: "Plano Kamba" }}
+        options={{ headerTitle: 'Plano Kamba' }}
       />
       <Stack.Screen
         name="checkout"
         component={Checkout}
-        options={{ headerTitle: "Fazer Pedido" }}
+        options={{ headerTitle: 'Fazer Pedido' }}
       />
       <Stack.Screen
         name="profileDetails"
         component={ProfileDetails}
-        options={{ headerTitle: "Dados Pessoais" }}
+        options={{ headerTitle: 'Dados Pessoais' }}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const OrderStack = () => {
-  const Stack = createStackNavigator();
-  const { role } = useContext(authContext);
+  const Stack = createStackNavigator()
+  const { role } = useContext(authContext)
   return (
     <Stack.Navigator
       screenOptions={{
         ...stackScreenGlobalOptions,
         headerStyle: {
           backgroundColor:
-            role === "customer" ? colors.primaryDark : colors.dark,
+            role === 'customer' ? colors.primaryDark : colors.dark,
           height: 55,
           elevation: 0,
         },
@@ -137,24 +137,24 @@ const OrderStack = () => {
         name="orders"
         options={{
           headerTitle:
-            role === "customer" ? "Meus Pedidos" : "Pedidos de Clientes",
+            role === 'customer' ? 'Meus Pedidos' : 'Pedidos de Clientes',
         }}
         component={Orders}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const ProfileStack = () => {
-  const Stack = createStackNavigator();
-  const { role } = useContext(authContext);
+  const Stack = createStackNavigator()
+  const { role } = useContext(authContext)
   return (
     <Stack.Navigator
       screenOptions={{
         ...stackScreenGlobalOptions,
         headerStyle: {
           backgroundColor:
-            role === "customer" ? colors.primaryDark : colors.dark,
+            role === 'customer' ? colors.primaryDark : colors.dark,
           height: 55,
           elevation: 0,
         },
@@ -163,16 +163,16 @@ const ProfileStack = () => {
       <Stack.Screen
         name="profile"
         options={{
-          headerTitle: "Definições e Perfil",
+          headerTitle: 'Definições e Perfil',
         }}
         component={ProfilePage}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const StoreStack = () => {
-  const Stack = createStackNavigator();
+  const Stack = createStackNavigator()
   return (
     <Stack.Navigator
       screenOptions={{
@@ -181,53 +181,53 @@ const StoreStack = () => {
     >
       <Stack.Screen
         name="products"
-        options={{ headerTitle: "Produtos Disponíveis" }}
+        options={{ headerTitle: 'Produtos Disponíveis' }}
         component={ProductsPage}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const AuthNavigation = () => {
-  const AuthStack = createStackNavigator();
+  const AuthStack = createStackNavigator()
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: "modal" }}>
+    <AuthStack.Navigator screenOptions={{ headerShown: false, mode: 'modal' }}>
       <AuthStack.Screen name="landing" component={Landing} />
       <AuthStack.Screen name="welcome" component={Welcome} />
       <AuthStack.Screen name="login" component={Login} />
       <AuthStack.Screen name="signup" component={SignUp} />
       <AuthStack.Screen name="forgot" component={Forgot} />
     </AuthStack.Navigator>
-  );
-};
+  )
+}
 
 const AdminNavigation = () => {
-  const AdminStack = createStackNavigator();
-  const Tabs = createBottomTabNavigator();
+  const AdminStack = createStackNavigator()
+  const Tabs = createBottomTabNavigator()
   const AdminHomeTabs = () => (
-    <Tabs.Navigator tabBar={(props) => <HomeTabBar {...props} />}>
+    <Tabs.Navigator tabBar={props => <HomeTabBar {...props} />}>
       <Tabs.Screen
         name="homeStack"
         component={HomeAdmin}
-        options={{ tabBarLabel: "Início" }}
+        options={{ tabBarLabel: 'Início' }}
       />
       <Tabs.Screen
         name="storeStack"
         component={ProductsAdmin}
-        options={{ tabBarLabel: "Produtos" }}
+        options={{ tabBarLabel: 'Produtos' }}
       />
       <Tabs.Screen
         name="orderStack"
         component={OrderStack}
-        options={{ tabBarLabel: "Pedidos" }}
+        options={{ tabBarLabel: 'Pedidos' }}
       />
       <Tabs.Screen
         name="customers"
         component={OrderStack}
-        options={{ tabBarLabel: "Clientes" }}
+        options={{ tabBarLabel: 'Clientes' }}
       />
     </Tabs.Navigator>
-  );
+  )
 
   return (
     <AdminStack.Navigator
@@ -246,16 +246,16 @@ const AdminNavigation = () => {
       <AdminStack.Screen name="productDetails" component={HomeAdmin} />
       <AdminStack.Screen
         name="orderDetails"
-        options={{ headerTitle: "Detalhes do Pedido" }}
+        options={{ headerTitle: 'Detalhes do Pedido' }}
         component={OrderDetails}
       />
       <AdminStack.Screen
         name="profile"
-        options={{ headerTitle: "" }}
+        options={{ headerTitle: '' }}
         component={ProfileDetails}
       />
     </AdminStack.Navigator>
-  );
-};
+  )
+}
 
-export { MainNavigation, AuthNavigation, AdminNavigation };
+export { MainNavigation, AuthNavigation, AdminNavigation }

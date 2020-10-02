@@ -15,5 +15,5 @@ export {
   LoadingSpin,
   SwiperCards,
   PlaceholderImage,
-  ProductVerticalItem
+  ProductVerticalItem,
 }

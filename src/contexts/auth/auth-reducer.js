@@ -12,7 +12,7 @@ export const authReducer = (prevState, action) => {
         role: action.role,
         token: action.token,
         isLogged: !!action.token,
-        isLoading: false
+        isLoading: false,
       }
     case LOGIN:
       return {
@@ -20,7 +20,7 @@ export const authReducer = (prevState, action) => {
         user: action.user,
         role: action.role,
         token: action.token,
-        isLogged: true
+        isLogged: true,
       }
     case LOGOUT:
       return {
@@ -36,8 +36,7 @@ export const authReducer = (prevState, action) => {
         user: action.user,
         role: action.role,
         token: action.token,
-        isLogged: true
+        isLogged: true,
       }
   }
 }
-

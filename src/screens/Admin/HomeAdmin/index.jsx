@@ -1,4 +1,4 @@
-import Icon from "@expo/vector-icons/FontAwesome5"
+import Icon from '@expo/vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
 import React, { useContext } from 'react'
@@ -9,87 +9,116 @@ import { colors, general } from '../../../constants'
 import authContext from '../../../contexts/auth/auth-context'
 
 export default index = () => {
-
   const navigation = useNavigation()
   const { user, logout } = useContext(authContext)
-  
+
   const Logout = () => {
     Alert.alert(
-      'Terminar Sessão', 'Deseja terminar sessão da sua conta?', [
-      { text: 'Não', style: 'cancel' },
-      { text: 'SIm', onPress: () => logout() },
-    ], { cancelable: true })
+      'Terminar Sessão',
+      'Deseja terminar sessão da sua conta?',
+      [
+        { text: 'Não', style: 'cancel' },
+        { text: 'SIm', onPress: () => logout() },
+      ],
+      { cancelable: true },
+    )
   }
 
   return (
     <SafeAreaView style={[general.background]}>
-
-      <View style={{ width: 130, height: 80, alignSelf: "center" }}>
-        <Image style={{ width: "100%", height: "100%" }}
-          resizeMode="contain" source={require("../../../assets/logo.png")} />
+      <View style={{ width: 130, height: 80, alignSelf: 'center' }}>
+        <Image
+          style={{ width: '100%', height: '100%' }}
+          resizeMode="contain"
+          source={require('../../../assets/logo.png')}
+        />
       </View>
-      <Text style={{ fontSize: 20, fontFamily: 'RobotoCondensed_700Bold',textAlign: "center" }}>ADMINISTRAÇÃO</Text>
+      <Text
+        style={{
+          fontSize: 20,
+          fontFamily: 'RobotoCondensed_700Bold',
+          textAlign: 'center',
+        }}
+      >
+        ADMINISTRAÇÃO
+      </Text>
 
       <View style={styles.container}>
-        <View style={{ flexDirection: "row", margin: 5 }}>
-          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("orderStack")}>
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+          <RectButton
+            style={[styles.option, { marginRight: 15 }]}
+            onPress={() => navigation.navigate('orderStack')}
+          >
             <Icon name="bullhorn" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Pedidos</Text>
           </RectButton>
-          <RectButton style={[styles.option]} onPress={() => navigation.navigate("products")}>
+          <RectButton
+            style={[styles.option]}
+            onPress={() => navigation.navigate('products')}
+          >
             <Icon name="store-alt" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Produtos</Text>
           </RectButton>
         </View>
-        <View style={{ flexDirection: "row", margin: 5 }}>
-          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={() => navigation.navigate("customers")}>
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+          <RectButton
+            style={[styles.option, { marginRight: 15 }]}
+            onPress={() => navigation.navigate('customers')}
+          >
             <Icon name="users" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Clientes</Text>
           </RectButton>
-          <RectButton style={[styles.option]} onPress={() => navigation.navigate("profile")}>
+          <RectButton
+            style={[styles.option]}
+            onPress={() => navigation.navigate('profile')}
+          >
             <Icon name="cog" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Configurações</Text>
           </RectButton>
         </View>
-        <View style={{ flexDirection: "row", margin: 5 }}>
-          <RectButton style={[styles.option, { marginRight: 15 }]} onPress={Logout}>
+        <View style={{ flexDirection: 'row', margin: 5 }}>
+          <RectButton
+            style={[styles.option, { marginRight: 15 }]}
+            onPress={Logout}
+          >
             <Icon name="power" style={styles.optionIcon} size={35} />
             <Text style={styles.optionText}>Terminar Sessão</Text>
           </RectButton>
-          <View style={{flex: 1}} />
+          <View style={{ flex: 1 }} />
         </View>
       </View>
-      <StatusBar style="light" backgroundColor={colors.dark} translucent={false} />
+      <StatusBar
+        style="light"
+        backgroundColor={colors.dark}
+        translucent={false}
+      />
     </SafeAreaView>
   )
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 25,
-    alignItems: "center"
+    alignItems: 'center',
   },
   option: {
-    flex: 1 ,
-    width: "100%",
+    flex: 1,
+    width: '100%',
     height: 130,
     borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
     elevation: 4,
     borderWidth: 1,
   },
   optionIcon: {
     color: colors.dark,
-    marginBottom: 5
+    marginBottom: 5,
   },
   optionText: {
     fontFamily: 'RobotoCondensed_700Bold',
-
-  }
+  },
 })

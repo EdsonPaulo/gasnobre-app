@@ -7,10 +7,10 @@ import {
   LOGIN,
   LOGOUT,
   REGISTER,
-  RETRIEVE_TOKEN
+  RETRIEVE_TOKEN,
 } from './auth-reducer'
 
-const AuthProvider = (props) => {
+const AuthProvider = props => {
   const [authState, dispatch] = useReducer(authReducer, {
     user: {},
     token: null,

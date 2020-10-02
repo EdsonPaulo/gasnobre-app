@@ -7,8 +7,8 @@ export default React.createContext({
   isLogged: false,
   isLoading: true,
 
-  login: (user, token, role) => { },
-  logout: () => { },
-  register: (user, token, role) => { },
-  retrieveToken: () => { }
+  login: (user, token, role) => {},
+  logout: () => {},
+  register: (user, token, role) => {},
+  retrieveToken: () => {},
 })

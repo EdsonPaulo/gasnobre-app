@@ -1,12 +1,22 @@
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import {
   ActivityIndicator,
-  Dimensions, FlatList,
+  Dimensions,
+  FlatList,
   InteractionManager,
-  RefreshControl, StyleSheet, Text, View
+  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -35,7 +45,10 @@ export default index = () => {
 
   const openModal = () => modalizeRef.current?.open()
 
-  const transformPrice = value => Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value)
+  const transformPrice = value =>
+    Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
+      value,
+    )
 
   const onRefresh = useCallback(() => {
     if (isMounted) {
@@ -53,14 +66,13 @@ export default index = () => {
       return
     }
     setLoading(true)
-    api(token).get(`/products?page=${page}`)
+    api(token)
+      .get(`/products?page=${page}`)
       .then(response => {
         if (isMounted) {
           setTotal(response.data?.total)
-          if (refreshing)
-            setProducts(response.data?.data)
-          else
-            setProducts([...products, ...response.data?.data])
+          if (refreshing) setProducts(response.data?.data)
+          else setProducts([...products, ...response.data?.data])
           setPage(page + 1)
         }
       })
@@ -82,20 +94,20 @@ export default index = () => {
       isMounted = true
       getProducts()
     })
-    return () => isMounted = false
+    return () => (isMounted = false)
   }, [])
 
-const renderItem = product => (
-  <View>
-    <Text>{product.name}</Text>
-  </View>
-)
+  const renderItem = product => (
+    <View>
+      <Text>{product.name}</Text>
+    </View>
+  )
 
   const renderProductsList = () => {
-    if (loading && products.length == 0)
-      return <LoadingSpin />
+    if (loading && products.length == 0) return <LoadingSpin />
     return (
-      <FlatList bounces 
+      <FlatList
+        bounces
         data={products}
         contentContainerStyle={{ paddingVertical: 15 }}
         renderItem={renderItem}
@@ -106,51 +118,62 @@ const renderItem = product => (
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         ListFooterComponent={
-          products.length !== total && loading ?
+          products.length !== total && loading ? (
             <View style={{ margin: metrics.doubleBaseMargin }}>
               <ActivityIndicator color={colors.dark} size="small" />
-            </View> : null
+            </View>
+          ) : null
         }
       />
     )
   }
 
- 
   const renderEmpty = () => (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Entypo name="emoji-sad" size={40} color={colors.grayDark} />
-      <Text style={{ marginVertical: 4, color: colors.grayDark }}>Falha ao carregar os produtos.</Text>
-      <Text style={{ color: colors.grayDark }}>Verifique a sua internet ou tente mais tarde!</Text>
+      <Text style={{ marginVertical: 4, color: colors.grayDark }}>
+        Falha ao carregar os produtos.
+      </Text>
+      <Text style={{ color: colors.grayDark }}>
+        Verifique a sua internet ou tente mais tarde!
+      </Text>
     </View>
   )
 
-  if (!interactionsComplete) { return <LoadingSpin /> }
+  if (!interactionsComplete) {
+    return <LoadingSpin />
+  }
 
   return (
     <SafeAreaView style={general.background}>
       <View style={styles.scene}>
-        {
-          (total == 0 && !loading)
-            ? renderEmpty()
-            : renderProductsList()
-        }
-       
-        <Modalize ref={modalizeRef} rootStyle={{ elevation: 5 }} modalHeight={height - 120}
-          FooterComponent={
-            <CustomButton primary style={styles.makeOrderButton} rounded
-              onPress={() => navigation.navigate("checkout", { cart, subtotal })}
+        {total == 0 && !loading ? renderEmpty() : renderProductsList()}
 
-              title={`Fazer Pedido (${transformPrice(subtotal)})`} />
-          }>
-         
-        </Modalize>
+        <Modalize
+          ref={modalizeRef}
+          rootStyle={{ elevation: 5 }}
+          modalHeight={height - 120}
+          FooterComponent={
+            <CustomButton
+              primary
+              style={styles.makeOrderButton}
+              rounded
+              onPress={() =>
+                navigation.navigate('checkout', { cart, subtotal })
+              }
+              title={`Fazer Pedido (${transformPrice(subtotal)})`}
+            />
+          }
+        ></Modalize>
       </View>
-      <StatusBar style="dark" backgroundColor={colors.bgColor} translucent={false} />
+      <StatusBar
+        style="dark"
+        backgroundColor={colors.bgColor}
+        translucent={false}
+      />
     </SafeAreaView>
   )
 }
- 
-
 
 const styles = StyleSheet.create({
   container: {
@@ -158,7 +181,7 @@ const styles = StyleSheet.create({
   },
   scene: {
     flex: 1,
-  }, 
+  },
   categoryListContainer: {
     width: '100%',
     height: 55,
@@ -175,12 +198,12 @@ const styles = StyleSheet.create({
     fontSize: fonts.input,
     textTransform: 'capitalize',
     color: 'white',
-    fontFamily: 'RobotoCondensed_400Regular'
+    fontFamily: 'RobotoCondensed_400Regular',
   },
   makeOrderButton: {
     width: 250,
     height: 40,
     marginVertical: 30,
-    alignSelf: "center"
-  }
+    alignSelf: 'center',
+  },
 })

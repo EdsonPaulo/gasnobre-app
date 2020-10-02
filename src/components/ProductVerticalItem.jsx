@@ -1,64 +1,96 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import {
-  Dimensions, StyleSheet,
-  Text, TouchableOpacity, View
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
 import { colors, general, metrics } from '../constants'
 import PlaceholderImage from './PlaceholderImage'
 
-
-const { height, width } = Dimensions.get("window")
+const { height, width } = Dimensions.get('window')
 
 const ProductVerticalItem = props => {
-
   const { handleQuantity, ...item } = props
   const [quantity, setQuantity] = useState(0)
 
-  const changeQuantity = (add) => {
-    let auxQuantity = add ? (quantity + 1) : (quantity - 1)
+  const changeQuantity = add => {
+    let auxQuantity = add ? quantity + 1 : quantity - 1
     setQuantity(auxQuantity)
-    handleQuantity(auxQuantity, item, (add === true))
+    handleQuantity(auxQuantity, item, add === true)
   }
 
   return (
     <View style={[general.card, styles.container, {}]}>
-
       <View style={styles.productImageContainer}>
-        <PlaceholderImage style={styles.productImage}
-          source={item.image ? { uri: item.image } : require('../assets/noimage.png')} />
+        <PlaceholderImage
+          style={styles.productImage}
+          source={
+            item.image ? { uri: item.image } : require('../assets/noimage.png')
+          }
+        />
       </View>
 
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{item.name} - {item.weight <= 0.99 ? `${item.weight * 1000}ml` : `${item.weight}L`}</Text>
-        <Text style={styles.description}>{item.bottles} garrafas de {item.weight <= 0.99 ? `${item.weight * 1000} mililitros` : `${item.weight} litros`}</Text>
+        <Text style={styles.title}>
+          {item.name} -{' '}
+          {item.weight <= 0.99 ? `${item.weight * 1000}ml` : `${item.weight}L`}
+        </Text>
+        <Text style={styles.description}>
+          {item.bottles} garrafas de{' '}
+          {item.weight <= 0.99
+            ? `${item.weight * 1000} mililitros`
+            : `${item.weight} litros`}
+        </Text>
 
         <Text style={styles.price}>
-          {Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(item.price)}
+          {Intl.NumberFormat('pt-AO', {
+            style: 'currency',
+            currency: 'AOA',
+          }).format(item.price)}
         </Text>
 
         <View>
-          {
-            quantity == 0 ?
-              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity style={[styles.btn, { backgroundColor: colors.primaryDark }]}
-                  onPress={() => changeQuantity(true)}>
-                  <MaterialCommunityIcons size={18} color='#fff' name='plus' />
-                </TouchableOpacity>
-              </View>
-              :
-              <View style={styles.btnContainer}>
-                <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => changeQuantity(false)}>
-                  <MaterialCommunityIcons size={25} color={colors.primaryDark} name='minus' />
-                </TouchableOpacity>
+          {quantity == 0 ? (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <TouchableOpacity
+                style={[styles.btn, { backgroundColor: colors.primaryDark }]}
+                onPress={() => changeQuantity(true)}
+              >
+                <MaterialCommunityIcons size={18} color="#fff" name="plus" />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btn}
+                onPress={() => changeQuantity(false)}
+              >
+                <MaterialCommunityIcons
+                  size={25}
+                  color={colors.primaryDark}
+                  name="minus"
+                />
+              </TouchableOpacity>
 
-                <Text style={styles.quantity}>{quantity}</Text>
+              <Text style={styles.quantity}>{quantity}</Text>
 
-                <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => changeQuantity(true)}>
-                  <MaterialCommunityIcons size={25} color={colors.primaryDark} name='plus' />
-                </TouchableOpacity>
-              </View>
-          }
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btn}
+                onPress={() => changeQuantity(true)}
+              >
+                <MaterialCommunityIcons
+                  size={25}
+                  color={colors.primaryDark}
+                  name="plus"
+                />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     </View>
@@ -67,15 +99,15 @@ const ProductVerticalItem = props => {
 
 const styles = StyleSheet.create({
   container: {
-    height: height - (height / 2),
-    width: (width - 150),
+    height: height - height / 2,
+    width: width - 150,
     marginVertical: 7,
     borderRadius: 15,
     // borderTopLeftRadius: 2,
     padding: 25,
     elevation: 0,
-    backgroundColor: "#4b7bec10",
-    alignSelf: "center",
+    backgroundColor: '#4b7bec10',
+    alignSelf: 'center',
 
     marginHorizontal: metrics.baseMargin,
     justifyContent: 'flex-end',
@@ -85,12 +117,12 @@ const styles = StyleSheet.create({
   productImageContainer: {
     width: '100%',
     height: '60%',
-    position: "absolute",
+    position: 'absolute',
     top: -60,
   },
   productImage: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   infoContainer: {
     //backgroundColor: "gray",
@@ -98,7 +130,7 @@ const styles = StyleSheet.create({
     height: '50%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
@@ -133,14 +165,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   btn: {
-    backgroundColor: '#fff', width: 40, height: 40,
+    backgroundColor: '#fff',
+    width: 40,
+    height: 40,
     borderRadius: 20,
     elevation: 5,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 })
 export default ProductVerticalItem

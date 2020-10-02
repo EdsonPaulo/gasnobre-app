@@ -2,14 +2,11 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View } from 'react-native'
 
-
 const Welcome = () => {
+  const navigation = useNavigation()
 
-    const navigation = useNavigation()
-
-    return (
-
-        /**
+  return (
+    /**
          * 
          * 
         <Onboarding
@@ -45,8 +42,7 @@ const Welcome = () => {
         />
          */
 
-         <View/>
-
-    )
+    <View />
+  )
 }
 export default Welcome

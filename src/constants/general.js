@@ -8,13 +8,12 @@ const general = {
   },
   container: {
     padding: metrics.baseMargin,
-
   },
   card: {
     borderRadius: 5,
     padding: metrics.baseMargin,
     backgroundColor: 'white',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
@@ -25,9 +24,9 @@ const general = {
     height: 40,
     marginLeft: 8,
     borderRadius: 20,
-    justifyContent:  'center',
-    alignItems: 'center'
-  }
-}  
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}
 
 export default general

@@ -1,9 +1,8 @@
-
 const constants = {
-    TOKEN_KEY: '@DELIVERYNOBRE:token',
-    ROLE_KEY: '@DELIVERYNOBRE:role',
-    USER_KEY: '@DELIVERYNOBRE:user',
-    PUSH_TOKEN_KEY: '@DELIVERYNOBRE:push-token',
+  TOKEN_KEY: '@DELIVERYNOBRE:token',
+  ROLE_KEY: '@DELIVERYNOBRE:role',
+  USER_KEY: '@DELIVERYNOBRE:user',
+  PUSH_TOKEN_KEY: '@DELIVERYNOBRE:push-token',
 }
 
 export default constants

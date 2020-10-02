@@ -1,7 +1,9 @@
+import { Acme_400Regular } from '@expo-google-fonts/acme'
 import {
-  Acme_400Regular
-} from '@expo-google-fonts/acme'
-import { RobotoCondensed_400Regular, RobotoCondensed_700Bold, useFonts } from '@expo-google-fonts/roboto-condensed'
+  RobotoCondensed_400Regular,
+  RobotoCondensed_700Bold,
+  useFonts,
+} from '@expo-google-fonts/roboto-condensed'
 import { AppLoading } from 'expo'
 import 'intl'
 import 'intl/locale-data/jsonp/pt-AO'
@@ -18,11 +20,10 @@ export default function App() {
   let [fontsLoaded] = useFonts({
     RobotoCondensed_400Regular,
     RobotoCondensed_700Bold,
-    Acme_400Regular
+    Acme_400Regular,
   })
 
-  if (!fontsLoaded)
-    return <AppLoading />
+  if (!fontsLoaded) return <AppLoading />
   else
     return (
       <AuthProvider>
