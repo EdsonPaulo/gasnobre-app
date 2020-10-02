@@ -11,14 +11,12 @@ import ProductsPage from './ProductsPage'
 import ProfileDetails from './ProfileDetails'
 import ProfilePage from './ProfilePage'
 
-
-
 export {
   Welcome, Landing, Login, SignUp, Forgot,
-
   HomePage, OrderDetails, PlansPage,
   ProductsPage, ProfilePage, ProfileDetails,
   Checkout, Orders, AddressPage,
 
+  
   HomeAdmin, ProductsAdmin
 }
