@@ -110,7 +110,6 @@ export const uploadImage = (file, token) => {
 export const saveOnAsyncStorage = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value))
-    console.log('salvou')
   } catch (error) {
     console.log(error)
     console.log('ocorreu um erro inesperado ao salvar dados!')
@@ -120,7 +119,6 @@ export const saveOnAsyncStorage = async (key, value) => {
 export const readOnAsyncStorage = async key => {
   try {
     const data = await AsyncStorage.getItem(key)
-    console.log('pegou')
     if (data) return data
   } catch (error) {
     console.log(error)

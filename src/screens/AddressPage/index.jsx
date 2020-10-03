@@ -16,10 +16,9 @@ import styles from './styles'
 const AddressPage = () => {
   let isMounted = true
   const { user, role, token, updateUser } = useContext(authContext)
-  const [editing, setEditing] = useState(false)
+  const [editing, setEditing] = useState(-1)
   const [loading, setLoading] = useState(false)
   const modalizeRef = useRef(null)
-  const [address, setAddress] = useState([])
   const [addressData, setAddressData] = useState({})
 
   const addressSchema = yup.object().shape({
@@ -42,10 +41,8 @@ const AddressPage = () => {
   const getAddress = async () => {
     try {
       const userFromServer = await api(token).get('/customers/me')
-      console.log(userFromServer.data)
       if (userFromServer?.data) {
         updateUser(userFromServer?.data)
-        setAddress(userFromServer?.data?.address)
       }
     } catch (error) {
       console.log(error.response)
@@ -53,35 +50,41 @@ const AddressPage = () => {
     }
   }
 
-  const saveAddress = data => {
-    console.log(data)
-
-    /**
-     * 
+  const saveAddress = async newAddress => {
+    console.log('Novo endereço', newAddress)
+    if (loading) return
+    setLoading(true)
     try {
-      const response = await api(token).put('/customers', {
-        address: [data],
+      const response = await api(token).put(`/customers/${user._id}`, {
+        address: newAddress,
       })
-      updateUser({...user, address})
-      console.log(response.data)
+      console.log(response.data?.message)
+      updateUser({ ...user, address: newAddress })
+      modalizeRef?.current?.close()
     } catch (error) {
       console.log(error.response)
       console.log(error.message)
+    } finally {
+      setLoading(false)
     }
-     */
   }
 
   const onSubmit = data => {
-    console.log(data)
+    console.log('editando o endereço da posição ' + editing)
+    const auxAddress = user?.address
+    if (editing < 0) auxAddress.push(data)
+    else auxAddress[editing] = data
+    saveAddress(auxAddress)
   }
 
-  const handleEditAddress = item => {
-    setEditing(true)
+  const handleEditAddress = (item, index) => {
+    setEditing(index)
     setAddressData(item)
     modalizeRef?.current?.open()
   }
 
   const handleNewAddress = () => {
+    setEditing(-1)
     setAddressData({})
     modalizeRef?.current?.open()
   }
@@ -95,7 +98,9 @@ const AddressPage = () => {
         {
           text: 'Sim',
           onPress: () => {
-            saveAddress(address.splice(index, 1))
+            let auxAddress = user?.address
+            auxAddress.splice(index, 1)
+            saveAddress(auxAddress)
           },
         },
       ],
@@ -106,7 +111,6 @@ const AddressPage = () => {
   useEffect(() => {
     if (isMounted) {
       getAddress()
-      setAddress(user?.address)
     }
     return () => (isMounted = false)
   }, [])
@@ -121,7 +125,7 @@ const AddressPage = () => {
         <View style={styles.row}>
           <RectButton
             style={styles.actionBtn}
-            onPress={() => handleEditAddress(item)}
+            onPress={() => handleEditAddress(item, index)}
           >
             <Icon name="md-create" color={colors.grayDark} size={25} />
           </RectButton>
@@ -138,9 +142,9 @@ const AddressPage = () => {
 
   //Renderizar passo 3, endereço
   const renderAddressForm = () => (
-    <ScrollView contentContainerStyle={{ padding: 20 }}>
-      <Text style={styles.title}>
-        {editing ? 'Editar Endereço' : 'Novo Endereço'}
+    <ScrollView>
+      <Text style={[styles.title, { marginBottom: 20 }]}>
+        {editing > -1 ? 'Editar Endereço' : 'Novo Endereço'}
       </Text>
       <Controller
         control={addressFormData.control}
@@ -220,7 +224,7 @@ const AddressPage = () => {
         contentContainerStyle={{ padding: 20 }}
         stickyHeaderIndices={[0]}
       >
-        {address?.length == 0 ? (
+        {user?.address?.length == 0 ? (
           <View style={{ marginVertical: 20 }}>
             <Text style={styles.title}>Nenhum Endereço Cadastrado</Text>
             <Text style={styles.title}>
@@ -241,9 +245,9 @@ const AddressPage = () => {
 
       <Modalize
         ref={modalizeRef}
-        rootStyle={{ elevation: 5 }}
-        onClose={() => setEditing(false)}
+        onClose={() => setEditing(-1)}
         modalHeight={metrics.screenHeight - 200}
+        modalStyle={{ padding: 20 }}
         FooterComponent={
           <CustomButton
             rounded

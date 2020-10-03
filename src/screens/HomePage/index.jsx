@@ -17,7 +17,6 @@ import { colors, general } from '../../constants'
 import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 import styles from './styles'
-const { height, width } = Dimensions.get('window')
 
 const index = () => {
   let isMounted = true

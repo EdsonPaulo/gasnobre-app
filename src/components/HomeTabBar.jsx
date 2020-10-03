@@ -69,7 +69,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
               <View
                 style={{
                   width: 'auto',
-                  height: 35,
+                  height: 40,
                   paddingHorizontal: 15,
                   marginHorizontal: 10,
                   borderRadius: 13,
@@ -89,12 +89,12 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
                     color: isFocused ? colors.white : colors.grayLight,
                     marginRight: 7,
                   }}
-                  size={18}
+                  size={25}
                 />
                 {!isFocused ? null : (
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: 16,
                       letterSpacing: 0.3,
                       fontFamily: 'RobotoCondensed_400Regular',
                       color: isFocused ? colors.white : colors.grayLight,

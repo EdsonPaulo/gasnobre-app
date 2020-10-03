@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoCondensed_400Regular',
   },
   title: {
-    color: colors.grayDark,
-    fontFamily: 'RobotoCondensed_700Bold',
-    fontSize: 16,
+    fontSize: 17,
     textAlign: 'center',
+    color: colors.grayDark,
+    textTransform: 'uppercase',
+    fontFamily: 'RobotoCondensed_700Bold',
   },
 })
 
