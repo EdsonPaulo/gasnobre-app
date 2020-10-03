@@ -1,20 +1,43 @@
 import Icon from '@expo/vector-icons/Ionicons'
-import React, { useContext, useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { yupResolver } from '@hookform/resolvers'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { Alert, ScrollView, Text, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
+import { Modalize } from 'react-native-modalize'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import * as yup from 'yup'
 import { CustomButton, CustomStatusBar } from '../../components'
 import { colors, general, metrics } from '../../constants'
 import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
+import styles from './styles'
 
 const AddressPage = () => {
   let isMounted = true
-
   const { user, role, token, updateUser } = useContext(authContext)
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
+  const modalizeRef = useRef(null)
   const [address, setAddress] = useState([])
+  const [addressData, setAddressData] = useState({})
+
+  const addressSchema = yup.object().shape({
+    city: yup
+      .string()
+      .required('Cidade é obrigatório')
+      .min(4, 'Deve ter mais de 4 letras'),
+    neighborhood: yup
+      .string()
+      .required('Bairro é obrigatório')
+      .min(4, 'Deve ter mais de 4 letras'), //bairro
+    street: yup
+      .string()
+      .required('Rua é obrigatório')
+      .min(4, 'Deve ter mais de 4 letras'),
+    home: yup.string().trim(),
+  })
+  const addressFormData = useForm({ resolver: yupResolver(addressSchema) })
 
   const getAddress = async () => {
     try {
@@ -30,13 +53,51 @@ const AddressPage = () => {
     }
   }
 
+  const saveAddress = data => {
+    console.log(data)
+
+    /**
+     * 
+    try {
+      const response = await api(token).put('/customers', {
+        address: [data],
+      })
+      updateUser({...user, address})
+      console.log(response.data)
+    } catch (error) {
+      console.log(error.response)
+      console.log(error.message)
+    }
+     */
+  }
+
+  const onSubmit = data => {
+    console.log(data)
+  }
+
+  const handleEditAddress = item => {
+    setEditing(true)
+    setAddressData(item)
+    modalizeRef?.current?.open()
+  }
+
+  const handleNewAddress = () => {
+    setAddressData({})
+    modalizeRef?.current?.open()
+  }
+
   const handleDeleteAddress = index => {
     Alert.alert(
       'Eliminar Endereço',
       'Deseja eliminar este endereço?',
       [
         { text: 'Não', style: 'cancel' },
-        { text: 'Sim', onPress: () => {} },
+        {
+          text: 'Sim',
+          onPress: () => {
+            saveAddress(address.splice(index, 1))
+          },
+        },
       ],
       { cancelable: true },
     )
@@ -58,7 +119,10 @@ const AddressPage = () => {
         >{`Casa ${item?.home} - ${item?.street} - ${item?.neighborhood}`}</Text>
         <Text style={styles.addressText}>{`${item?.city}`}</Text>
         <View style={styles.row}>
-          <RectButton style={styles.actionBtn}>
+          <RectButton
+            style={styles.actionBtn}
+            onPress={() => handleEditAddress(item)}
+          >
             <Icon name="md-create" color={colors.grayDark} size={25} />
           </RectButton>
 
@@ -71,6 +135,76 @@ const AddressPage = () => {
         </View>
       </View>
     ))
+
+  //Renderizar passo 3, endereço
+  const renderAddressForm = () => (
+    <ScrollView contentContainerStyle={{ padding: 20 }}>
+      <Text style={styles.title}>
+        {editing ? 'Editar Endereço' : 'Novo Endereço'}
+      </Text>
+      <Controller
+        control={addressFormData.control}
+        defaultValue={addressData.city || ''}
+        name="city"
+        render={({ onChange, onBlur, value }) => (
+          <CustomInput
+            onBlur={onBlur}
+            value={value}
+            label="Município/Distrito (obrigatório)"
+            placeholder="ex: Maianga, Av. Deolinda Rodrigues"
+            onChangeText={value => onChange(value)}
+            error={addressFormData.errors?.city?.message}
+          />
+        )}
+      />
+      <Controller
+        control={addressFormData.control}
+        defaultValue={addressData.neighborhood || ''}
+        name="neighborhood"
+        render={({ onChange, onBlur, value }) => (
+          <CustomInput
+            onBlur={onBlur}
+            value={value}
+            containerStyle={{ marginVertical: 10 }}
+            label="Bairro (obrigatório)"
+            placeholder="ex: Bairro Cassenda"
+            onChangeText={value => onChange(value)}
+            error={addressFormData.errors?.neighborhood?.message}
+          />
+        )}
+      />
+      <Controller
+        control={addressFormData.control}
+        defaultValue={addressData.street || ''}
+        name="street"
+        render={({ onChange, onBlur, value }) => (
+          <CustomInput
+            onBlur={onBlur}
+            value={value}
+            label="Rua (obrigatório)"
+            placeholder="ex: Rua Cheguevara"
+            onChangeText={value => onChange(value)}
+            error={addressFormData.errors?.street?.message}
+          />
+        )}
+      />
+      <Controller
+        control={addressFormData.control}
+        defaultValue={addressData.home || ''}
+        name="home"
+        render={({ onChange, onBlur, value }) => (
+          <CustomInput
+            onBlur={onBlur}
+            value={value}
+            label="Nº da Casa (caso tenha)"
+            containerStyle={{ marginVertical: 10 }}
+            placeholder="Identificação da casa"
+            onChangeText={value => onChange(value)}
+          />
+        )}
+      />
+    </ScrollView>
+  )
 
   return (
     <SafeAreaView style={general.background}>
@@ -98,50 +232,33 @@ const AddressPage = () => {
         )}
 
         <CustomButton
-          onPress={() => setEditing(true)}
           primary
+          onPress={handleNewAddress}
           title="Adicionar Endereço"
           icon="ios-add-circle"
         />
       </ScrollView>
+
+      <Modalize
+        ref={modalizeRef}
+        rootStyle={{ elevation: 5 }}
+        onClose={() => setEditing(false)}
+        modalHeight={metrics.screenHeight - 200}
+        FooterComponent={
+          <CustomButton
+            rounded
+            primary
+            loading={loading}
+            style={styles.makeOrderButton}
+            onPress={() => addressFormData.handleSubmit(onSubmit)()}
+            title="Salvar Endereço"
+          />
+        }
+      >
+        {renderAddressForm()}
+      </Modalize>
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  addressContainer: {
-    padding: 15,
-    borderWidth: 1,
-    marginBottom: 10,
-    backgroundColor: 'white',
-    borderColor: colors.grayLight,
-    borderRadius: metrics.baseRadius,
-    elevation: 1,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  actionBtn: {
-    padding: 5,
-    marginLeft: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addAddressContainer: {
-    padding: 10,
-  },
-  addressText: {
-    fontSize: 17,
-    textTransform: 'capitalize',
-    fontFamily: 'RobotoCondensed_400Regular',
-  },
-  title: {
-    color: colors.grayDark,
-    fontFamily: 'RobotoCondensed_700Bold',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-})
 
 export default AddressPage

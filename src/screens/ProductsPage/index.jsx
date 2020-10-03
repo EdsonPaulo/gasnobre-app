@@ -6,17 +6,17 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from 'react'
 import {
   ActivityIndicator,
-  Dimensions,
+
   FlatList,
   InteractionManager,
   RefreshControl,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -24,7 +24,7 @@ import {
   CustomButton,
   CustomStatusBar,
   LoadingSpin,
-  ProductVerticalItem,
+  ProductVerticalItem
 } from '../../components'
 import { colors, general, metrics } from '../../constants'
 import authContext from '../../contexts/auth/auth-context'
@@ -36,8 +36,7 @@ export default index = () => {
   const route = useRoute()
   const { token } = useContext(authContext)
   const modalizeRef = useRef(null)
-  const navigation = useNavigation()
-  const { width, height } = Dimensions.get('window')
+  const navigation = useNavigation() 
 
   const [interactionsComplete, setInteractionsComplete] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -229,7 +228,7 @@ export default index = () => {
         <Modalize
           ref={modalizeRef}
           rootStyle={{ elevation: 5 }}
-          modalHeight={height - 200}
+          modalHeight={metrics.screenHeight - 200}
           FooterComponent={
             <CustomButton
               primary

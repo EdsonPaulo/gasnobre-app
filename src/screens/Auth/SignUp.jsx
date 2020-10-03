@@ -11,13 +11,13 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native'
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
-  useClearByFocusCell,
+  useClearByFocusCell
 } from 'react-native-confirmation-code-field'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as yup from 'yup'
