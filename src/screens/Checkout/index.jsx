@@ -2,9 +2,9 @@ import Icon from '@expo/vector-icons/FontAwesome5'
 import { Picker } from '@react-native-community/picker'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useContext, useEffect, useState } from 'react'
+import { RectButton } from 'react-native-gesture-handler'
 import {
   Alert,
-  AsyncStorage,
   Dimensions,
   ScrollView,
   Text,
@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CustomButton, CustomStatusBar } from '../../components'
-import { colors, constants, general } from '../../constants'
+import { colors, general } from '../../constants'
 import authContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 import styles from './styles'
@@ -23,16 +23,15 @@ const { height } = Dimensions.get('window')
 
 const index = () => {
   let isMounted = true
+
   const { user, token } = useContext(authContext)
   const navigation = useNavigation()
   const route = useRoute()
   const cart = route.params.cart
   const subtotal = route.params.subtotal
-  const [tax, setTax] = useState(1350)
-  const [address, setAddress] = useState([
-    'Rua E - Bairro Palanca - Luanda',
-    'Rua 14 - Bairro Prenda - Luanda',
-  ])
+  const [tax, setTax] = useState(0)
+  const [address, setAddress] = useState([])
+
   const [deliveryAddress, setDeliveryAddress] = useState(address[0] || '')
   const [orderObs, setOrderObs] = useState('')
   const [loading, setLoading] = useState(false)
@@ -51,19 +50,11 @@ const index = () => {
       value,
     )
 
-  //carregar endereços do armazenamento
-  const getAddress = async () => {
-    try {
-      const data = await AsyncStorage.getItem(constants.ADDRESS_KEY)
-      if (data && isMounted) setAddress(JSON.parse(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   useEffect(() => {
-    //  getAddress()
-
+    if (isMounted) {
+      console.log(user.address)
+      setAddress(user?.address)
+    }
     return () => (isMounted = false)
   }, [])
 
@@ -87,7 +78,7 @@ const index = () => {
       .post('/orders', order)
       .then(response => {
         Alert.alert('Sucesso', response.data.message)
-        navigation.navigate('orders')
+        navigation.navigate('orderStack')
       })
       .catch(error => {
         console.log(error, error?.response?.data)
@@ -190,11 +181,11 @@ const index = () => {
                 placeholder="Para contacto na entrega"
               />
             </View>
-            {user?.address?.length === 0 ? (
+            {address?.length == 0 ? (
               <TouchableOpacity
                 onPress={() => navigation.navigate('address')}
                 activeOpacity={0.7}
-                style={styles.btnAdress}
+                style={styles.btnAddress}
               >
                 <Icon name="plus-circle" color={colors.grayDark} size={20} />
                 <Text style={{ marginTop: 2 }}>Adicionar Endereço</Text>
@@ -202,24 +193,32 @@ const index = () => {
             ) : (
               <View style={styles.inputContainer}>
                 <Text style={styles.labelStyle}>Endereço de entrega</Text>
-                <Picker
-                  selectedValue={deliveryAddress}
-                  itemStyle={{ borderWidth: 1 }}
+                <View
                   style={{
-                    height: 35,
-                    borderWidth: 5,
+                    height: 45,
+                    borderWidth: 1,
                     borderRadius: 5,
-                    borderColor: colors.magenta,
+                    borderColor: colors.grayMedium,
                     backgroundColor: colors.grayLight,
                   }}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setDeliveryAddress(itemValue)
-                  }
                 >
-                  {user?.address?.map((item, index) => (
-                    <Picker.Item key={index} label={item} value={item} />
-                  ))}
-                </Picker>
+                  <Picker
+                    selectedValue={deliveryAddress}
+                    itemStyle={{ textTransform: 'capitalize' }}
+                    style={{ flex: 1 }}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setDeliveryAddress(itemValue)
+                    }
+                  >
+                    {address?.map((item, index) => (
+                      <Picker.Item
+                        key={index}
+                        label={`${item.street} - ${item.neighborhood} - ${item.city}`.toUpperCase()}
+                        value={item}
+                      />
+                    ))}
+                  </Picker>
+                </View>
               </View>
             )}
             <View style={styles.inputContainer}>

@@ -22,7 +22,7 @@ export default index = () => {
       'Deseja terminar sessão da sua conta?',
       [
         { text: 'Não', style: 'cancel' },
-        { text: 'SIm', onPress: () => logout() },
+        { text: 'Sim', onPress: () => logout() },
       ],
       { cancelable: true },
     )
@@ -86,7 +86,7 @@ export default index = () => {
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>
-
+        {/** 
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.btn}
@@ -100,6 +100,7 @@ export default index = () => {
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>
+      */}
 
         <Text style={styles.sectionTitle}>Mais</Text>
         <TouchableOpacity

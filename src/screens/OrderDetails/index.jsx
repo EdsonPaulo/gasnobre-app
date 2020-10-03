@@ -77,16 +77,16 @@ export default index = () => {
             {order?.products.map(item => (
               <View key={item._id} style={{ marginBottom: 3 }}>
                 <Text style={{ textTransform: 'capitalize' }}>
-                  {item.product.name}
+                  {item.product?.name}
                 </Text>
 
                 <View style={styles.textContainer}>
                   <Text>
                     {' '}
-                    {item.quantity} x {transformPrice(item.product.price)}
+                    {item.quantity} x {transformPrice(item.product?.price)}
                   </Text>
                   <Text>
-                    {transformPrice(item.quantity * item.product.price)}{' '}
+                    {transformPrice(item.quantity * item.product?.price)}{' '}
                   </Text>
                 </View>
               </View>

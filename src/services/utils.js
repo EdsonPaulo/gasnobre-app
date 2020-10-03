@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import { Alert, ToastAndroid } from 'react-native'
 import Rate, { AndroidMarket } from 'react-native-rate'
 import api from './api'
@@ -94,7 +95,6 @@ export const uploadImage = (file, token) => {
     type: file.mime,
     uri: file.path,
   })
-
   return (
     api(token).post('/files'),
     formDaa,
@@ -105,4 +105,25 @@ export const uploadImage = (file, token) => {
       },
     }
   )
+}
+
+export const saveOnAsyncStorage = async (key, value) => {
+  try {
+    await AsyncStorage.setItem(key, JSON.stringify(value))
+    console.log('salvou')
+  } catch (error) {
+    console.log(error)
+    console.log('ocorreu um erro inesperado ao salvar dados!')
+  }
+}
+
+export const readOnAsyncStorage = async key => {
+  try {
+    const data = await AsyncStorage.getItem(key)
+    console.log('pegou')
+    if (data) return data
+  } catch (error) {
+    console.log(error)
+    console.log('ocorreu um erro inesperado!')
+  }
 }

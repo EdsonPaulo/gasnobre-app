@@ -9,6 +9,7 @@ export default React.createContext({
 
   login: (user, token, role) => {},
   logout: () => {},
+  updateUser: user => {},
   register: (user, token, role) => {},
   retrieveToken: () => {},
 })

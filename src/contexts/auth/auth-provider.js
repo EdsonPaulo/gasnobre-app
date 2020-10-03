@@ -1,6 +1,7 @@
+import AsyncStorage from '@react-native-community/async-storage'
 import React, { useMemo, useReducer } from 'react'
-import { AsyncStorage } from 'react-native'
 import { constants } from '../../constants'
+import { saveOnAsyncStorage } from '../../services/utils'
 import AuthContext from './auth-context'
 import {
   authReducer,
@@ -8,6 +9,7 @@ import {
   LOGOUT,
   REGISTER,
   RETRIEVE_TOKEN,
+  UPDATE_USER,
 } from './auth-reducer'
 
 const AuthProvider = props => {
@@ -73,6 +75,13 @@ const AuthProvider = props => {
     }
   }
 
+  const updateUser = user => {
+    if (user) {
+      saveOnAsyncStorage(constants.USER_KEY, user)
+      dispatch({ type: UPDATE_USER, user })
+    }
+  }
+
   const value = useMemo(() => {
     return {
       user: authState.user,
@@ -84,6 +93,7 @@ const AuthProvider = props => {
       login: login,
       logout: logout,
       register: register,
+      updateUser: updateUser,
       retrieveToken: retrieveToken,
     }
   })

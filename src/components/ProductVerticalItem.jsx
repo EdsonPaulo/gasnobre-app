@@ -106,7 +106,9 @@ const styles = StyleSheet.create({
     // borderTopLeftRadius: 2,
     padding: 25,
     elevation: 0,
-    backgroundColor: '#4b7bec10',
+    backgroundColor: '#4b7bec20',
+    borderWidth: 1,
+    borderColor: colors.primary,
     alignSelf: 'center',
 
     marginHorizontal: metrics.baseMargin,

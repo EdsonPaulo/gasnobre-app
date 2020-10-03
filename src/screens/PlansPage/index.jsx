@@ -7,7 +7,7 @@ import AuthContext from '../../contexts/auth/auth-context'
 
 const Plan = () => {
   let isMounted = true
-  const { user, token } = useContext(AuthContext)
+  const { user, token, role } = useContext(AuthContext)
   const [editing, setEditing] = useState(false)
   const [address, setAddress] = useState([])
 

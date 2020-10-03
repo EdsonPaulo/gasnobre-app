@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
@@ -27,14 +28,6 @@ export default index = () => {
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
 
-  const onRefresh = useCallback(() => {
-    if (isMounted) {
-      setRefreshing(true)
-      setPage(1)
-      getOrders()
-    }
-  }, [])
-
   const getOrders = () => {
     if (loading) return
     if (total > 0 && orders.length >= total) {
@@ -55,7 +48,7 @@ export default index = () => {
         }
       })
       .catch(error => {
-        console.log(error + ' ==> erro')
+        console.log(`${error} ==> erro`)
       })
       .finally(() => {
         if (isMounted) {
@@ -64,6 +57,14 @@ export default index = () => {
         }
       })
   }
+
+  const onRefresh = useCallback(() => {
+    if (isMounted) {
+      setRefreshing(true)
+      setPage(1)
+      getOrders()
+    }
+  }, [])
 
   useEffect(() => {
     getOrders()

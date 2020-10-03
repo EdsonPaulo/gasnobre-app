@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: metrics.baseRadius,
   },
-  btnAdress: {
+  btnAddress: {
     backgroundColor: colors.grayLight,
     borderWidth: 1,
     borderColor: colors.grayMedium,
