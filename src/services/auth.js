@@ -1,5 +1,9 @@
 import axios from 'axios'
+import * as Facebook from 'expo-facebook'
+import { Alert } from 'react-native'
+
 import api from '../services/api'
+import constants from '../constants'
 
 export async function register(data) {
   try {
@@ -40,7 +44,6 @@ export async function updateProfile(userId, data) {
         "Content-Type": "multipart/form-data"
       }
     }
-
     const form_data = new FormData()
     for (let key in data)
       form_data.append(key, data[key])
@@ -61,4 +64,71 @@ export function handler(err) {
   else if (!err.hasOwnProperty('message')) error = err.toJSON()
 
   return new Error(error.message)
+}
+
+export const facebookAuth = async () => {
+  try {
+    await Facebook.initializeAsync({
+      appId: constants.FACEBOOK_APP_ID,
+      appName: 'delivery-nobre',
+    })
+    const {
+      type,
+      token,
+      expirationDate,
+      permissions,
+      declinedPermissions,
+    } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ['public_profile'],
+    })
+    if (type === 'success') {
+      // Get the user's name using Facebook's Graph API
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`,
+      )
+      console.log(response.json())
+      Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`)
+    } else {
+      // type === 'cancel'
+    }
+  } catch ({ message }) {
+    alert(`Facebook Login Error: ${message}`)
+  }
+}
+
+export const toggleAuthAsync = async () => {
+  const auth = await Facebook.getAuthenticationCredentialAsync()
+
+  if (!auth) {
+    // Log in
+  } else {
+    // Log out
+  }
+}
+
+// Get default info about the currently authenticated user.
+async function getUserAsync() {
+  const { name } = await requestAsync('me')
+  console.log(`Hello ${name} 👋`)
+}
+
+// Learn more https://developers.facebook.com/docs/graph-api/using-graph-api/
+async function requestAsync(path, token) {
+  let resolvedToken = token
+  if (!token) {
+    const auth = await Facebook.getAuthenticationCredentialAsync()
+    if (!auth) {
+      throw new Error(
+        'User is not authenticated. Ensure `logInWithReadPermissionsAsync` has successfully resolved before attempting to use the FBSDK Graph API.',
+      )
+    }
+    resolvedToken = auth.token
+  }
+  const response = await fetch(
+    `https://graph.facebook.com/${path}?access_token=${encodeURIComponent(
+      resolvedToken,
+    )}`,
+  )
+  const body = await response.json()
+  return body
 }
