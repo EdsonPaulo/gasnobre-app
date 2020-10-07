@@ -94,7 +94,7 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
                 {!isFocused ? null : (
                   <Text
                     style={{
-                      fontSize: 16,
+                      fontSize: 15,
                       letterSpacing: 0.3,
                       fontFamily: 'RobotoCondensed_400Regular',
                       color: isFocused ? colors.white : colors.grayLight,
