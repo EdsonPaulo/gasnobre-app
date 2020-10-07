@@ -73,7 +73,7 @@ export const facebookAuth = async () => {
       appName: 'Delivery Nobre',
     })
     const auth = await Facebook.getAuthenticationCredentialAsync()
-    console.log(" autenticado"+ JSON.stringify(auth))
+    console.log(' autenticado' + JSON.stringify(auth))
     if (auth) await Facebook.logOutAsync()
 
     const { type, token } = await Facebook.logInWithReadPermissionsAsync({

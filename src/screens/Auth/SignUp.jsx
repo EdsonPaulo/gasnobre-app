@@ -86,14 +86,50 @@ const SignUp = () => {
   const userFormData = useForm({ resolver: yupResolver(userSchema) })
   const addressFormData = useForm({ resolver: yupResolver(addressSchema) })
 
+  const sendCode = async email => {
+    console.log(email)
+    if (loading) return
+    setLoading(true)
+    try {
+      const response = await api(null).post('/users/send_code', { email })
+      console.log(response.data)
+      setStep(step + 1)
+    } catch (error) {
+      console.log(error.message)
+      if (error.response?.data?.error === 'EXISTENT_USER')
+        Alert.alert(`ERRO: ${error.response?.data?.message}`)
+      else {
+        Alert.alert(
+          `Ocorreu um erro`,
+          `Ocorreu um erro inesperado! Verifique a sua internet ou tente mais tarde`,
+        )
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const signUp = async () => {
     if (loading) return
     setLoading(true)
     try {
       const response = await api(null).post('/users/register', userData)
       console.log(response.data)
+      setSuccessModalVisible(true)
+      setTimeout(() => {
+        setSuccessModalVisible(false)
+        register(response.data?.user, response.data?.token, response.data?.role)
+      }, 2000)
     } catch (error) {
-      Alert.alert('Erro', 'Erro ao criar conta!', error.message)
+      console.log(error.message)
+      if (error.response?.data?.error === 'EXISTENT_USER')
+        Alert.alert(`ERRO: ${error.response?.data?.message}`)
+      else {
+        Alert.alert(
+          `Ocorreu um erro`,
+          `Ocorreu um erro inesperado! Verifique a sua internet ou tente mais tarde`,
+        )
+      }
     } finally {
       setLoading(false)
     }
@@ -120,7 +156,7 @@ const SignUp = () => {
     console.log(data)
     if (step == 1) {
       setUserData(data)
-      setStep(step + 1)
+      sendCode(data.email)
     } else if (step == 3) {
       setUserData({ ...userData, address: [{ ...data }] })
       signUp()
@@ -221,10 +257,9 @@ const SignUp = () => {
   const renderStep2 = () => (
     <View style={{ marginBottom: 15 }}>
       <Text style={styles.subtitle}>
-        Enviámos um código de 5 dígitos para {userData.email}
-. Se não receber em
+        Enviámos um código de 5 dígitos para {userData.email}. Se não receber em
         3 minutos, tente reenviar o código.
-</Text>
+      </Text>
 
       <CodeField
         {...codeProps}
@@ -401,12 +436,12 @@ const SignUp = () => {
           </TouchableOpacity>
         </View>
       )}
-      <Modal animationType="slide" transparent visible={setSuccessModalVisible}>
+      <Modal animationType="slide" transparent visible={successModalVisible}>
         <View
           style={{
             flex: 1,
             justifyContent: 'center',
-            backgroundColor: '#0000001a',
+            backgroundColor: '#0000003a',
           }}
         >
           <View style={styles.modalView}>

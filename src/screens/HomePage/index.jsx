@@ -2,6 +2,7 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
 import React, { useContext, useEffect, useState } from 'react'
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   ScrollView,
@@ -30,7 +31,7 @@ const index = () => {
     api(token)
       .get(`/orders?perPage=4`)
       .then(response => {
-        if (isMounted) setOrders(response.data?.data)
+        if (isMounted) setOrders([])
       })
       .catch(error => {
         console.log(error + ' ==> erro')
@@ -57,6 +58,85 @@ const index = () => {
     */
   }
 
+  const renderLoading = () => (
+    <View style={styles.containerFlex}>
+      <ActivityIndicator size="large" color={colors.accent} />
+    </View>
+  )
+
+  const renderEmptyOrders = () => (
+    <View style={styles.containerFlex}>
+      <Text style={[styles.emptyText]}>
+        Olá, {user.name.split(' ')[0]}
+      </Text>
+      <Text style={[styles.emptyText, {marginVertical: 10}]}>
+        Veja os produtos disponíveis que temos para você, faça pedido em poucos
+        passos e receba no conforto da sua casa :)
+      </Text>
+      <View style={{ flexDirection: 'row' }}>
+        <RectButton
+          style={[styles.seeMore, { marginRight: 5 }]}
+          onPress={() => navigation.navigate('storeStack')}
+        >
+          <Text>Ver Produtos</Text>
+        </RectButton>
+        <RectButton
+          style={styles.seeMore}
+          onPress={() => navigation.navigate('storeStack')}
+        >
+          <Text>Meus Pedidos</Text>
+        </RectButton>
+      </View>
+    </View>
+  )
+
+  const renderOrders = () =>
+    orders.map(order => (
+      <RectButton
+        key={order.number}
+        onPress={() => navigation.navigate('orderDetails', { order })}
+        activeOpacity={0.7}
+        style={styles.history}
+      >
+        <View style={styles.rowContainer}>
+          <Text style={styles.statusText}>{order.number}</Text>
+          <Text style={styles.statusText}>{convertDate(order.orderDate)}</Text>
+        </View>
+
+        <View style={styles.rowContainer}>
+          <Text
+            style={[
+              styles.statusText,
+              {
+                fontFamily: 'RobotoCondensed_700Bold',
+                textTransform: 'capitalize',
+                color:
+                  order.status === 'concluido'
+                    ? colors.success
+                    : order.status === 'cancelado'
+                    ? colors.alert
+                    : colors.accent,
+              },
+            ]}
+          >
+            {order.status}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'RobotoCondensed_700Bold',
+              fontSize: 16,
+              color: colors.success,
+            }}
+          >
+            {Intl.NumberFormat('pt-AO', {
+              style: 'currency',
+              currency: 'AOA',
+            }).format(order.total)}
+          </Text>
+        </View>
+      </RectButton>
+    ))
+
   return (
     <SafeAreaView style={[general.background]}>
       <CustomStatusBar
@@ -81,7 +161,7 @@ const index = () => {
               <Image
                 style={{ width: '100%', height: '100%' }}
                 resizeMode="contain"
-                source={require('../../assets/logo-transparent.png')}
+                source={require('../../assets/logo.png')}
               />
             </View>
 
@@ -120,7 +200,7 @@ const index = () => {
             </View>
            */}
         <View style={styles.historyContainer}>
-          <Text
+         {orders.length > 0 && <Text
             style={{
               textAlign: 'center',
               marginBottom: 5,
@@ -129,65 +209,29 @@ const index = () => {
             }}
           >
             Últimos de Pedidos
-          </Text>
+          </Text>}
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ padding: 5 }}
+            contentContainerStyle={
+              orders.length == 0 || loading
+                ? { height: '100%',  padding: 15 }
+                : { padding: 5 }
+            }
           >
-            {orders.map(order => (
-              <TouchableOpacity
-                key={order.number}
-                onPress={() => navigation.navigate('orderDetails', { order })}
-                activeOpacity={0.7}
-                style={styles.history}
+            {loading && renderLoading()}
+
+            {!loading && orders.length > 0 && renderOrders()}
+
+            {!loading && orders.length > 3 && (
+              <RectButton
+                style={styles.seeMore}
+                onPress={() => navigation.navigate('orderStack')}
               >
-                <View style={styles.rowContainer}>
-                  <Text style={styles.statusText}>{order.number}</Text>
-                  <Text style={styles.statusText}>
-                    {convertDate(order.orderDate)}
-                  </Text>
-                </View>
+                <Text>Ver mais</Text>
+              </RectButton>
+            )}
 
-                <View style={styles.rowContainer}>
-                  <Text
-                    style={[
-                      styles.statusText,
-                      {
-                        fontFamily: 'RobotoCondensed_700Bold',
-                        textTransform: 'capitalize',
-                        color:
-                          order.status === 'concluido'
-                            ? colors.success
-                            : order.status === 'cancelado'
-                            ? colors.alert
-                            : colors.accent,
-                      },
-                    ]}
-                  >
-                    {order.status}
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: 'RobotoCondensed_700Bold',
-                      fontSize: 16,
-                      color: colors.success,
-                    }}
-                  >
-                    {Intl.NumberFormat('pt-AO', {
-                      style: 'currency',
-                      currency: 'AOA',
-                    }).format(order.total)}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-
-            <RectButton
-              style={styles.seeMore}
-              onPress={() => navigation.navigate('orderStack')}
-            >
-              <Text>Ver mais</Text>
-            </RectButton>
+            {!loading && orders.length == 0 && renderEmptyOrders()}
           </ScrollView>
         </View>
       </View>

@@ -22,15 +22,12 @@ const styles = StyleSheet.create({
     marginBottom: metrics.doubleBaseMargin,
   },
   banners: {
-    height: 190,
+    height: 230,
     //  elevation: 5,
     width: '100%',
     alignSelf: 'center',
     backgroundColor: 'transparent',
-    borderRadius: 5,
-
-    borderWidth: 1,
-    borderColor: colors.borderColor,
+    borderRadius: 8,
   },
   optionContainer: {
     flexDirection: 'row',
@@ -62,7 +59,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginTop: 20,
     backgroundColor: '#f4f4f4',
-    borderRadius: 5,
+    borderRadius: 8,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderWidth: 1,
@@ -80,16 +77,21 @@ const styles = StyleSheet.create({
     height: 70,
   },
   seeMore: {
-    padding: 5,
-    borderRadius: 7,
+    padding: 7,
+    borderRadius: 5,
     backgroundColor: 'white',
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    marginVertical: 10,
+    marginTop: 8,
     bottom: 0,
     //  position: "absolute",
     elevation: 2,
+  },
+  containerFlex: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   rowContainer: {
     flex: 1 / 2,
@@ -104,6 +106,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: 'RobotoCondensed_700Bold',
   },
+  emptyText: {
+    fontSize: 17,
+    color: colors.grayDark2,
+    textAlign: "center",
+    fontFamily: 'RobotoCondensed_400Regular',
+  }
 })
 
 export default styles

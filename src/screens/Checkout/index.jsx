@@ -60,6 +60,12 @@ const index = () => {
 
   //finalizar compra/pedido
   const makeOrder = () => {
+    if (loading) return
+    if (!deliveryAddress) {
+      Alert.alert('Precisa adicionar o endereço de entrega!')
+      return
+    }
+
     let products = []
     let order = orderDetails
     setLoading(true)
@@ -77,7 +83,7 @@ const index = () => {
     api(token)
       .post('/orders', order)
       .then(response => {
-        Alert.alert('Sucesso', response.data.message)
+        Alert.alert('Parabéns', response.data.message)
         navigation.navigate('orderStack')
       })
       .catch(error => {
@@ -149,38 +155,20 @@ const index = () => {
           </View>
           <View style={styles.section}>
             <View style={styles.inputContainer}>
-              <Text style={styles.labelStyle}>Nome do Cliente</Text>
-              <TextInput
-                returnKeyType="next"
-                value={user?.name}
-                editable={false}
-                onChangeText={value => {
-                  setOrderDetails(orderDetails => {
-                    return { ...orderDetails }
-                  })
-                }}
-                textContentType="name"
-                style={[styles.inputStyle, { borderWidth: 0 }]}
-                placeholder="Nome e sobrenome"
-              />
+              <Text style={styles.labelStyle}>Em nome de:</Text>
+              <Text style={styles.valueStyle}>{user?.name}</Text>
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.labelStyle}>Telefone (obrigatório)</Text>
-              <TextInput
-                returnKeyType="next"
-                editable={false}
-                value={'+244' + user?.phone}
-                onChangeText={value => {
-                  setOrderDetails(orderDetails => {
-                    return { ...orderDetails }
-                  })
-                }}
-                keyboardType="phone-pad"
-                style={[styles.inputStyle, { borderWidth: 0 }]}
-                placeholder="Para contacto na entrega"
-              />
+              <Text style={styles.labelStyle}>Telefone</Text>
+              <Text style={styles.valueStyle}>{user?.phone}</Text>
             </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.labelStyle}>Email</Text>
+              <Text style={styles.valueStyle}>{user?.phone}</Text>
+            </View>
+
             {address?.length == 0 ? (
               <TouchableOpacity
                 onPress={() => navigation.navigate('address')}
@@ -188,7 +176,9 @@ const index = () => {
                 style={styles.btnAddress}
               >
                 <Icon name="plus-circle" color={colors.grayDark} size={20} />
-                <Text style={{ marginTop: 2 }}>Adicionar Endereço</Text>
+                <Text style={[styles.valueStyle, { marginLeft: 10 }]}>
+                  Adicionar Endereço
+                </Text>
               </TouchableOpacity>
             ) : (
               <View style={styles.inputContainer}>

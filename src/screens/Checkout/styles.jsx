@@ -40,8 +40,16 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   labelStyle: {
-    color: colors.grayDark2,
-    marginBottom: 2,
+    color: colors.grayDark,
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'RobotoCondensed_400Regular',
+  },
+  valueStyle: {
+    color: colors.dark,
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: 'RobotoCondensed_700Bold',
   },
   inputStyle: {
     flex: 1,
@@ -53,13 +61,15 @@ const styles = StyleSheet.create({
     borderRadius: metrics.baseRadius,
   },
   btnAddress: {
-    backgroundColor: colors.grayLight,
     borderWidth: 1,
-    borderColor: colors.grayMedium,
+    padding: 10,
     borderRadius: 5,
-    paddingVertical: 5,
-    marginBottom: 15,
+    marginVertical: 10,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: colors.grayMedium,
+    backgroundColor: colors.grayLight,
   },
 })
 
