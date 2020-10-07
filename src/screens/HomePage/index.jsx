@@ -31,7 +31,7 @@ const index = () => {
     api(token)
       .get(`/orders?perPage=4`)
       .then(response => {
-        if (isMounted) setOrders([])
+        if (isMounted) setOrders(response?.data?.data)
       })
       .catch(error => {
         console.log(error + ' ==> erro')
@@ -42,6 +42,8 @@ const index = () => {
   }
 
   useEffect(() => {
+  console.log('user', JSON.stringify(user))
+
     getOrders()
     return () => (isMounted = false)
   }, [])
@@ -66,10 +68,8 @@ const index = () => {
 
   const renderEmptyOrders = () => (
     <View style={styles.containerFlex}>
-      <Text style={[styles.emptyText]}>
-        Olá, {user.name.split(' ')[0]}
-      </Text>
-      <Text style={[styles.emptyText, {marginVertical: 10}]}>
+      <Text style={[styles.emptyText]}>Olá, {user?.name?.split(' ')[0]}</Text>
+      <Text style={[styles.emptyText, { marginVertical: 10 }]}>
         Veja os produtos disponíveis que temos para você, faça pedido em poucos
         passos e receba no conforto da sua casa :)
       </Text>
@@ -200,21 +200,23 @@ const index = () => {
             </View>
            */}
         <View style={styles.historyContainer}>
-         {orders.length > 0 && <Text
-            style={{
-              textAlign: 'center',
-              marginBottom: 5,
-              fontSize: 18,
-              color: colors.grayDark,
-            }}
-          >
-            Últimos de Pedidos
-          </Text>}
+          {orders.length > 0 && (
+            <Text
+              style={{
+                textAlign: 'center',
+                marginBottom: 5,
+                fontSize: 18,
+                color: colors.grayDark,
+              }}
+            >
+              Últimos de Pedidos
+            </Text>
+          )}
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={
               orders.length == 0 || loading
-                ? { height: '100%',  padding: 15 }
+                ? { height: '100%', padding: 15 }
                 : { padding: 5 }
             }
           >

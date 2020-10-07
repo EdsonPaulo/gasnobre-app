@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoCondensed_700Bold',
   },
   description: {
-    fontSize: 16,
-    color: colors.grayDark,
+    fontSize: 17,
+    color: colors.grayDark2,
     textAlign: 'center',
     marginVertical: 12,
     fontFamily: 'RobotoCondensed_400Regular',

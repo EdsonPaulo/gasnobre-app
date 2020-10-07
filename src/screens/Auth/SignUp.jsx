@@ -109,11 +109,14 @@ const SignUp = () => {
     }
   }
 
-  const signUp = async () => {
+  const signUp = async data => {
+    console.log('gravando')
+    console.log(JSON.stringify(data))
+
     if (loading) return
     setLoading(true)
     try {
-      const response = await api(null).post('/users/register', userData)
+      const response = await api(null).post('/users/register', data)
       console.log(response.data)
       setSuccessModalVisible(true)
       setTimeout(() => {
@@ -158,8 +161,9 @@ const SignUp = () => {
       setUserData(data)
       sendCode(data.email)
     } else if (step == 3) {
-      setUserData({ ...userData, address: [{ ...data }] })
-      signUp()
+      console.log(data)
+      setUserData({ ...userData, address: [data] })
+      signUp({ ...userData, address: [data] })
     }
   }
 
@@ -175,9 +179,6 @@ const SignUp = () => {
         break
       case 3:
         addressFormData.handleSubmit(onSubmit)()
-        break
-      case 4:
-        signUp()
     }
   }
 
