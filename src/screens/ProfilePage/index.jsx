@@ -1,7 +1,14 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import React, { useContext } from 'react'
-import { Alert, Text, TouchableOpacity, View, ScrollView } from 'react-native'
+import React, { useContext, useState } from 'react'
+import {
+  Alert,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  Modal,
+} from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors, general } from '../../constants'
@@ -12,6 +19,7 @@ import styles from './styles'
 export default index = () => {
   const navigation = useNavigation()
   const { logout, user, role } = useContext(AuthContext)
+  const [supportModalVisible, setSupportModalVisible] = useState(false)
   const userInitials =
     user?.name?.split(' ')[0][0] +
     (user?.name?.split(' ')[1] ? user?.name?.split(' ')[1][0] : '')
@@ -58,7 +66,7 @@ export default index = () => {
         <Text style={styles.sectionTitle}>Meus Dados</Text>
         <RectButton
           activeOpacity={0.7}
-          style={styles.btn}
+          style={[styles.btn, { justifyContent: 'space-between' }]}
           onPress={() => {
             navigation.navigate('profileDetails')
           }}
@@ -72,7 +80,7 @@ export default index = () => {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          style={styles.btn}
+          style={[styles.btn, { justifyContent: 'space-between' }]}
           onPress={() => {
             navigation.navigate('address')
           }}
@@ -86,21 +94,6 @@ export default index = () => {
           </View>
           <Ionicons name="ios-arrow-forward" size={18} />
         </TouchableOpacity>
-        {/** 
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.btn}
-          onPress={() => {
-            navigation.navigate('kamba')
-          }}
-        >
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Ionicons name="ios-cart" style={styles.icons} />
-            <Text style={styles.textStyle}>Planos de Serviços</Text>
-          </View>
-          <Ionicons name="ios-arrow-forward" size={18} />
-        </TouchableOpacity>
-      */}
 
         <Text style={styles.sectionTitle}>Mais</Text>
         <TouchableOpacity
@@ -110,19 +103,17 @@ export default index = () => {
             onShare()
           }}
         >
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialCommunityIcons name="share-variant" style={styles.icons} />
-            <Text style={styles.textStyle}>Partilhar</Text>
-          </View>
-          <Ionicons name="ios-arrow-forward" size={18} />
+          <MaterialCommunityIcons name="share-variant" style={styles.icons} />
+          <Text style={styles.textStyle}>Partilhar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.7} style={styles.btn}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialCommunityIcons name="headset" style={styles.icons} />
-            <Text style={styles.textStyle}>Ajuda e Suporte</Text>
-          </View>
-          <Ionicons name="ios-arrow-forward" size={18} />
+        <TouchableOpacity
+          onPress={() => setSupportModalVisible(true)}
+          activeOpacity={0.7}
+          style={styles.btn}
+        >
+          <MaterialCommunityIcons name="headset" style={styles.icons} />
+          <Text style={styles.textStyle}>Ajuda e Suporte</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -130,13 +121,48 @@ export default index = () => {
           style={styles.btn}
           onPress={() => Logout()}
         >
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialCommunityIcons name="power" style={styles.icons} />
-            <Text style={styles.textStyle}>Terminar Sessão</Text>
-          </View>
-          <Ionicons name="ios-arrow-forward" size={18} />
+          <MaterialCommunityIcons name="power" style={styles.icons} />
+          <Text style={styles.textStyle}>Terminar Sessão</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      <Modal animationType="slide" transparent visible={supportModalVisible}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            backgroundColor: '#0000004a',
+          }}
+        >
+          <View style={styles.modalView}>
+            <MaterialCommunityIcons
+              name="headset"
+              style={{ alignSelf: 'center' }}
+              size={40}
+              color={colors.dark}
+            />
+            <Text style={styles.modalText}>Ajuda e Suporte</Text>
+            <View style={{ padding: 25, alignItems: 'center' }}>
+              <Text style={styles.modalText}>
+                Se estiver com dificuldades no app, alguma dúvida ou sugestões,
+                entre em contacto pelas vias:
+              </Text>
+              <Text style={styles.modalText}>Whatsapp: +244 942 682 194</Text>
+              <Text style={styles.modalText}>
+                Email: suporte@deliverynobre.co.ao
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={{ padding: 10, width: 80 }}
+              onPress={() => setSupportModalVisible(false)}
+            >
+              <Text style={[styles.modalText, { textAlign: 'center' }]}>
+                OK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   )
 }

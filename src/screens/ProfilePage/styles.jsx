@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     width: '100%',
     borderRadius: 5,
     elevation: 3,
@@ -75,6 +74,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: metrics.doubleBaseMargin,
   },
   textStyle: {
+    fontFamily: 'RobotoCondensed_400Regular',
+  },
+  modalView: {
+    width: '70%',
+    height: '50%',
+    borderRadius: 8,
+    borderColor: colors.borderColor,
+    borderWidth: 1,
+    elevation: 6,
+    alignSelf: 'center',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalText: {
+    textAlign: 'justify',
+    color: colors.textDark,
+    fontSize: 16,
+    marginTop: 10,
     fontFamily: 'RobotoCondensed_400Regular',
   },
 })

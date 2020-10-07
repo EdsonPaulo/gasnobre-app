@@ -36,7 +36,7 @@ const SignUp = () => {
   const [userData, setUserData] = useState({})
   const [step, setStep] = useState(1)
 
-  //verification code field
+  // verification code field
   const [codeValueFromServer, setCodeValueFromServer] = useState('12345')
   const [codeValue, setCodeValue] = useState('')
   const codeFieldRef = useBlurOnFulfill({ codeValue, cellCount: 5 })
@@ -75,7 +75,7 @@ const SignUp = () => {
     neighborhood: yup
       .string()
       .required('Bairro é obrigatório')
-      .min(4, 'Deve ter mais de 4 letras'), //bairro
+      .min(4, 'Deve ter mais de 4 letras'), // bairro
     street: yup
       .string()
       .required('Rua é obrigatório')
@@ -145,7 +145,7 @@ const SignUp = () => {
     }
   }
 
-  //Renderizar passo 1, detalhes pessoais
+  // Renderizar passo 1, detalhes pessoais
   const renderStep1 = () => (
     <View>
       <Text style={styles.subtitle}>Informe seus dados pessoais</Text>
@@ -217,13 +217,14 @@ const SignUp = () => {
     </View>
   )
 
-  //Renderizar passo 2, código de verificação
+  // Renderizar passo 2, código de verificação
   const renderStep2 = () => (
     <View style={{ marginBottom: 15 }}>
       <Text style={styles.subtitle}>
-        Enviámos um código de 5 dígitos para {userData.email}. Se não receber em
+        Enviámos um código de 5 dígitos para {userData.email}
+. Se não receber em
         3 minutos, tente reenviar o código.
-      </Text>
+</Text>
 
       <CodeField
         {...codeProps}
@@ -249,7 +250,7 @@ const SignUp = () => {
     </View>
   )
 
-  //Renderizar passo 3, endereço
+  // Renderizar passo 3, endereço
   const renderStep3 = () => (
     <ScrollView style={{ marginBottom: 5 }}>
       <Text style={styles.subtitle}>

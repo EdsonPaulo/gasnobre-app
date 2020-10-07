@@ -67,6 +67,18 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoCondensed_400Regular',
   },
 
+  socialButton: {
+    width: 60,
+    height: 60,
+    elevation: 3,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primaryDark,
+    alignSelf: 'center',
+    marginTop: 15,
+  },
+
   root: { paddingHorizontal: 2 },
 
   cellRoot: {

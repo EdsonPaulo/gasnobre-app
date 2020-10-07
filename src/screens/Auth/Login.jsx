@@ -10,14 +10,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
 import { colors, metrics } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
+import { facebookAuth } from '../../services/auth'
+
 import styles from './styles'
-import { Controller, useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 const Login = () => {
   const navigation = useNavigation()
@@ -53,6 +54,15 @@ const Login = () => {
       } finally {
         setLoading(false)
       }
+    }
+  }
+
+  const signInWithFacebook = async () => {
+    try {
+      const result = await facebookAuth()
+      console.log(result)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -109,9 +119,18 @@ const Login = () => {
             />
           </View>
         </View>
+
+        <Text
+          style={[styles.bottomText, { fontWeight: 'bold', marginTop: 50 }]}
+        >
+          Ou entre com
+        </Text>
+        <RectButton onPress={signInWithFacebook} style={styles.socialButton}>
+          <Icon size={30} name="facebook" color="white" />
+        </RectButton>
       </KeyboardAvoidingView>
 
-      <View style={{ width: '100%', marginVertical: metrics.doubleBaseMargin }}>
+      <View style={{ marginVertical: metrics.doubleBaseMargin }}>
         <TouchableOpacity onPress={() => navigation.navigate('signup')}>
           <Text style={styles.bottomText}>
             Não possui uma conta?

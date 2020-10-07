@@ -3,7 +3,7 @@ import * as Facebook from 'expo-facebook'
 import { Alert } from 'react-native'
 
 import api from '../services/api'
-import constants from '../constants'
+import { constants } from '../constants'
 
 export async function register(data) {
   try {
@@ -70,23 +70,21 @@ export const facebookAuth = async () => {
   try {
     await Facebook.initializeAsync({
       appId: constants.FACEBOOK_APP_ID,
-      appName: 'delivery-nobre',
+      appName: 'Delivery Nobre',
     })
-    const {
-      type,
-      token,
-      expirationDate,
-      permissions,
-      declinedPermissions,
-    } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ['public_profile'],
+    const auth = await Facebook.getAuthenticationCredentialAsync()
+    console.log(" autenticado"+ JSON.stringify(auth))
+    if (auth) await Facebook.logOutAsync()
+
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+      permissions: ['public_profile', 'email'],
     })
     if (type === 'success') {
       // Get the user's name using Facebook's Graph API
       const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`,
+        `https://graph.facebook.com/me?fields=id,name,email,address&access_token=${token}`,
       )
-      console.log(response.json())
+      console.log(await response.json())
       Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`)
     } else {
       // type === 'cancel'
