@@ -59,10 +59,25 @@ const Login = () => {
 
   const signInWithFacebook = async () => {
     try {
-      const result = await facebookAuth()
+      const result = await (await facebookAuth()).json()
       console.log(result)
+      // console.log("resposta no signin", await result.json())
+      // alert('Logged in!', `Hi ${(await result.json()).name}!`)
+      const response = await api(null).post('/users/auth_facebook', {
+        email: result?.email,
+        facebookId: result?.id,
+        name: result?.name,
+      })
+      if (response.data) console.data(response.data)
+      /**
+        login(
+          { ...response.data?.user, ...response.data?.customer },
+          response.data?.token,
+          response.data?.role,
+        )
+         */
     } catch (error) {
-      console.log(error)
+      console.log(error?.response?.data)
     }
   }
 
