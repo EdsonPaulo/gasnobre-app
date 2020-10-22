@@ -8,7 +8,7 @@ import {
   Platform,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -17,8 +17,8 @@ import { colors, metrics } from '../../constants'
 import AuthContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 import { facebookAuth } from '../../services/auth'
-
 import styles from './styles'
+
 
 const Login = () => {
   const navigation = useNavigation()
@@ -59,25 +59,20 @@ const Login = () => {
 
   const signInWithFacebook = async () => {
     try {
+      console.log('USER DATA', result)
       const result = await (await facebookAuth()).json()
-      console.log(result)
-      // console.log("resposta no signin", await result.json())
-      // alert('Logged in!', `Hi ${(await result.json()).name}!`)
       const response = await api(null).post('/users/auth_facebook', {
-        email: result?.email,
+        email: result?.email || result?.phone,
         facebookId: result?.id,
         name: result?.name,
       })
-      if (response.data) console.data(response.data)
-      /**
-        login(
-          { ...response.data?.user, ...response.data?.customer },
-          response.data?.token,
-          response.data?.role,
-        )
-         */
+      login(
+        { ...response.data?.user, ...response.data?.customer },
+        response.data?.token,
+        response.data?.role,
+      )
     } catch (error) {
-      console.log(error?.response?.data)
+      console.log(error)
     }
   }
 

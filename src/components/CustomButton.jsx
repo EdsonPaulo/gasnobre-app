@@ -5,7 +5,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import { colors, metrics } from '../constants'
 
 const CustomButton = props => {
-  const { rounded, primary, title, onPress, style, loading, icon } = props
+  const { backgroundColor, rounded, primary, title, onPress, style, loading, icon } = props
 
   return (
     <RectButton
@@ -15,7 +15,7 @@ const CustomButton = props => {
         styles.buttonContainer,
         style,
         {
-          backgroundColor: primary ? colors.accent : colors.grayLight,
+          backgroundColor: backgroundColor || primary ? colors.accent : colors.grayLight,
           borderRadius: rounded ? metrics.formInputRadius : 6,
         },
       ]}

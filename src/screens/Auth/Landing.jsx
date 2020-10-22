@@ -1,13 +1,39 @@
+import Icon from '@expo/vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CustomButton, CustomStatusBar } from '../../components'
 import { colors, metrics } from '../../constants'
+import AuthContext from '../../contexts/auth/auth-context'
+import api from '../../services/api'
+import { facebookAuth } from '../../services/auth'
 import styles from './styles'
 
 const Landing = () => {
   const navigation = useNavigation()
+  const { login } = React.useContext(AuthContext)
+
+  const signInWithFacebook = async () => {
+    try {
+      console.log('USER DATA', result)
+      const result = await (await facebookAuth()).json()
+      const response = await api(null).post('/users/auth_facebook', {
+        email: result?.email || result?.phone,
+        facebookId: result?.id,
+        name: result?.name,
+      })
+      login(
+        { ...response.data?.user, ...response.data?.customer },
+        response.data?.token,
+        response.data?.role,
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <SafeAreaView
       style={[styles.background, { padding: metrics.tripleBaseMargin }]}
@@ -45,6 +71,16 @@ const Landing = () => {
           title="Criar Conta"
           onPress={() => navigation.navigate('signup')}
         />
+
+      <Text style={styles.copyrightText}>OU</Text>
+
+         <CustomButton
+          primary
+        icon="logo-facebook"
+          title="ENTRAR COM FACEBOOK"
+          onPress={() => navigation.navigate('login')}
+        />
+       
       </View>
       <Text style={styles.copyrightText}>© 2020 - Delivery Nobre</Text>
     </SafeAreaView>
