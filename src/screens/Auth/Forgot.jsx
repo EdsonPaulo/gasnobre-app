@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
 import { colors, metrics } from '../../constants'
 import styles from './styles'

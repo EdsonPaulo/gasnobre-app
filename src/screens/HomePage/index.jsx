@@ -42,7 +42,7 @@ const index = () => {
   }
 
   useEffect(() => {
-  console.log('user', JSON.stringify(user))
+    console.log('user', JSON.stringify(user))
 
     getOrders()
     return () => (isMounted = false)
@@ -166,7 +166,7 @@ const index = () => {
             </View>
 
             <TouchableOpacity onPress={() => {}}>
-              <Icon name="share-square-o" color="darkblue" size={25} />
+              <Icon name="info-circle" color="darkblue" size={25} />
             </TouchableOpacity>
           </View>
 

@@ -81,9 +81,7 @@ export default index = () => {
         <TouchableOpacity
           activeOpacity={0.7}
           style={[styles.btn, { justifyContent: 'space-between' }]}
-          onPress={() => {
-            navigation.navigate('address')
-          }}
+          onPress={() => navigation.navigate('address')}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <MaterialCommunityIcons
