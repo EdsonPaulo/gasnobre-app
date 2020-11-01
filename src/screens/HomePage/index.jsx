@@ -165,8 +165,8 @@ const index = () => {
               />
             </View>
 
-            <TouchableOpacity onPress={() => {}}>
-              <Icon name="info-circle" color="darkblue" size={25} />
+            <TouchableOpacity onPress={() => navigation.navigate('about')}>
+              <Icon name="info-circle" color={colors.accent} size={35} />
             </TouchableOpacity>
           </View>
 

@@ -72,17 +72,16 @@ const Landing = () => {
           onPress={() => navigation.navigate('signup')}
         />
 
-      <Text style={styles.copyrightText}>OU</Text>
+        <Text style={styles.copyrightText}>OU</Text>
 
-         <CustomButton
+        <CustomButton
           primary
-        icon="logo-facebook"
+          icon="logo-facebook"
           title="ENTRAR COM FACEBOOK"
-          onPress={() => navigation.navigate('login')}
+          onPress={signInWithFacebook}
         />
-       
       </View>
-      <Text style={styles.copyrightText}>© 2020 - Delivery Nobre</Text>
+      <Text style={styles.copyrightText}>© {new Date().getFullYear()} - No Biva by Okulikapaco</Text>
     </SafeAreaView>
   )
 }

@@ -59,7 +59,7 @@ export default index = () => {
         <Text style={styles.userDetails}>
           {role === 'customer' ? 'Cliente' : 'Gerente'}
         </Text>
-        <Text style={styles.userDetails}>{userInfo?.phone}</Text>
+        <Text style={styles.userDetails}>{userInfo?.phone || userInfo?.email}</Text>
       </View>
 
       <ScrollView
@@ -106,29 +106,16 @@ export default index = () => {
           onChangeText={email => setUserInfo({ ...userInfo, email: email })}
         />
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 5,
-            marginBottom: 5,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={styles.labelStyle}>Endereço Principal</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('address')}>
-            <Text style={{ fontSize: 15 }}>+ Alterar</Text>
-          </TouchableOpacity>
-        </View>
+        {!editable && (
+          <CustomButton
+            style={{ marginTop: 40 }}
+            title="Meus Endereços"
+            icon="ios-map"
+            onPress={() => navigation.navigate('address')}
+          />
+        )}
 
-        <CustomInput
-          type="address"
-          value={userInfo.address1}
-          style={inputStyle}
-          editable={false}
-          multiline
-        />
-        {!editable ? null : (
+        {editable && (
           <View style={{ marginTop: 20, flexDirection: 'row', flex: 1 }}>
             <CustomButton
               style={{ flex: 1, marginRight: 20 }}

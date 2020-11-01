@@ -8,7 +8,7 @@ import {
   Platform,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -18,7 +18,6 @@ import AuthContext from '../../contexts/auth/auth-context'
 import api from '../../services/api'
 import { facebookAuth } from '../../services/auth'
 import styles from './styles'
-
 
 const Login = () => {
   const navigation = useNavigation()
@@ -54,25 +53,6 @@ const Login = () => {
       } finally {
         setLoading(false)
       }
-    }
-  }
-
-  const signInWithFacebook = async () => {
-    try {
-      console.log('USER DATA', result)
-      const result = await (await facebookAuth()).json()
-      const response = await api(null).post('/users/auth_facebook', {
-        email: result?.email || result?.phone,
-        facebookId: result?.id,
-        name: result?.name,
-      })
-      login(
-        { ...response.data?.user, ...response.data?.customer },
-        response.data?.token,
-        response.data?.role,
-      )
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -129,15 +109,6 @@ const Login = () => {
             />
           </View>
         </View>
-
-        <Text
-          style={[styles.bottomText, { fontWeight: 'bold', marginTop: 50 }]}
-        >
-          Ou entre com
-        </Text>
-        <RectButton onPress={signInWithFacebook} style={styles.socialButton}>
-          <Icon size={30} name="facebook" color="white" />
-        </RectButton>
       </KeyboardAvoidingView>
 
       <View style={{ marginVertical: metrics.doubleBaseMargin }}>

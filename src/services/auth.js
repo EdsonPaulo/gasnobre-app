@@ -87,9 +87,7 @@ async function requestAsync(path, token) {
   if (!token) {
     const auth = await Facebook.getAuthenticationCredentialAsync()
     if (!auth) {
-      throw new Error(
-        'User is not authenticated. Ensure `logInWithReadPermissionsAsync` has successfully resolved before attempting to use the FBSDK Graph API.',
-      )
+      await facebookAuth()
     }
     resolvedToken = auth.token
   }

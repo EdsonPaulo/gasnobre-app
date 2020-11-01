@@ -145,9 +145,9 @@ export default index = () => {
                 Se estiver com dificuldades no app, alguma dúvida ou sugestões,
                 entre em contacto pelas vias:
               </Text>
-              <Text style={styles.modalText}>Whatsapp: +244 942 682 194</Text>
+              <Text style={styles.modalText}>+244 942 679 605</Text>
               <Text style={styles.modalText}>
-                Email: suporte@deliverynobre.co.ao
+                comercial.okulikapaco@gmail.com
               </Text>
             </View>
             <TouchableOpacity

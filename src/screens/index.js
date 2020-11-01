@@ -6,7 +6,7 @@ import Checkout from './Checkout'
 import HomePage from './HomePage'
 import OrderDetails from './OrderDetails'
 import Orders from './Orders'
-import PlansPage from './PlansPage'
+import AboutPage from './AboutPage'
 import ProductsPage from './ProductsPage'
 import ProfileDetails from './ProfileDetails'
 import ProfilePage from './ProfilePage'
@@ -19,7 +19,7 @@ export {
   Forgot,
   HomePage,
   OrderDetails,
-  PlansPage,
+  AboutPage,
   ProductsPage,
   ProfilePage,
   ProfileDetails,

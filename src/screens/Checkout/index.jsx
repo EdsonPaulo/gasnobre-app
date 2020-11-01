@@ -56,7 +56,7 @@ const index = () => {
       setAddress(user?.address)
     }
     return () => (isMounted = false)
-  }, [])
+  }, [user])
 
   //finalizar compra/pedido
   const makeOrder = () => {
@@ -119,8 +119,8 @@ const index = () => {
                   <Text style={{ textTransform: 'capitalize' }}>
                     {product.name}{' '}
                     {product.weight <= 0.99
-                      ? `${product.weight * 1000}ml`
-                      : `${product.weight}L`}{' '}
+                      ? `${product.weight * 1000}ml `
+                      : `${product.weight}L `}
                     (x{product.quantity})
                   </Text>
                   <Text>
@@ -141,8 +141,7 @@ const index = () => {
             <View style={styles.textContainer}>
               <Text style={styles.totalText}>Total </Text>
               <Text style={[styles.totalText, { color: colors.success }]}>
-                {' '}
-                {transformPrice(subtotal + tax)}{' '}
+                {' '}{transformPrice(subtotal + tax)}{' '}
               </Text>
             </View>
           </View>
@@ -166,7 +165,7 @@ const index = () => {
 
             <View style={styles.inputContainer}>
               <Text style={styles.labelStyle}>Email</Text>
-              <Text style={styles.valueStyle}>{user?.phone}</Text>
+              <Text style={styles.valueStyle}>{user?.email}</Text>
             </View>
 
             {address?.length == 0 ? (

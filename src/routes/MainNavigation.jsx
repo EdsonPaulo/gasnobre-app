@@ -17,7 +17,7 @@ import {
   Login,
   OrderDetails,
   Orders,
-  PlansPage,
+  AboutPage,
   ProductsAdmin,
   ProductsPage,
   ProfileDetails,
@@ -100,9 +100,9 @@ const MainNavigation = () => {
         component={OrderDetails}
       />
       <Stack.Screen
-        name="kamba"
-        component={PlansPage}
-        options={{ headerTitle: 'Plano Kamba' }}
+        name="about"
+        component={AboutPage}
+        options={{ headerTitle: 'Sobre Nós' }}
       />
       <Stack.Screen
         name="checkout"
