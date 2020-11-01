@@ -35,7 +35,6 @@ export default index = () => {
         barStyle="light-content"
         style="light"
         backgroundColor={role === 'customer' ? colors.accent : '#111'}
-        translucent={false}
       />
 
       <ScrollView contentContainerStyle={styles.container}>

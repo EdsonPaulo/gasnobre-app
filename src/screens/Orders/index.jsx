@@ -183,7 +183,6 @@ export default index = () => {
         barStyle="light-content"
         style="light"
         backgroundColor={role === 'customer' ? colors.accent : '#111'}
-        translucent={false}
       />
 
       <View style={{ flex: 1 }}>

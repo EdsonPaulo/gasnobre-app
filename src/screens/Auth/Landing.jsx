@@ -14,8 +14,11 @@ import styles from './styles';
 const Landing = () => {
   const navigation = useNavigation();
   const { login } = React.useContext(AuthContext);
+  const [loading, setLoading] = React.useState(false);
 
   const signInWithFacebook = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
       console.log('USER DATA', result);
       const result = await (await facebookAuth()).json();
@@ -29,6 +32,7 @@ const Landing = () => {
         response.data?.token,
         response.data?.role,
       );
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +46,6 @@ const Landing = () => {
         barStyle="dark-content"
         style="dark"
         backgroundColor={colors.bgColor}
-        translucent={false}
       />
 
       <View style={{ flex: 1.3 / 2, width: '100%' }}>
@@ -76,6 +79,7 @@ const Landing = () => {
 
         <CustomButton
           primary
+          loading={loading}
           icon="logo-facebook"
           title="ENTRAR COM FACEBOOK"
           onPress={signInWithFacebook}

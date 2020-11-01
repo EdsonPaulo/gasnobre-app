@@ -62,7 +62,6 @@ const Login = () => {
         barStyle="dark-content"
         style="dark"
         backgroundColor={colors.bgColor}
-        translucent={false}
       />
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

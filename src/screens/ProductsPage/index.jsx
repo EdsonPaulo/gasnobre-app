@@ -1,4 +1,3 @@
-//import { StatusBar } from 'expo-status-bar'
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, {
@@ -8,32 +7,24 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  InteractionManager,
-  RefreshControl,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { InteractionManager, Text, TouchableOpacity, View } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  CustomButton,
-  CustomStatusBar,
-  LoadingSpin,
-  ProductVerticalItem,
-} from '../../components';
+import { CustomButton, CustomStatusBar, LoadingSpin } from '../../components';
 import { colors, general, metrics } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
+import { transformPrice } from '../../services/utils';
+import Cart from './cart';
+import EmptyCart from './empty-cart';
+import BrandList from './brandList';
+import ProductList from './productList';
 import styles from './styles';
 
 export default index = () => {
   let isMounted = true;
   const route = useRoute();
-  const { token, role } = useContext(authContext);
+  const { token } = useContext(authContext);
   const modalizeRef = useRef(null);
   const navigation = useNavigation();
 
@@ -42,7 +33,8 @@ export default index = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [currentBrand, setCurrentBrand] = useState('all');
+
+  const [currentBrand, setCurrentBrand] = useState(null);
 
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
@@ -51,11 +43,6 @@ export default index = () => {
   const [cart, setCart] = useState([]);
 
   const openCartModal = () => modalizeRef.current?.open();
-
-  const transformPrice = value =>
-    Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
-      value,
-    );
 
   const onRefresh = useCallback(() => {
     if (isMounted) {
@@ -67,20 +54,20 @@ export default index = () => {
 
   const getProducts = () => {
     if (loading) return;
-    if (total > 0 && products.length >= total) {
+    if (total > 0 && allProducts.length >= total) {
       setLoading(false);
       setRefreshing(false);
       return;
     }
     setLoading(true);
     api(token)
-      .get(`/products?page=${page}&available=true`)
+      .get(`/products?page=${page}`)
       .then(response => {
         if (isMounted) {
           setTotal(response.data?.total);
           if (refreshing) setAllProducts(response.data?.data);
           else {
-            setAllProducts([...products, ...response.data?.data]);
+            setAllProducts([...allProducts, ...response.data?.data]);
             filterByBrand();
           }
           setPage(page + 1);
@@ -98,9 +85,13 @@ export default index = () => {
   };
 
   const filterByBrand = brand => {
-    if (brand)
-      setProducts(allProducts.filter(product => product.brand === brand));
-    else setProducts(allProducts);
+    const filteredBrand = brand || currentBrand;
+    if (!filteredBrand || filteredBrand.name === 'tudo')
+      setProducts(allProducts);
+    else
+      setProducts(
+        allProducts.filter(product => product.brand === filteredBrand.name),
+      );
   };
 
   useEffect(() => {
@@ -132,7 +123,6 @@ export default index = () => {
 
       if (quantity <= 0) {
         cart.splice(updatedItemIndex, 1);
-        console.log('removendo o item');
       } else {
         cart.splice(updatedItemIndex, 1);
         cart.push({ ...item, quantity });
@@ -140,76 +130,46 @@ export default index = () => {
     }
   };
 
-  const renderProductsList = () => {
-    if (loading && products.length == 0)
+  const renderProducts = () => {
+    if (loading && allProducts.length == 0)
       return <LoadingSpin text="Carregando Produtos" />;
     return (
       <>
-        <FlatList
-          bounces
-          horizontal
-          data={products}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ padding: 15 }}
-          renderItem={({ item }) => (
-            <ProductVerticalItem handleQuantity={handleQuantity} {...item} />
+        <View style={styles.brandListContainer}>
+          <BrandList filterByBrand={filterByBrand} />
+        </View>
+        <View
+          style={[
+            styles.container,
+            products.length <= 0 && {
+              justifyContent: 'center',
+              alignItems: 'center',
+            },
+          ]}
+        >
+          {products.length > 0 ? (
+            <ProductList handleQuantity={handleQuantity} products={products} />
+          ) : (
+            <Text style={styles.body}>
+              Não tem produto para essa categoria!
+            </Text>
           )}
-          keyExtractor={(item, index) => index.toString()}
-          onEndReached={getProducts}
-          onEndReachedThreshold={0.5}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          ListFooterComponent={
-            products.length !== total && loading ? (
-              <View style={{ margin: metrics.doubleBaseMargin }}>
-                <ActivityIndicator color={colors.dark} size="small" />
-              </View>
-            ) : null
-          }
-        />
+        </View>
       </>
     );
   };
 
-  const renderCart = () => (
-    <View style={{ margin: 15, textAlign: 'center' }}>
-      <Text style={{ textAlign: 'center', marginVertical: 15 }}>
-        SELECIONOU {cartSize} PRODUTO(S)
-      </Text>
-      {cart.map(product => (
-        <View
-          key={product._id}
-          style={{
-            borderWidth: 1,
-            borderColor: colors.borderColor,
-            padding: metrics.baseMargin,
-            borderRadius: metrics.baseRadius,
-            marginVertical: metrics.smallMargin,
-          }}
-        >
-          <Text style={{ textAlign: 'center' }}>
-            {product.name} -{' '}
-            {product.weight <= 0.99
-              ? `${product.weight * 1000}ml`
-              : `${product.weight}L`}{' '}
-            ({product.quantity} embalagens de {product.bottles} garrafas) ={' '}
-            {transformPrice(product.price * product.quantity)}
-          </Text>
-        </View>
-      ))}
-    </View>
-  );
-  const renderEmpty = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Entypo name="emoji-sad" size={40} color={colors.grayDark} />
-      <Text style={{ marginVertical: 4, color: colors.grayDark }}>
-        Falha ao carregar os produtos.
-      </Text>
-      <Text style={{ color: colors.grayDark }}>
-        Verifique a sua internet ou tente mais tarde!
-      </Text>
-    </View>
+  const renderCartBadge = () => (
+    <TouchableOpacity
+      onPress={() => openCartModal()}
+      activeOpacity={0.7}
+      style={[styles.fabPosition, styles.fabBagButton]}
+    >
+      <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
+        <Text style={{ color: '#fff' }}>{cartSize}</Text>
+      </View>
+      <Entypo name="shopping-bag" color="#fff" size={25} />
+    </TouchableOpacity>
   );
 
   if (!interactionsComplete) {
@@ -219,26 +179,16 @@ export default index = () => {
   return (
     <SafeAreaView style={general.background}>
       <CustomStatusBar
-        barStyle="light-content"
         style="light"
+        barStyle="light-content"
         backgroundColor={colors.accent}
-        translucent={false}
       />
 
       <View style={styles.container}>
-        {total === 0 && !loading ? renderEmpty() : renderProductsList()}
-        {cart.length === 0 ? null : (
-          <TouchableOpacity
-            onPress={() => openCartModal()}
-            activeOpacity={0.7}
-            style={[styles.fabPosition, styles.fabBagButton]}
-          >
-            <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
-              <Text style={{ color: '#fff' }}>{cartSize}</Text>
-            </View>
-            <Entypo name="shopping-bag" color="#fff" size={25} />
-          </TouchableOpacity>
-        )}
+        {total === 0 && !loading ? <EmptyCart /> : renderProducts()}
+
+        {cart.length > 0 && renderCartBadge()}
+
         <Modalize
           ref={modalizeRef}
           rootStyle={{ elevation: 5 }}
@@ -255,7 +205,7 @@ export default index = () => {
             />
           }
         >
-          {renderCart()}
+          <Cart cart={cart} cartSize={cartSize} />
         </Modalize>
       </View>
     </SafeAreaView>

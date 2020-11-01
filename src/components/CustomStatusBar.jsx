@@ -6,5 +6,5 @@ import { StatusBar } from 'expo-status-bar';
 export default CustomStatusBar = props => {
   const isFocused = useIsFocused();
 
-  return isFocused ? <StatusBar {...props} /> : null;
+  return isFocused ? <StatusBar {...props} translucent={false} /> : null;
 };

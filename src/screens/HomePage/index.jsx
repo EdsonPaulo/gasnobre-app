@@ -143,7 +143,6 @@ const index = () => {
         barStyle="light-content"
         style="light"
         backgroundColor={colors.accent}
-        translucent={false}
       />
 
       <View style={styles.container}>

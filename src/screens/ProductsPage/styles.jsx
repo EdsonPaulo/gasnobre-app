@@ -26,29 +26,38 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: '#E37E24',
   },
-  categoryListContainer: {
-    width: '100%',
-    height: 55,
-    justifyContent: 'flex-end',
-  },
-  categoryItem: {
-    minWidth: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomWidth: 4,
-    paddingHorizontal: metrics.baseMargin,
-  },
-  categoryItemText: {
-    fontSize: fonts.input,
-    textTransform: 'capitalize',
-    color: 'white',
-    fontFamily: 'RobotoCondensed_400Regular',
-  },
   makeOrderButton: {
     width: 250,
     height: 40,
     marginVertical: 30,
     alignSelf: 'center',
+  },
+  body: {
+    fontSize: fonts.input,
+    color: colors.grayDark2,
+    fontFamily: 'RobotoCondensed_400Regular',
+  },
+  brandListContainer: {
+    width: '100%',
+    height: 55,
+    justifyContent: 'center',
+    backgroundColor: colors.primaryDark,
+  },
+  brandItem: {
+    minWidth: 80,
+    paddingHorizontal: 25,
+    paddingVertical: 10,
+    borderRadius: 15,
+    backgroundColor: colors.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 6,
+  },
+  brandItemText: {
+    fontSize: fonts.input,
+    textTransform: 'capitalize',
+    color: 'white',
+    fontFamily: 'RobotoCondensed_400Regular',
   },
 });
 

@@ -87,11 +87,7 @@ export default index = () => {
           <View style={{ flex: 1 }} />
         </View>
       </View>
-      <StatusBar
-        style="light"
-        backgroundColor={colors.dark}
-        translucent={false}
-      />
+      <StatusBar style="light" backgroundColor={colors.dark} />
     </SafeAreaView>
   );
 };

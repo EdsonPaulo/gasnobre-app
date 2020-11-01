@@ -15,7 +15,6 @@ const About = () => {
         barStyle="light-content"
         style="light"
         backgroundColor={colors.accent}
-        translucent={false}
       />
 
       <ScrollView contentContainerStyle={{ padding: metrics.doubleBaseMargin }}>

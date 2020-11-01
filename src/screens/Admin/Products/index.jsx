@@ -166,11 +166,7 @@ export default index = () => {
           }
         ></Modalize>
       </View>
-      <StatusBar
-        style="dark"
-        backgroundColor={colors.bgColor}
-        translucent={false}
-      />
+      <StatusBar style="dark" backgroundColor={colors.bgColor} />
     </SafeAreaView>
   );
 };

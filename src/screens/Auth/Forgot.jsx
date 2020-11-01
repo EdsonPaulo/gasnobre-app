@@ -23,7 +23,6 @@ const Forgot = () => {
         barStyle="dark-content"
         style="dark"
         backgroundColor={colors.bgColor}
-        translucent={false}
       />
 
       <TouchableOpacity onPress={() => navigation.goBack()}>
