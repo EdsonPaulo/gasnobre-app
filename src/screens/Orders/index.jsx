@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-import { useNavigation } from '@react-navigation/native'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -10,66 +10,66 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomStatusBar, LoadingSpin } from '../../components'
-import { colors, general, metrics } from '../../constants'
-import AuthContext from '../../contexts/auth/auth-context'
-import api from '../../services/api'
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomStatusBar, LoadingSpin } from '../../components';
+import { colors, general, metrics } from '../../constants';
+import AuthContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
 
 export default index = () => {
-  let isMounted = true
-  const navigation = useNavigation()
-  const { user, token, role } = useContext(AuthContext)
+  let isMounted = true;
+  const navigation = useNavigation();
+  const { user, token, role } = useContext(AuthContext);
 
-  const [orders, setOrders] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [refreshing, setRefreshing] = useState(false)
-  const [total, setTotal] = useState(0)
-  const [page, setPage] = useState(1)
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
   const getOrders = () => {
-    if (loading) return
+    if (loading) return;
     if (total > 0 && orders.length >= total) {
-      setLoading(false)
-      setRefreshing(false)
-      return
+      setLoading(false);
+      setRefreshing(false);
+      return;
     }
-    setLoading(true)
+    setLoading(true);
     api(token)
       .get(`/orders?page=${page}`)
       .then(response => {
-        console.log(response.data)
+        console.log(response.data);
         if (isMounted) {
-          setTotal(response.data?.total)
-          if (refreshing) setOrders(response.data?.data)
-          else setOrders([...orders, ...response.data?.data])
-          setPage(page + 1)
+          setTotal(response.data?.total);
+          if (refreshing) setOrders(response.data?.data);
+          else setOrders([...orders, ...response.data?.data]);
+          setPage(page + 1);
         }
       })
       .catch(error => {
-        console.log(`${error} ==> erro`)
+        console.log(`${error} ==> erro`);
       })
       .finally(() => {
         if (isMounted) {
-          setLoading(false)
-          setRefreshing(false)
+          setLoading(false);
+          setRefreshing(false);
         }
-      })
-  }
+      });
+  };
 
   const onRefresh = useCallback(() => {
     if (isMounted) {
-      setRefreshing(true)
-      setPage(1)
-      getOrders()
+      setRefreshing(true);
+      setPage(1);
+      getOrders();
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    getOrders()
-    return () => (isMounted = false)
-  }, [])
+    getOrders();
+    return () => (isMounted = false);
+  }, []);
 
   const convertDate = date =>
     Intl.DateTimeFormat('pt-AO', {
@@ -77,7 +77,7 @@ export default index = () => {
       day: 'numeric',
       month: 'numeric',
       year: 'numeric',
-    }).format(new Date(date))
+    }).format(new Date(date));
 
   const Order = ({ order }) => (
     <TouchableOpacity
@@ -133,7 +133,7 @@ export default index = () => {
         <Text style={styles.statusText}>{convertDate(order.createdAt)}</Text>
       </View>
     </TouchableOpacity>
-  )
+  );
 
   const renderOrdersList = () => (
     <FlatList
@@ -159,7 +159,7 @@ export default index = () => {
         ) : null
       }
     />
-  )
+  );
 
   const renderEmptyOrders = () => (
     <View style={styles.container}>
@@ -175,7 +175,7 @@ export default index = () => {
         Sem pedidos registados!
       </Text>
     </View>
-  )
+  );
 
   return (
     <SafeAreaView style={general.background}>
@@ -196,8 +196,8 @@ export default index = () => {
         ) : null}
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -229,4 +229,4 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoCondensed_400Regular',
     textTransform: 'capitalize',
   },
-})
+});

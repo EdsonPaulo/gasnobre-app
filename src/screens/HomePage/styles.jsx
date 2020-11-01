@@ -1,7 +1,7 @@
-import { Dimensions, StyleSheet } from 'react-native'
-import { colors, metrics } from '../../constants'
+import { Dimensions, StyleSheet } from 'react-native';
+import { colors, metrics } from '../../constants';
 
-const { height } = Dimensions.get('window')
+const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 17,
     color: colors.grayDark2,
-    textAlign: "center",
+    textAlign: 'center',
     fontFamily: 'RobotoCondensed_400Regular',
-  }
-})
+  },
+});
 
-export default styles
+export default styles;

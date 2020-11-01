@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { colors, fonts, metrics } from '../../constants'
+import { StyleSheet } from 'react-native';
+import { colors, fonts, metrics } from '../../constants';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     borderColor: colors.grayMedium,
     backgroundColor: colors.grayLight,
   },
-})
+});
 
-export default styles
+export default styles;

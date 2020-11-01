@@ -1,12 +1,12 @@
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { useNavigation } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import React, { useContext } from 'react'
-import { RectButton } from 'react-native-gesture-handler'
-import { HomeTabBar } from '../components'
-import { colors, general } from '../constants'
-import authContext from '../contexts/auth/auth-context'
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React, { useContext } from 'react';
+import { RectButton } from 'react-native-gesture-handler';
+import { HomeTabBar } from '../components';
+import { colors, general } from '../constants';
+import authContext from '../contexts/auth/auth-context';
 import {
   AddressPage,
   Checkout,
@@ -24,7 +24,7 @@ import {
   ProfilePage,
   SignUp,
   Welcome,
-} from '../screens'
+} from '../screens';
 
 const stackScreenGlobalOptions = {
   headerBackImage: props => (
@@ -44,10 +44,10 @@ const stackScreenGlobalOptions = {
     height: 55,
     elevation: 0,
   },
-}
+};
 
 const HomeTabs = () => {
-  const Tabs = createBottomTabNavigator()
+  const Tabs = createBottomTabNavigator();
   return (
     <Tabs.Navigator
       initialRouteName="home"
@@ -74,11 +74,11 @@ const HomeTabs = () => {
         options={{ tabBarLabel: 'Perfil' }}
       />
     </Tabs.Navigator>
-  )
-}
+  );
+};
 
 const MainNavigation = () => {
-  const Stack = createStackNavigator()
+  const Stack = createStackNavigator();
   return (
     <Stack.Navigator
       initialRouteName="homeTabs"
@@ -115,12 +115,12 @@ const MainNavigation = () => {
         options={{ headerTitle: 'Dados Pessoais' }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const OrderStack = () => {
-  const Stack = createStackNavigator()
-  const { role } = useContext(authContext)
+  const Stack = createStackNavigator();
+  const { role } = useContext(authContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -142,12 +142,12 @@ const OrderStack = () => {
         component={Orders}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const ProfileStack = () => {
-  const Stack = createStackNavigator()
-  const { role } = useContext(authContext)
+  const Stack = createStackNavigator();
+  const { role } = useContext(authContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -168,11 +168,11 @@ const ProfileStack = () => {
         component={ProfilePage}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const StoreStack = () => {
-  const Stack = createStackNavigator()
+  const Stack = createStackNavigator();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -185,11 +185,11 @@ const StoreStack = () => {
         component={ProductsPage}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
 const AuthNavigation = () => {
-  const AuthStack = createStackNavigator()
+  const AuthStack = createStackNavigator();
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false, mode: 'modal' }}>
       <AuthStack.Screen name="landing" component={Landing} />
@@ -198,12 +198,12 @@ const AuthNavigation = () => {
       <AuthStack.Screen name="signup" component={SignUp} />
       <AuthStack.Screen name="forgot" component={Forgot} />
     </AuthStack.Navigator>
-  )
-}
+  );
+};
 
 const AdminNavigation = () => {
-  const AdminStack = createStackNavigator()
-  const Tabs = createBottomTabNavigator()
+  const AdminStack = createStackNavigator();
+  const Tabs = createBottomTabNavigator();
   const AdminHomeTabs = () => (
     <Tabs.Navigator tabBar={props => <HomeTabBar {...props} />}>
       <Tabs.Screen
@@ -227,7 +227,7 @@ const AdminNavigation = () => {
         options={{ tabBarLabel: 'Clientes' }}
       />
     </Tabs.Navigator>
-  )
+  );
 
   return (
     <AdminStack.Navigator
@@ -255,7 +255,7 @@ const AdminNavigation = () => {
         component={ProfileDetails}
       />
     </AdminStack.Navigator>
-  )
-}
+  );
+};
 
-export { MainNavigation, AuthNavigation, AdminNavigation }
+export { MainNavigation, AuthNavigation, AdminNavigation };

@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 export default function useDebounce(value, delay) {
   // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = useState(value)
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(
     () => {
@@ -10,9 +10,9 @@ export default function useDebounce(value, delay) {
       const handler =
         value.length > 2
           ? setTimeout(() => {
-              setDebouncedValue(value)
+              setDebouncedValue(value);
             }, delay)
-          : null
+          : null;
 
       // Return a cleanup function that will be called every time ...
       // ... useEffect is re-called. useEffect will only be re-called ...
@@ -23,13 +23,13 @@ export default function useDebounce(value, delay) {
       // ... search box, we don't want the debouncedValue to update until ...
       // ... they've stopped typing for more than 500ms.
       return () => {
-        clearTimeout(handler)
-      }
+        clearTimeout(handler);
+      };
     },
     // Only re-call effect if value changes
     // You could also add the "delay" var to inputs array if you ...
     // ... need to be able to change that dynamically.
     [value],
-  )
-  return debouncedValue
+  );
+  return debouncedValue;
 }

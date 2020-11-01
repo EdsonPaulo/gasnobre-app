@@ -1,6 +1,6 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import React, { useContext, useState } from 'react'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useState } from 'react';
 import {
   Alert,
   Text,
@@ -8,21 +8,21 @@ import {
   View,
   ScrollView,
   Modal,
-} from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { colors, general } from '../../constants'
-import { CustomStatusBar } from '../../components'
-import AuthContext from '../../contexts/auth/auth-context'
-import styles from './styles'
+} from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors, general } from '../../constants';
+import { CustomStatusBar } from '../../components';
+import AuthContext from '../../contexts/auth/auth-context';
+import styles from './styles';
 
 export default index = () => {
-  const navigation = useNavigation()
-  const { logout, user, role } = useContext(AuthContext)
-  const [supportModalVisible, setSupportModalVisible] = useState(false)
+  const navigation = useNavigation();
+  const { logout, user, role } = useContext(AuthContext);
+  const [supportModalVisible, setSupportModalVisible] = useState(false);
   const userInitials =
     user?.name?.split(' ')[0][0] +
-    (user?.name?.split(' ')[1] ? user?.name?.split(' ')[1][0] : '')
+    (user?.name?.split(' ')[1] ? user?.name?.split(' ')[1][0] : '');
 
   const Logout = () => {
     Alert.alert(
@@ -33,8 +33,8 @@ export default index = () => {
         { text: 'Sim', onPress: () => logout() },
       ],
       { cancelable: true },
-    )
-  }
+    );
+  };
 
   return (
     <SafeAreaView style={general.background}>
@@ -68,7 +68,7 @@ export default index = () => {
           activeOpacity={0.7}
           style={[styles.btn, { justifyContent: 'space-between' }]}
           onPress={() => {
-            navigation.navigate('profileDetails')
+            navigation.navigate('profileDetails');
           }}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -98,7 +98,7 @@ export default index = () => {
           activeOpacity={0.7}
           style={styles.btn}
           onPress={() => {
-            onShare()
+            onShare();
           }}
         >
           <MaterialCommunityIcons name="share-variant" style={styles.icons} />
@@ -162,5 +162,5 @@ export default index = () => {
         </View>
       </Modal>
     </SafeAreaView>
-  )
-}
+  );
+};

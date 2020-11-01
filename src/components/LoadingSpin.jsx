@@ -1,6 +1,6 @@
-import React from 'react'
-import { ActivityIndicator, Text, View } from 'react-native'
-import { colors } from '../constants'
+import React from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { colors } from '../constants';
 
 const LoadingSpin = ({ text }) => {
   return (
@@ -18,7 +18,7 @@ const LoadingSpin = ({ text }) => {
         {text || 'Carregando'}
       </Text>
     </View>
-  )
-}
+  );
+};
 
-export default LoadingSpin
+export default LoadingSpin;

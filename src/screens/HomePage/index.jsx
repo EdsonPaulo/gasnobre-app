@@ -1,6 +1,6 @@
-import Icon from '@expo/vector-icons/FontAwesome'
-import { useNavigation } from '@react-navigation/native'
-import React, { useContext, useEffect, useState } from 'react'
+import Icon from '@expo/vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -9,47 +9,47 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { SwiperCards } from '../../components'
-import CustomStatusBar from '../../components/CustomStatusBar'
-import { colors, general } from '../../constants'
-import authContext from '../../contexts/auth/auth-context'
-import api from '../../services/api'
-import styles from './styles'
+} from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { SwiperCards } from '../../components';
+import CustomStatusBar from '../../components/CustomStatusBar';
+import { colors, general } from '../../constants';
+import authContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
+import styles from './styles';
 
 const index = () => {
-  let isMounted = true
-  const navigation = useNavigation()
-  const { user, token } = useContext(authContext)
-  const [loading, setLoading] = useState(false)
-  const [orders, setOrders] = useState([])
+  let isMounted = true;
+  const navigation = useNavigation();
+  const { user, token } = useContext(authContext);
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
 
   const getOrders = () => {
-    setLoading(true)
+    setLoading(true);
     api(token)
       .get(`/orders?perPage=4`)
       .then(response => {
-        if (isMounted) setOrders(response?.data?.data)
+        if (isMounted) setOrders(response?.data?.data);
       })
       .catch(error => {
-        console.log(error + ' ==> erro')
+        console.log(error + ' ==> erro');
       })
       .finally(() => {
-        if (isMounted) setLoading(false)
-      })
-  }
+        if (isMounted) setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    console.log('user', JSON.stringify(user))
+    console.log('user', JSON.stringify(user));
 
-    getOrders()
-    return () => (isMounted = false)
-  }, [])
+    getOrders();
+    return () => (isMounted = false);
+  }, []);
 
   const convertDate = date =>
-    Intl.DateTimeFormat('pt-AO').format(new Date(date))
+    Intl.DateTimeFormat('pt-AO').format(new Date(date));
 
   const handlePlanoKamba = () => {
     /*
@@ -58,13 +58,13 @@ const index = () => {
         : user?.kambaPlan?.left <= 5 ? console.log("SHOW left days INFO") : null
     navigation.navigate("kamba")
     */
-  }
+  };
 
   const renderLoading = () => (
     <View style={styles.containerFlex}>
       <ActivityIndicator size="large" color={colors.accent} />
     </View>
-  )
+  );
 
   const renderEmptyOrders = () => (
     <View style={styles.containerFlex}>
@@ -88,7 +88,7 @@ const index = () => {
         </RectButton>
       </View>
     </View>
-  )
+  );
 
   const renderOrders = () =>
     orders.map(order => (
@@ -135,7 +135,7 @@ const index = () => {
           </Text>
         </View>
       </RectButton>
-    ))
+    ));
 
   return (
     <SafeAreaView style={[general.background]}>
@@ -238,7 +238,7 @@ const index = () => {
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default index
+export default index;

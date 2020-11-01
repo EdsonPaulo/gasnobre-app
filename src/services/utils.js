@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-community/async-storage'
-import { Alert, ToastAndroid } from 'react-native'
-import Rate, { AndroidMarket } from 'react-native-rate'
-import api from './api'
+import AsyncStorage from '@react-native-community/async-storage';
+import { Alert, ToastAndroid } from 'react-native';
+import Rate, { AndroidMarket } from 'react-native-rate';
+import api from './api';
 //import Share from 'react-native-share'
 
 export const onRate = async () => {
@@ -14,7 +14,7 @@ export const onRate = async () => {
     preferInApp: false,
     openAppStoreIfInAppFails: true,
     fallbackPlatformURL: 'http://deltacorp.co.ao/',
-  }
+  };
   Alert.alert(
     'Avaliar o Carnesul',
     'Avalie-nos, comente o que achou e em que podemos melhorar!',
@@ -24,14 +24,14 @@ export const onRate = async () => {
         text: 'Avaliar',
         onPress: () => {
           Rate.rate(options, success => {
-            if (success) ToastAndroid.show('Obrigado por Avaliar-nos!')
-          })
+            if (success) ToastAndroid.show('Obrigado por Avaliar-nos!');
+          });
         },
       },
     ],
     { cancelable: true },
-  )
-}
+  );
+};
 
 export const onShare = () => {
   /** 
@@ -83,18 +83,18 @@ export const onShare = () => {
 
     Share.open(options)
     */
-}
+};
 
 //save in async storage
 
 export const uploadImage = (file, token) => {
-  const nameFile = `file_name_${Math.random().toString(36).substring(7)}`
-  const formData = new FormData()
+  const nameFile = `file_name_${Math.random().toString(36).substring(7)}`;
+  const formData = new FormData();
   formData.append('file', {
     name: file.fileName || nameFile,
     type: file.mime,
     uri: file.path,
-  })
+  });
   return (
     api(token).post('/files'),
     formDaa,
@@ -104,24 +104,24 @@ export const uploadImage = (file, token) => {
         'Content-Type': 'multipart/form-data',
       },
     }
-  )
-}
+  );
+};
 
 export const saveOnAsyncStorage = async (key, value) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value))
+    await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    console.log(error)
-    console.log('ocorreu um erro inesperado ao salvar dados!')
+    console.log(error);
+    console.log('ocorreu um erro inesperado ao salvar dados!');
   }
-}
+};
 
 export const readOnAsyncStorage = async key => {
   try {
-    const data = await AsyncStorage.getItem(key)
-    if (data) return data
+    const data = await AsyncStorage.getItem(key);
+    if (data) return data;
   } catch (error) {
-    console.log(error)
-    console.log('ocorreu um erro inesperado!')
+    console.log(error);
+    console.log('ocorreu um erro inesperado!');
   }
-}
+};

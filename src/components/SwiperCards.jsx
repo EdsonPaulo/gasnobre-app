@@ -1,8 +1,8 @@
-import React from 'react'
-import { Dimensions, Image, StyleSheet } from 'react-native'
-import Swiper from 'react-native-swiper'
-import { colors } from '../constants'
-const { width } = Dimensions.get('window')
+import React from 'react';
+import { Dimensions, Image, StyleSheet } from 'react-native';
+import Swiper from 'react-native-swiper';
+import { colors } from '../constants';
+const { width } = Dimensions.get('window');
 
 const SwiperCards = ({}) => {
   return (
@@ -38,8 +38,8 @@ const SwiperCards = ({}) => {
         source={require('../assets/banners/banner6.png')}
       />
     </Swiper>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   slide: {
@@ -58,6 +58,6 @@ const styles = StyleSheet.create({
     width,
     flex: 1,
   },
-})
+});
 
-export default SwiperCards
+export default SwiperCards;

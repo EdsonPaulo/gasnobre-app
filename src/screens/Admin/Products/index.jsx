@@ -1,13 +1,13 @@
-import { Entypo } from '@expo/vector-icons'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
+import { Entypo } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import React, {
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
-} from 'react'
+} from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -17,94 +17,94 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native'
-import { Modalize } from 'react-native-modalize'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomButton, LoadingSpin } from '../../../components'
-import { colors, fonts, general, metrics } from '../../../constants'
-import authContext from '../../../contexts/auth/auth-context'
-import api from '../../../services/api'
+} from 'react-native';
+import { Modalize } from 'react-native-modalize';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomButton, LoadingSpin } from '../../../components';
+import { colors, fonts, general, metrics } from '../../../constants';
+import authContext from '../../../contexts/auth/auth-context';
+import api from '../../../services/api';
 
 //const data = require("../../services/mock/mock.json")
 
 export default index = () => {
-  let isMounted = true
-  const route = useRoute()
-  const { token } = useContext(authContext)
+  let isMounted = true;
+  const route = useRoute();
+  const { token } = useContext(authContext);
 
-  const modalizeRef = useRef(null)
-  const navigation = useNavigation()
-  const { width, height } = Dimensions.get('window')
-  const [interactionsComplete, setInteractionsComplete] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [refreshing, setRefreshing] = useState(false)
-  const [total, setTotal] = useState(0)
-  const [page, setPage] = useState(1)
+  const modalizeRef = useRef(null);
+  const navigation = useNavigation();
+  const { width, height } = Dimensions.get('window');
+  const [interactionsComplete, setInteractionsComplete] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
-  const openModal = () => modalizeRef.current?.open()
+  const openModal = () => modalizeRef.current?.open();
 
   const transformPrice = value =>
     Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
       value,
-    )
+    );
 
   const onRefresh = useCallback(() => {
     if (isMounted) {
-      setRefreshing(true)
-      setPage(1)
-      getProducts()
+      setRefreshing(true);
+      setPage(1);
+      getProducts();
     }
-  }, [])
+  }, []);
 
   const getProducts = () => {
-    if (loading) return
+    if (loading) return;
     if (total > 0 && products.length >= total) {
-      setLoading(false)
-      setRefreshing(false)
-      return
+      setLoading(false);
+      setRefreshing(false);
+      return;
     }
-    setLoading(true)
+    setLoading(true);
     api(token)
       .get(`/products?page=${page}`)
       .then(response => {
         if (isMounted) {
-          setTotal(response.data?.total)
-          if (refreshing) setProducts(response.data?.data)
-          else setProducts([...products, ...response.data?.data])
-          setPage(page + 1)
+          setTotal(response.data?.total);
+          if (refreshing) setProducts(response.data?.data);
+          else setProducts([...products, ...response.data?.data]);
+          setPage(page + 1);
         }
       })
       .catch(error => {
-        console.log(error + ' ==> erro')
+        console.log(error + ' ==> erro');
       })
       .finally(() => {
         if (isMounted) {
-          setLoading(false)
-          setRefreshing(false)
+          setLoading(false);
+          setRefreshing(false);
         }
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
-      setInteractionsComplete(true)
+      setInteractionsComplete(true);
     }).then(() => {
-      isMounted = true
-      getProducts()
-    })
-    return () => (isMounted = false)
-  }, [])
+      isMounted = true;
+      getProducts();
+    });
+    return () => (isMounted = false);
+  }, []);
 
   const renderItem = product => (
     <View>
       <Text>{product.name}</Text>
     </View>
-  )
+  );
 
   const renderProductsList = () => {
-    if (loading && products.length == 0) return <LoadingSpin />
+    if (loading && products.length == 0) return <LoadingSpin />;
     return (
       <FlatList
         bounces
@@ -125,8 +125,8 @@ export default index = () => {
           ) : null
         }
       />
-    )
-  }
+    );
+  };
 
   const renderEmpty = () => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -138,10 +138,10 @@ export default index = () => {
         Verifique a sua internet ou tente mais tarde!
       </Text>
     </View>
-  )
+  );
 
   if (!interactionsComplete) {
-    return <LoadingSpin />
+    return <LoadingSpin />;
   }
 
   return (
@@ -172,8 +172,8 @@ export default index = () => {
         translucent={false}
       />
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -206,4 +206,4 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     alignSelf: 'center',
   },
-})
+});

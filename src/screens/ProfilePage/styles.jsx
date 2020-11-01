@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { colors, fonts, metrics } from '../../constants'
+import { StyleSheet } from 'react-native';
+import { colors, fonts, metrics } from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: 'RobotoCondensed_400Regular',
   },
-})
+});
 
-export default styles
+export default styles;

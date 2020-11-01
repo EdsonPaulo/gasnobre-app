@@ -1,5 +1,5 @@
-import colors from './colors'
-import metrics from './metrics'
+import colors from './colors';
+import metrics from './metrics';
 
 const general = {
   background: {
@@ -27,6 +27,6 @@ const general = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-}
+};
 
-export default general
+export default general;

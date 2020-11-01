@@ -1,26 +1,26 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useState } from 'react'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useState } from 'react';
 import {
   Dimensions,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { colors, general, metrics } from '../constants'
-import PlaceholderImage from './PlaceholderImage'
+} from 'react-native';
+import { colors, general, metrics } from '../constants';
+import PlaceholderImage from './PlaceholderImage';
 
-const { height, width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window');
 
 const ProductVerticalItem = props => {
-  const { handleQuantity, ...item } = props
-  const [quantity, setQuantity] = useState(0)
+  const { handleQuantity, ...item } = props;
+  const [quantity, setQuantity] = useState(0);
 
   const changeQuantity = add => {
-    let auxQuantity = add ? quantity + 1 : quantity - 1
-    setQuantity(auxQuantity)
-    handleQuantity(auxQuantity, item, add === true)
-  }
+    let auxQuantity = add ? quantity + 1 : quantity - 1;
+    setQuantity(auxQuantity);
+    handleQuantity(auxQuantity, item, add === true);
+  };
 
   return (
     <View style={[general.card, styles.container, {}]}>
@@ -94,8 +94,8 @@ const ProductVerticalItem = props => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -178,5 +178,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
-export default ProductVerticalItem
+});
+export default ProductVerticalItem;

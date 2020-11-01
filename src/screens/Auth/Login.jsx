@@ -1,6 +1,6 @@
-import Icon from '@expo/vector-icons/FontAwesome'
-import { useNavigation } from '@react-navigation/native'
-import React, { useContext, useState } from 'react'
+import Icon from '@expo/vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -9,52 +9,52 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
-import { colors, metrics } from '../../constants'
-import AuthContext from '../../contexts/auth/auth-context'
-import api from '../../services/api'
-import { facebookAuth } from '../../services/auth'
-import styles from './styles'
+} from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
+import { colors, metrics } from '../../constants';
+import AuthContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
+import { facebookAuth } from '../../services/auth';
+import styles from './styles';
 
 const Login = () => {
-  const navigation = useNavigation()
-  const { login } = useContext(AuthContext)
+  const navigation = useNavigation();
+  const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [errorModalVisible, setErrorModalVisible] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   const signIn = async () => {
     if (!email || !password)
       Alert.alert(
         'Preencha todos os campos',
         'Informe o telefone/email e a senha!',
-      )
+      );
     else {
-      setLoading(true)
+      setLoading(true);
       try {
         const response = await api(null).post('/users/authenticate', {
           email,
           password,
-        })
+        });
         if (response.data)
           login(
             { ...response.data?.user, ...response.data?.customer },
             response.data?.token,
             response.data?.role,
-          )
+          );
       } catch (error) {
-        console.log(error, error?.response?.data)
-        setErrorModalVisible(true)
+        console.log(error, error?.response?.data);
+        setErrorModalVisible(true);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.background}>
@@ -157,6 +157,6 @@ const Login = () => {
         </View>
       </Modal>
     </SafeAreaView>
-  )
-}
-export default Login
+  );
+};
+export default Login;

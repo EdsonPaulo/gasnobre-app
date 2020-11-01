@@ -1,25 +1,25 @@
-import Icon from '@expo/vector-icons/Ionicons'
-import { yupResolver } from '@hookform/resolvers'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { Alert, ScrollView, Text, View } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { Modalize } from 'react-native-modalize'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import * as yup from 'yup'
-import { CustomButton, CustomStatusBar } from '../../components'
-import { colors, general, metrics } from '../../constants'
-import authContext from '../../contexts/auth/auth-context'
-import api from '../../services/api'
-import styles from './styles'
+import Icon from '@expo/vector-icons/Ionicons';
+import { yupResolver } from '@hookform/resolvers';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Alert, ScrollView, Text, View } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { Modalize } from 'react-native-modalize';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import * as yup from 'yup';
+import { CustomButton, CustomStatusBar } from '../../components';
+import { colors, general, metrics } from '../../constants';
+import authContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
+import styles from './styles';
 
 const AddressPage = () => {
-  let isMounted = true
-  const { user, role, token, updateUser } = useContext(authContext)
-  const [editing, setEditing] = useState(-1)
-  const [loading, setLoading] = useState(false)
-  const modalizeRef = useRef(null)
-  const [addressData, setAddressData] = useState({})
+  let isMounted = true;
+  const { user, role, token, updateUser } = useContext(authContext);
+  const [editing, setEditing] = useState(-1);
+  const [loading, setLoading] = useState(false);
+  const modalizeRef = useRef(null);
+  const [addressData, setAddressData] = useState({});
 
   const addressSchema = yup.object().shape({
     city: yup
@@ -35,59 +35,59 @@ const AddressPage = () => {
       .required('Rua é obrigatório')
       .min(4, 'Deve ter mais de 4 letras'),
     home: yup.string().trim(),
-  })
-  const addressFormData = useForm({ resolver: yupResolver(addressSchema) })
+  });
+  const addressFormData = useForm({ resolver: yupResolver(addressSchema) });
 
   const getAddress = async () => {
     try {
-      const userFromServer = await api(token).get('/customers/me')
+      const userFromServer = await api(token).get('/customers/me');
       if (userFromServer?.data) {
-        updateUser(userFromServer?.data)
+        updateUser(userFromServer?.data);
       }
     } catch (error) {
-      console.log(error.response)
-      console.log(error.message)
+      console.log(error.response);
+      console.log(error.message);
     }
-  }
+  };
 
   const saveAddress = async newAddress => {
-    console.log('Novo endereço', newAddress)
-    if (loading) return
-    setLoading(true)
+    console.log('Novo endereço', newAddress);
+    if (loading) return;
+    setLoading(true);
     try {
       const response = await api(token).put(`/customers/${user._id}`, {
         address: newAddress,
-      })
-      console.log(response.data?.message)
-      updateUser({ ...user, address: newAddress })
-      modalizeRef?.current?.close()
+      });
+      console.log(response.data?.message);
+      updateUser({ ...user, address: newAddress });
+      modalizeRef?.current?.close();
     } catch (error) {
-      console.log(error.response)
-      console.log(error.message)
+      console.log(error.response);
+      console.log(error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const onSubmit = data => {
-    console.log('editando o endereço da posição ' + editing)
-    const auxAddress = user?.address
-    if (editing < 0) auxAddress.push(data)
-    else auxAddress[editing] = data
-    saveAddress(auxAddress)
-  }
+    console.log('editando o endereço da posição ' + editing);
+    const auxAddress = user?.address;
+    if (editing < 0) auxAddress.push(data);
+    else auxAddress[editing] = data;
+    saveAddress(auxAddress);
+  };
 
   const handleEditAddress = (item, index) => {
-    setEditing(index)
-    setAddressData(item)
-    modalizeRef?.current?.open()
-  }
+    setEditing(index);
+    setAddressData(item);
+    modalizeRef?.current?.open();
+  };
 
   const handleNewAddress = () => {
-    setEditing(-1)
-    setAddressData({})
-    modalizeRef?.current?.open()
-  }
+    setEditing(-1);
+    setAddressData({});
+    modalizeRef?.current?.open();
+  };
 
   const handleDeleteAddress = index => {
     Alert.alert(
@@ -98,22 +98,22 @@ const AddressPage = () => {
         {
           text: 'Sim',
           onPress: () => {
-            let auxAddress = user?.address
-            auxAddress.splice(index, 1)
-            saveAddress(auxAddress)
+            let auxAddress = user?.address;
+            auxAddress.splice(index, 1);
+            saveAddress(auxAddress);
           },
         },
       ],
       { cancelable: true },
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     if (isMounted) {
-      getAddress()
+      getAddress();
     }
-    return () => (isMounted = false)
-  }, [])
+    return () => (isMounted = false);
+  }, []);
 
   const renderAddresses = () =>
     user?.address?.map((item, index) => (
@@ -138,7 +138,7 @@ const AddressPage = () => {
           </RectButton>
         </View>
       </View>
-    ))
+    ));
 
   //Renderizar passo 3, endereço
   const renderAddressForm = () => (
@@ -208,7 +208,7 @@ const AddressPage = () => {
         )}
       />
     </ScrollView>
-  )
+  );
 
   return (
     <SafeAreaView style={general.background}>
@@ -262,7 +262,7 @@ const AddressPage = () => {
         {renderAddressForm()}
       </Modalize>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default AddressPage
+export default AddressPage;

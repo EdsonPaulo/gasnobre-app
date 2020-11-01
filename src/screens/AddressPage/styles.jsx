@@ -1,5 +1,5 @@
-import { colors, general, metrics } from '../../constants'
-import { StyleSheet } from 'react-native'
+import { colors, general, metrics } from '../../constants';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   addressContainer: {
@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontFamily: 'RobotoCondensed_700Bold',
   },
-})
+});
 
-export default styles
+export default styles;

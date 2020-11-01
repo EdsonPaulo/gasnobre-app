@@ -1,8 +1,8 @@
-import Icon from '@expo/vector-icons/FontAwesome'
-import { yupResolver } from '@hookform/resolvers'
-import { useNavigation } from '@react-navigation/native'
-import React, { useContext, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import Icon from '@expo/vector-icons/FontAwesome';
+import { yupResolver } from '@hookform/resolvers';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -12,38 +12,38 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
+} from 'react-native';
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
-} from 'react-native-confirmation-code-field'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import * as yup from 'yup'
-import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
-import { colors, metrics } from '../../constants'
-import AuthContext from '../../contexts/auth/auth-context'
-import api from '../../services/api'
-import styles from './styles'
+} from 'react-native-confirmation-code-field';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import * as yup from 'yup';
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
+import { colors, metrics } from '../../constants';
+import AuthContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
+import styles from './styles';
 
 const SignUp = () => {
-  const navigation = useNavigation()
-  const { register } = useContext(AuthContext)
-  const [loading, setLoading] = useState(false)
-  const [successModalVisible, setSuccessModalVisible] = useState(false)
-  const [sendCodeQtd, setSendCodeQtd] = useState(0)
-  const [userData, setUserData] = useState({})
-  const [step, setStep] = useState(1)
+  const navigation = useNavigation();
+  const { register } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [sendCodeQtd, setSendCodeQtd] = useState(0);
+  const [userData, setUserData] = useState({});
+  const [step, setStep] = useState(1);
 
   // verification code field
-  const [codeValueFromServer, setCodeValueFromServer] = useState('12345')
-  const [codeValue, setCodeValue] = useState('')
-  const codeFieldRef = useBlurOnFulfill({ codeValue, cellCount: 5 })
+  const [codeValueFromServer, setCodeValueFromServer] = useState('12345');
+  const [codeValue, setCodeValue] = useState('');
+  const codeFieldRef = useBlurOnFulfill({ codeValue, cellCount: 5 });
   const [codeProps, getCellOnLayoutHandler] = useClearByFocusCell({
     codeValue,
     setCodeValue,
-  })
+  });
 
   /**
    *** Schemas de validação dos forms
@@ -66,7 +66,7 @@ const SignUp = () => {
       .string()
       .required('Senha é obrigatória')
       .min(6, 'A deve possuir 6 ou mais caracteres'),
-  })
+  });
   const addressSchema = yup.object().shape({
     city: yup
       .string()
@@ -81,106 +81,110 @@ const SignUp = () => {
       .required('Rua é obrigatório')
       .min(4, 'Deve ter mais de 4 letras'),
     home: yup.string().trim(),
-  })
+  });
 
-  const userFormData = useForm({ resolver: yupResolver(userSchema) })
-  const addressFormData = useForm({ resolver: yupResolver(addressSchema) })
+  const userFormData = useForm({ resolver: yupResolver(userSchema) });
+  const addressFormData = useForm({ resolver: yupResolver(addressSchema) });
 
   const sendCode = async email => {
-    console.log(email)
-    if (loading) return
-    setLoading(true)
+    console.log(email);
+    if (loading) return;
+    setLoading(true);
     try {
-      const response = await api(null).post('/users/send_code', { email })
-      console.log(response.data)
-      setStep(step + 1)
+      const response = await api(null).post('/users/send_code', { email });
+      console.log(response.data);
+      setStep(step + 1);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       if (error.response?.data?.error === 'EXISTENT_USER')
-        Alert.alert(`ERRO: ${error.response?.data?.message}`)
+        Alert.alert(`ERRO: ${error.response?.data?.message}`);
       else {
         Alert.alert(
           `Ocorreu um erro`,
           `Ocorreu um erro inesperado! Verifique a sua internet ou tente mais tarde`,
-        )
+        );
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const signUp = async data => {
-    console.log('gravando')
-    console.log(JSON.stringify(data))
+    console.log('gravando');
+    console.log(JSON.stringify(data));
 
-    if (loading) return
-    setLoading(true)
+    if (loading) return;
+    setLoading(true);
     try {
-      const response = await api(null).post('/users/register', data)
-      console.log(response.data)
-      setSuccessModalVisible(true)
+      const response = await api(null).post('/users/register', data);
+      console.log(response.data);
+      setSuccessModalVisible(true);
       setTimeout(() => {
-        setSuccessModalVisible(false)
-        register(response.data?.user, response.data?.token, response.data?.role)
-      }, 2000)
+        setSuccessModalVisible(false);
+        register(
+          response.data?.user,
+          response.data?.token,
+          response.data?.role,
+        );
+      }, 2000);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       if (error.response?.data?.error === 'EXISTENT_USER')
-        Alert.alert(`ERRO: ${error.response?.data?.message}`)
+        Alert.alert(`ERRO: ${error.response?.data?.message}`);
       else {
         Alert.alert(
           `Ocorreu um erro`,
           `Ocorreu um erro inesperado! Verifique a sua internet ou tente mais tarde`,
-        )
+        );
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const codeValidation = () => {
-    console.log(codeValue)
+    console.log(codeValue);
     if (codeValue.length != 5)
       Alert.alert(
         'Código Inválido',
         `O código de verificação tem 5 dígitos, e foi enviado para ${
           userData.email || 'o seu email'
         }.`,
-      )
+      );
     else if (codeValue == codeValueFromServer) {
-      setUserData({ ...userData, code: codeValue })
-      console.log('Passou')
-      setStep(step + 1)
-      setCodeValue('')
-    } else Alert.alert('Código Incorreto', `O código inserido está incorreto`)
-  }
+      setUserData({ ...userData, code: codeValue });
+      console.log('Passou');
+      setStep(step + 1);
+      setCodeValue('');
+    } else Alert.alert('Código Incorreto', `O código inserido está incorreto`);
+  };
 
   const onSubmit = data => {
-    console.log(data)
+    console.log(data);
     if (step == 1) {
-      setUserData(data)
-      sendCode(data.email)
+      setUserData(data);
+      sendCode(data.email);
     } else if (step == 3) {
-      console.log(data)
-      setUserData({ ...userData, address: [data] })
-      signUp({ ...userData, address: [data] })
+      console.log(data);
+      setUserData({ ...userData, address: [data] });
+      signUp({ ...userData, address: [data] });
     }
-  }
+  };
 
-  const prevStep = () => setStep(step - 1)
+  const prevStep = () => setStep(step - 1);
 
   const nextStep = () => {
     switch (step) {
       case 1:
-        userFormData.handleSubmit(onSubmit)()
-        break
+        userFormData.handleSubmit(onSubmit)();
+        break;
       case 2:
-        codeValidation()
-        break
+        codeValidation();
+        break;
       case 3:
-        addressFormData.handleSubmit(onSubmit)()
+        addressFormData.handleSubmit(onSubmit)();
     }
-  }
+  };
 
   // Renderizar passo 1, detalhes pessoais
   const renderStep1 = () => (
@@ -252,7 +256,7 @@ const SignUp = () => {
         )}
       />
     </View>
-  )
+  );
 
   // Renderizar passo 2, código de verificação
   const renderStep2 = () => (
@@ -284,7 +288,7 @@ const SignUp = () => {
         )}
       />
     </View>
-  )
+  );
 
   // Renderizar passo 3, endereço
   const renderStep3 = () => (
@@ -355,7 +359,7 @@ const SignUp = () => {
         )}
       />
     </ScrollView>
-  )
+  );
 
   return (
     <SafeAreaView style={styles.background}>
@@ -463,6 +467,6 @@ const SignUp = () => {
         </View>
       </Modal>
     </SafeAreaView>
-  )
-}
-export default SignUp
+  );
+};
+export default SignUp;

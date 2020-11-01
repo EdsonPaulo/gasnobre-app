@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { colors, fonts, general, metrics } from '../../constants'
-import { CustomStatusBar } from '../../components'
-import AuthContext from '../../contexts/auth/auth-context'
-import Icon from '@expo/vector-icons/Entypo'
+import React, { useContext, useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors, fonts, general, metrics } from '../../constants';
+import { CustomStatusBar } from '../../components';
+import AuthContext from '../../contexts/auth/auth-context';
+import Icon from '@expo/vector-icons/Entypo';
 
 const About = () => {
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={general.background}>
@@ -100,12 +100,15 @@ const About = () => {
           <Icon name="mail" size={22} color={colors.grayDark2} />
           <Text style={styles.contacts}> comercial.okulikapaco@gmail.com</Text>
           <Icon name="address" size={22} color={colors.grayDark2} />
-          <Text style={styles.contacts}>Escritório 24, Rua Vasco da Gama, Bairro Cassenda - Maianga, Luanda, Angola</Text>
+          <Text style={styles.contacts}>
+            Escritório 24, Rua Vasco da Gama, Bairro Cassenda - Maianga, Luanda,
+            Angola
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   title: {
@@ -152,6 +155,6 @@ const styles = StyleSheet.create({
     marginBottom: metrics.baseMargin,
     fontFamily: 'RobotoCondensed_700Bold',
   },
-})
+});
 
-export default About
+export default About;

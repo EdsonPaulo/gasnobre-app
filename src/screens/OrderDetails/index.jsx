@@ -1,25 +1,25 @@
-import { useNavigation, useRoute } from '@react-navigation/native'
-import React, { useContext, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomButton, CustomStatusBar } from '../../components'
-import { colors, fonts, general, metrics } from '../../constants'
-import authContext from '../../contexts/auth/auth-context'
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useContext, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomButton, CustomStatusBar } from '../../components';
+import { colors, fonts, general, metrics } from '../../constants';
+import authContext from '../../contexts/auth/auth-context';
 
 export default index = () => {
-  const { role } = useContext(authContext)
-  const route = useRoute()
-  const navigation = useNavigation()
-  const [loading, setLoading] = useState(false)
-  const order = route.params?.order
-  let cart = []
+  const { role } = useContext(authContext);
+  const route = useRoute();
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const order = route.params?.order;
+  let cart = [];
 
-  console.log(order)
+  console.log(order);
 
   const transformPrice = value =>
     Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
       value,
-    )
+    );
   const convertDate = date =>
     Intl.DateTimeFormat('pt-AO', {
       hour: 'numeric',
@@ -27,7 +27,7 @@ export default index = () => {
       day: 'numeric',
       month: 'numeric',
       year: 'numeric',
-    }).format(new Date(date))
+    }).format(new Date(date));
 
   return (
     <SafeAreaView style={[general.background, {}]}>
@@ -133,8 +133,8 @@ export default index = () => {
         )}
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -171,4 +171,4 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoCondensed_700Bold',
     textTransform: 'capitalize',
   },
-})
+});

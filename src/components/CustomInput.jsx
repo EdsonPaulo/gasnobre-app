@@ -1,13 +1,13 @@
-import { Feather, MaterialIcons } from '@expo/vector-icons'
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { colors, fonts, metrics } from '../constants'
+import { Feather, MaterialIcons } from '@expo/vector-icons';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { colors, fonts, metrics } from '../constants';
 
 export default CustomInput = props => {
-  const { hasError, rounded, bordered, raised, type, icon, ...rest } = props
-  const [secureText, setSecureText] = useState(false)
-  const [borderColor, setBorderColor] = useState(colors.borderColor)
+  const { hasError, rounded, bordered, raised, type, icon, ...rest } = props;
+  const [secureText, setSecureText] = useState(false);
+  const [borderColor, setBorderColor] = useState(colors.borderColor);
 
   const containerStyle = {
     flexDirection: 'row',
@@ -20,75 +20,75 @@ export default CustomInput = props => {
     borderWidth: 1,
     borderColor: hasError ? 'red' : borderColor,
     borderRadius: rounded ? metrics.formInputRadius : 6,
-  }
+  };
   const inputStyle = {
     fontSize: fonts.input,
     height: '100%',
     fontFamily: 'RobotoCondensed_400Regular',
     flex: 1,
-  }
+  };
   const labelStyle = {
     fontSize: fonts.regular,
     color: colors.dark,
     marginVertical: 2,
     fontFamily: 'RobotoCondensed_400Regular',
     marginLeft: metrics.smallMargin,
-  }
+  };
   useEffect(() => {
-    if (props.type === 'password') setSecureText(true)
-  }, [])
+    if (props.type === 'password') setSecureText(true);
+  }, []);
 
-  let inputType, iconName
+  let inputType, iconName;
   switch (type) {
     case 'phone':
       {
-        ;(inputType = 'phone-pad'), (iconName = 'smartphone')
+        (inputType = 'phone-pad'), (iconName = 'smartphone');
       }
-      break
+      break;
     case 'password':
       {
-        ;(inputType = 'default'), (iconName = 'lock')
+        (inputType = 'default'), (iconName = 'lock');
       }
-      break
+      break;
     case 'name':
       {
-        ;(inputType = 'default'), (iconName = 'user')
+        (inputType = 'default'), (iconName = 'user');
       }
-      break
+      break;
     case 'email':
       {
-        ;(inputType = 'email-address'), (iconName = 'mail')
+        (inputType = 'email-address'), (iconName = 'mail');
       }
-      break
+      break;
     case 'number':
       {
-        ;(inputType = 'number-pad'), (iconName = 'smartphone')
+        (inputType = 'number-pad'), (iconName = 'smartphone');
       }
-      break
+      break;
     case 'search':
       {
-        ;(inputType = 'web-search'), (iconName = 'search')
+        (inputType = 'web-search'), (iconName = 'search');
       }
-      break
+      break;
     case 'code':
       {
-        ;(inputType = 'number-pad'), (iconName = 'hash')
+        (inputType = 'number-pad'), (iconName = 'hash');
       }
-      break
+      break;
 
     default:
-      inputType = iconName = 'default'
+      inputType = iconName = 'default';
   }
 
   const label = props.label ? (
     <Text style={[labelStyle, props.labelStyle]}>{props.label}</Text>
-  ) : null
+  ) : null;
   const help = props.help ? (
     <Text style={styles.helpText}>{props.help}</Text>
-  ) : null
+  ) : null;
   const error = props.error ? (
     <Text style={styles.errorText}>{props.error}</Text>
-  ) : null
+  ) : null;
 
   return (
     <View style={props.containerStyle}>
@@ -132,8 +132,8 @@ export default CustomInput = props => {
       {error}
       {help}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   helpText: {
@@ -153,4 +153,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginRight: metrics.baseMargin,
   },
-})
+});

@@ -1,7 +1,7 @@
-import React from 'react'
-import { ActivityIndicator, Image, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { colors } from '../constants'
+import React from 'react';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from '../constants';
 
 const Splash = ({ text }) => (
   <SafeAreaView
@@ -23,6 +23,6 @@ const Splash = ({ text }) => (
       <Text style={{ fontSize: 17 }}> {text || 'Carregando...'}</Text>
     </View>
   </SafeAreaView>
-)
+);
 
-export default Splash
+export default Splash;

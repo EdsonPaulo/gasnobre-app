@@ -5,6 +5,6 @@ const constants = {
   PUSH_TOKEN_KEY: '@DELIVERYNOBRE:push-token',
 
   FACEBOOK_APP_ID: '727158001344097',
-}
+};
 
-export default constants
+export default constants;

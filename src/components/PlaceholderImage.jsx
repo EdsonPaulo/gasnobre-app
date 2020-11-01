@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import { ActivityIndicator, Animated, View } from 'react-native'
-import { colors } from '../constants'
+import React, { useState } from 'react';
+import { ActivityIndicator, Animated, View } from 'react-native';
+import { colors } from '../constants';
 
 export default PlaceholderImage = props => {
-  const [opacity] = useState(new Animated.Value(0))
-  const { style } = props
-  const [loading, setLoading] = useState(true)
+  const [opacity] = useState(new Animated.Value(0));
+  const { style } = props;
+  const [loading, setLoading] = useState(true);
 
   const onLoad = event => {
     Animated.timing(opacity, {
       toValue: 1,
       duration: 200,
       useNativeDriver: true,
-    }).start()
-    setLoading(false)
-  }
+    }).start();
+    setLoading(false);
+  };
 
   return (
     <View
@@ -37,5 +37,5 @@ export default PlaceholderImage = props => {
         onLoad={onLoad}
       />
     </View>
-  )
-}
+  );
+};

@@ -1,8 +1,8 @@
-export const RETRIEVE_TOKEN = 'RETRIEVE_TOKEN'
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
-export const REGISTER = 'REGISTER'
-export const UPDATE_USER = 'UPDATE_USER'
+export const RETRIEVE_TOKEN = 'RETRIEVE_TOKEN';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const REGISTER = 'REGISTER';
+export const UPDATE_USER = 'UPDATE_USER';
 
 export const authReducer = (prevState, action) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ export const authReducer = (prevState, action) => {
         token: action.token,
         isLogged: !!action.token,
         isLoading: false,
-      }
+      };
     case LOGIN:
       return {
         ...prevState,
@@ -22,7 +22,7 @@ export const authReducer = (prevState, action) => {
         role: action.role,
         token: action.token,
         isLogged: true,
-      }
+      };
     case LOGOUT:
       return {
         ...prevState,
@@ -30,7 +30,7 @@ export const authReducer = (prevState, action) => {
         role: null,
         token: null,
         isLogged: false,
-      }
+      };
     case REGISTER:
       return {
         ...prevState,
@@ -38,11 +38,11 @@ export const authReducer = (prevState, action) => {
         role: action.role,
         token: action.token,
         isLogged: true,
-      }
+      };
     case UPDATE_USER:
       return {
         ...prevState,
         user: action.user,
-      }
+      };
   }
-}
+};

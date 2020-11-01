@@ -1,6 +1,6 @@
-import { FontAwesome5 } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-import React, { useContext, useEffect, useState } from 'react'
+import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,39 +8,39 @@ import {
   ToastAndroid,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
-import { colors, general } from '../../constants'
-import authContext from '../../contexts/auth/auth-context'
+} from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
+import { colors, general } from '../../constants';
+import authContext from '../../contexts/auth/auth-context';
 
 export default index = () => {
-  const navigation = useNavigation()
-  const { user, role } = useContext(authContext)
-  const [editable, setEditable] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [userInfo, setUserInfo] = useState({ ...user })
+  const navigation = useNavigation();
+  const { user, role } = useContext(authContext);
+  const [editable, setEditable] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [userInfo, setUserInfo] = useState({ ...user });
 
   useEffect(() => {
     return () => {
       //salvar dados dos inputs
-    }
-  }, [])
+    };
+  }, []);
 
   const handleSave = () => {
-    setSaving(true)
+    setSaving(true);
 
     setTimeout(() => {
-      ToastAndroid.show('Dados salvos com sucesso!', 1000)
-      setSaving(false)
-      setEditable(false)
-    }, 2000)
-  }
+      ToastAndroid.show('Dados salvos com sucesso!', 1000);
+      setSaving(false);
+      setEditable(false);
+    }, 2000);
+  };
 
   const inputStyle = editable
     ? null
-    : { backgroundColor: colors.bgColor, borderWidth: 0 }
+    : { backgroundColor: colors.bgColor, borderWidth: 0 };
 
   return (
     <SafeAreaView style={general.background}>
@@ -59,7 +59,9 @@ export default index = () => {
         <Text style={styles.userDetails}>
           {role === 'customer' ? 'Cliente' : 'Gerente'}
         </Text>
-        <Text style={styles.userDetails}>{userInfo?.phone || userInfo?.email}</Text>
+        <Text style={styles.userDetails}>
+          {userInfo?.phone || userInfo?.email}
+        </Text>
       </View>
 
       <ScrollView
@@ -133,8 +135,8 @@ export default index = () => {
         )}
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -167,4 +169,4 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontFamily: 'RobotoCondensed_700Bold',
   },
-})
+});

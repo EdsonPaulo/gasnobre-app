@@ -1,8 +1,8 @@
-import Icon from '@expo/vector-icons/Ionicons'
-import React from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { colors, metrics } from '../constants'
+import Icon from '@expo/vector-icons/Ionicons';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { colors, metrics } from '../constants';
 
 const CustomButton = props => {
   const {
@@ -14,7 +14,7 @@ const CustomButton = props => {
     style,
     loading,
     icon,
-  } = props
+  } = props;
 
   return (
     <RectButton
@@ -68,8 +68,8 @@ const CustomButton = props => {
         </View>
       )}
     </RectButton>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});
 
-export default CustomButton
+export default CustomButton;

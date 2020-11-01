@@ -1,8 +1,8 @@
-import React from 'react'
-import { View } from 'react-native'
+import React from 'react';
+import { View } from 'react-native';
 
 const NetworkError = () => {
-  return <View />
-}
+  return <View />;
+};
 
-export default NetworkError
+export default NetworkError;

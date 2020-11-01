@@ -1,21 +1,21 @@
-import Icon from '@expo/vector-icons/FontAwesome'
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import Icon from '@expo/vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { CustomButton, CustomInput, CustomStatusBar } from '../../components'
-import { colors, metrics } from '../../constants'
-import styles from './styles'
+import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
+import { colors, metrics } from '../../constants';
+import styles from './styles';
 
 const Forgot = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.background}>
@@ -55,6 +55,6 @@ const Forgot = () => {
       </KeyboardAvoidingView>
       <View />
     </SafeAreaView>
-  )
-}
-export default Forgot
+  );
+};
+export default Forgot;

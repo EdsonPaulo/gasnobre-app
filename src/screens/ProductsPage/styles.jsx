@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { colors, fonts, metrics } from '../../constants'
+import { StyleSheet } from 'react-native';
+import { colors, fonts, metrics } from '../../constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     alignSelf: 'center',
   },
-})
+});
 
-export default styles
+export default styles;

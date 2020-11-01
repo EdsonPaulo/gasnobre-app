@@ -1,8 +1,8 @@
-import Icon from '@expo/vector-icons/FontAwesome5'
-import { Picker } from '@react-native-community/picker'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import React, { useContext, useEffect, useState } from 'react'
-import { RectButton } from 'react-native-gesture-handler'
+import Icon from '@expo/vector-icons/FontAwesome5';
+import { Picker } from '@react-native-community/picker';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useContext, useEffect, useState } from 'react';
+import { RectButton } from 'react-native-gesture-handler';
 import {
   Alert,
   Dimensions,
@@ -11,30 +11,30 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { CustomButton, CustomStatusBar } from '../../components'
-import { colors, general } from '../../constants'
-import authContext from '../../contexts/auth/auth-context'
-import api from '../../services/api'
-import styles from './styles'
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { CustomButton, CustomStatusBar } from '../../components';
+import { colors, general } from '../../constants';
+import authContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
+import styles from './styles';
 
-const { height } = Dimensions.get('window')
+const { height } = Dimensions.get('window');
 
 const index = () => {
-  let isMounted = true
+  let isMounted = true;
 
-  const { user, token } = useContext(authContext)
-  const navigation = useNavigation()
-  const route = useRoute()
-  const cart = route.params.cart
-  const subtotal = route.params.subtotal
-  const [tax, setTax] = useState(0)
-  const [address, setAddress] = useState([])
+  const { user, token } = useContext(authContext);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const cart = route.params.cart;
+  const subtotal = route.params.subtotal;
+  const [tax, setTax] = useState(0);
+  const [address, setAddress] = useState([]);
 
-  const [deliveryAddress, setDeliveryAddress] = useState(address[0] || '')
-  const [orderObs, setOrderObs] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [deliveryAddress, setDeliveryAddress] = useState(address[0] || '');
+  const [orderObs, setOrderObs] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const [orderDetails, setOrderDetails] = useState({
     tax,
@@ -43,54 +43,54 @@ const index = () => {
     debit: false,
     obs: orderObs,
     total: subtotal + tax,
-  })
+  });
 
   const transformPrice = value =>
     Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
       value,
-    )
+    );
 
   useEffect(() => {
     if (isMounted) {
-      console.log(user.address)
-      setAddress(user?.address)
+      console.log(user.address);
+      setAddress(user?.address);
     }
-    return () => (isMounted = false)
-  }, [user])
+    return () => (isMounted = false);
+  }, [user]);
 
   //finalizar compra/pedido
   const makeOrder = () => {
-    if (loading) return
+    if (loading) return;
     if (!deliveryAddress) {
-      Alert.alert('Precisa adicionar o endereço de entrega!')
-      return
+      Alert.alert('Precisa adicionar o endereço de entrega!');
+      return;
     }
 
-    let products = []
-    let order = orderDetails
-    setLoading(true)
+    let products = [];
+    let order = orderDetails;
+    setLoading(true);
     cart.map(product => {
       if (product.product)
-        product = { quantity: product.quantity, ...product.product }
-      console.log(product._id)
+        product = { quantity: product.quantity, ...product.product };
+      console.log(product._id);
       products.push({
         product: product._id,
         quantity: product.quantity,
-      })
-    })
-    order.products = [...products]
-    console.log(order)
+      });
+    });
+    order.products = [...products];
+    console.log(order);
     api(token)
       .post('/orders', order)
       .then(response => {
-        Alert.alert('Parabéns', response.data.message)
-        navigation.navigate('orderStack')
+        Alert.alert('Parabéns', response.data.message);
+        navigation.navigate('orderStack');
       })
       .catch(error => {
-        console.log(error, error?.response?.data)
+        console.log(error, error?.response?.data);
       })
-      .finally(() => setLoading(false))
-  }
+      .finally(() => setLoading(false));
+  };
 
   return (
     <SafeAreaView style={general.background}>
@@ -113,7 +113,7 @@ const index = () => {
           <View style={styles.section}>
             {cart.map(product => {
               if (product.product)
-                product = { quantity: product.quantity, ...product.product }
+                product = { quantity: product.quantity, ...product.product };
               return (
                 <View key={product._id} style={styles.textContainer}>
                   <Text style={{ textTransform: 'capitalize' }}>
@@ -127,7 +127,7 @@ const index = () => {
                     {transformPrice(product.price * product.quantity)}
                   </Text>
                 </View>
-              )
+              );
             })}
             <View style={[styles.textContainer, { marginTop: 15 }]}>
               <Text>Subtotal</Text>
@@ -141,7 +141,8 @@ const index = () => {
             <View style={styles.textContainer}>
               <Text style={styles.totalText}>Total </Text>
               <Text style={[styles.totalText, { color: colors.success }]}>
-                {' '}{transformPrice(subtotal + tax)}{' '}
+                {' '}
+                {transformPrice(subtotal + tax)}{' '}
               </Text>
             </View>
           </View>
@@ -234,7 +235,7 @@ const index = () => {
         />
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default index
+export default index;

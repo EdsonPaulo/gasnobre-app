@@ -1,8 +1,8 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import * as firebase from 'firebase/app'
+import * as firebase from 'firebase/app';
 
-import 'firebase/auth'
-import 'firebase/firestore'
+import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBPWuICePw26MQgTHBosbzXn7pfMSLfHS4',
@@ -13,13 +13,13 @@ const firebaseConfig = {
   messagingSenderId: '477628288432',
   appId: '1:477628288432:web:a3960e2f80139b5f685a75',
   measurementId: 'G-9F8ZXG21XY',
-}
+};
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig)
-firebase.analytics()
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
-var phoneNumber = '942682194'
+var phoneNumber = '942682194';
 //var appVerifier = window.recaptchaVerifier
 firebase
   .auth()
@@ -35,20 +35,20 @@ firebase
   .catch(function (error) {
     // Error SMS not sent
     // ...
-  })
+  });
 
-var code = '123456' //digitado pelo user
+var code = '123456'; //digitado pelo user
 confirmationResult
   .confirm(code)
   .then(function (result) {
     // User signed in successfully.
-    var user = result.user
+    var user = result.user;
     // ...
   })
   .catch(function (error) {
     // User couldn't sign in (bad verification code?)
     // ...
-  })
+  });
 
 firebase
   .auth()
@@ -58,4 +58,4 @@ firebase
   })
   .catch(function (error) {
     // An error happened.
-  })
+  });

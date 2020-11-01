@@ -1,16 +1,16 @@
-import Icon from '@expo/vector-icons/FontAwesome5'
-import { useNavigation } from '@react-navigation/native'
-import { StatusBar } from 'expo-status-bar'
-import React, { useContext } from 'react'
-import { Image, StyleSheet, Text, View, Alert } from 'react-native'
-import { RectButton } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { colors, general } from '../../../constants'
-import authContext from '../../../contexts/auth/auth-context'
+import Icon from '@expo/vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import React, { useContext } from 'react';
+import { Image, StyleSheet, Text, View, Alert } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors, general } from '../../../constants';
+import authContext from '../../../contexts/auth/auth-context';
 
 export default index = () => {
-  const navigation = useNavigation()
-  const { user, logout } = useContext(authContext)
+  const navigation = useNavigation();
+  const { user, logout } = useContext(authContext);
 
   const Logout = () => {
     Alert.alert(
@@ -21,8 +21,8 @@ export default index = () => {
         { text: 'SIm', onPress: () => logout() },
       ],
       { cancelable: true },
-    )
-  }
+    );
+  };
 
   return (
     <SafeAreaView style={[general.background]}>
@@ -93,8 +93,8 @@ export default index = () => {
         translucent={false}
       />
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
   optionText: {
     fontFamily: 'RobotoCondensed_700Bold',
   },
-})
+});

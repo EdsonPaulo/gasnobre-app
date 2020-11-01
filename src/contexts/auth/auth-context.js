@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default React.createContext({
   user: {},
@@ -12,4 +12,4 @@ export default React.createContext({
   updateUser: user => {},
   register: (user, token, role) => {},
   retrieveToken: () => {},
-})
+});

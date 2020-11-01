@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from 'react'
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native'
-import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
+import React, { useContext, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
-import { colors, metrics, fonts } from '../constants'
-import authContext from '../contexts/auth/auth-context'
+import { colors, metrics, fonts } from '../constants';
+import authContext from '../contexts/auth/auth-context';
 
 const HomeTabBar = ({ state, descriptors, navigation }) => {
-  const { role } = useContext(authContext)
+  const { role } = useContext(authContext);
 
   return (
     <View style={{ backgroundColor: colors.bgColor }}>
@@ -26,34 +26,34 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
         }}
       >
         {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key]
-          const label = options.tabBarLabel
-          const isFocused = state.index === index
+          const { options } = descriptors[route.key];
+          const label = options.tabBarLabel;
+          const isFocused = state.index === index;
 
           const onPress = () => {
             const event = navigation.emit({
               type: 'tabPress',
               target: route.key,
-            })
+            });
 
             if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name)
+              navigation.navigate(route.name);
             }
-          }
+          };
 
           const onLongPress = () => {
             navigation.emit({
               type: 'tabLongPress',
               target: route.key,
-            })
-          }
+            });
+          };
 
-          let iconName
-          if (route.name === 'homeStack') iconName = 'home'
-          else if (route.name === 'orderStack') iconName = 'megaphone'
-          else if (route.name === 'profileStack') iconName = 'user'
-          else if (route.name === 'storeStack') iconName = 'shopping-bag'
-          else if (route.name === 'customers') iconName = 'users'
+          let iconName;
+          if (route.name === 'homeStack') iconName = 'home';
+          else if (route.name === 'orderStack') iconName = 'megaphone';
+          else if (route.name === 'profileStack') iconName = 'user';
+          else if (route.name === 'storeStack') iconName = 'shopping-bag';
+          else if (route.name === 'customers') iconName = 'users';
 
           return (
             <TouchableOpacity
@@ -105,10 +105,10 @@ const HomeTabBar = ({ state, descriptors, navigation }) => {
                 )}
               </View>
             </TouchableOpacity>
-          )
+          );
         })}
       </View>
     </View>
-  )
-}
-export default HomeTabBar
+  );
+};
+export default HomeTabBar;

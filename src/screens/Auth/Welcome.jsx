@@ -1,9 +1,9 @@
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View } from 'react-native';
 
 const Welcome = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     /**
@@ -43,6 +43,6 @@ const Welcome = () => {
          */
 
     <View />
-  )
-}
-export default Welcome
+  );
+};
+export default Welcome;
