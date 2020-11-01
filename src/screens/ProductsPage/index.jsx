@@ -81,7 +81,7 @@ export default index = () => {
           if (refreshing) setAllProducts(response.data?.data);
           else {
             setAllProducts([...products, ...response.data?.data]);
-            selectBrand();
+            filterByBrand();
           }
           setPage(page + 1);
         }
@@ -97,7 +97,7 @@ export default index = () => {
       });
   };
 
-  const selectBrand = brand => {
+  const filterByBrand = brand => {
     if (brand)
       setProducts(allProducts.filter(product => product.brand === brand));
     else setProducts(allProducts);
