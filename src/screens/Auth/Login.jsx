@@ -10,13 +10,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
 import { colors, metrics } from '../../constants';
 import AuthContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
-import { facebookAuth } from '../../services/auth';
+import { getExpoPushToken } from '../../services/utils';
 import styles from './styles';
 
 const Login = () => {
@@ -28,12 +28,23 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
+  const updateUserExpoToken = async token => {
+    try {
+      let expoToken = await getExpoPushToken();
+      expoToken = expoToken?.data;
+      console.log('Expo push token a obter: ', expoToken);
+      const response = await api(token).post('/users/expo_token', {
+        expo_token: expoToken,
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const signIn = async () => {
     if (!email || !password)
-      Alert.alert(
-        'Preencha todos os campos',
-        'Informe o telefone/email e a senha!',
-      );
+      Alert.alert('Preencha todos os campos', 'Informe o email e a senha!');
     else {
       setLoading(true);
       try {
@@ -41,12 +52,14 @@ const Login = () => {
           email,
           password,
         });
-        if (response.data)
+        if (response.data) {
+          updateUserExpoToken(response.data?.token);
           login(
             { ...response.data?.user, ...response.data?.customer },
             response.data?.token,
             response.data?.role,
           );
+        }
       } catch (error) {
         console.log(error, error?.response?.data);
         setErrorModalVisible(true);

@@ -1,6 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Alert, ToastAndroid } from 'react-native';
 import Rate, { AndroidMarket } from 'react-native-rate';
+
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 import api from './api';
 //import Share from 'react-native-share'
 
@@ -108,6 +111,66 @@ export const uploadImage = (file, token) => {
       },
     }
   );
+};
+
+
+export const verifyExpoPushToken = async () => {
+  try {
+    const expoPushToken = await AsyncStorage.getItem(constants.PUSH_TOKEN_KEY);
+    return JSON.parse(expoPushToken);
+  } catch (error) {
+    console.log(error, error?.response?.data);
+    return null;
+  }
+};
+
+export const getNotificationsPermission = async () => {
+  try {
+    if (!Constants.isDevice)
+      console.log('Must use physical device for Push Notifications');
+    else {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS,
+      );
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS,
+        );
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      } else console.log('permissão garantida');
+
+      if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          sound: true,
+          showBadge: true,
+          enableVibrate: true,
+          enableLights: true,
+          lockscreenVisibility: Notifications.AndroidImportance.HIGH,
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+        });
+      }
+      return Notifications.getExpoPushTokenAsync();
+    }
+  } catch (error) {
+    console.log(error, error?.response?.data);
+  }
+};
+
+export const getExpoPushToken = async () => {
+  try {
+    const expoPushToken = await AsyncStorage.getItem(constants.PUSH_TOKEN_KEY);
+    if (expoPushToken) return expoPushToken;
+    return getNotificationsPermission();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const saveOnAsyncStorage = async (key, value) => {

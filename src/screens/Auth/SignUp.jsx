@@ -25,6 +25,7 @@ import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
 import { colors, metrics } from '../../constants';
 import AuthContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
+import { getExpoPushToken } from '../../services/utils';
 import styles from './styles';
 
 const SignUp = () => {
@@ -86,6 +87,20 @@ const SignUp = () => {
   const userFormData = useForm({ resolver: yupResolver(userSchema) });
   const addressFormData = useForm({ resolver: yupResolver(addressSchema) });
 
+  const updateUserExpoToken = async token => {
+    try {
+      let expoToken = await getExpoPushToken();
+      expoToken = expoToken?.data;
+      console.log('Expo push token a obter: ', expoToken);
+      const response = await api(token).post('/users/expo_token', {
+        expo_token: expoToken,
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const sendCode = async email => {
     console.log(email);
     if (loading) return;
@@ -119,6 +134,7 @@ const SignUp = () => {
       const response = await api(null).post('/users/register', data);
       console.log(response.data);
       setSuccessModalVisible(true);
+      updateUserExpoToken(response.data?.token);
       setTimeout(() => {
         setSuccessModalVisible(false);
         register(

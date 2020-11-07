@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors, fonts, general, metrics } from '../../constants';
-import { CustomStatusBar } from '../../components';
-import AuthContext from '../../contexts/auth/auth-context';
 import Icon from '@expo/vector-icons/Entypo';
+import React, { useContext } from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import okulikapacoLogo from '../../assets/OK.png';
+import { CustomStatusBar } from '../../components';
+import { colors, fonts, general, metrics } from '../../constants';
+import AuthContext from '../../contexts/auth/auth-context';
+
 
 const About = () => {
   const { user } = useContext(AuthContext);
@@ -18,6 +20,8 @@ const About = () => {
       />
 
       <ScrollView contentContainerStyle={{ padding: metrics.doubleBaseMargin }}>
+        <Image source={okulikapacoLogo} width={"100%"} height={200} resizeMode="contain" />
+        
         <View style={styles.sectionHeader}>
           <Text style={styles.title}>Okulikapaco - Prestação de Serviços</Text>
         </View>
