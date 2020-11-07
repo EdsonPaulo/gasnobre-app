@@ -42,7 +42,7 @@ export const facebookAuth = async () => {
   try {
     await Facebook.initializeAsync({
       appId: constants.FACEBOOK_APP_ID,
-      appName: 'Delivery Nobre',
+      appName: 'No Biva',
     });
     const auth = await Facebook.getAuthenticationCredentialAsync();
     console.log(' autenticado' + JSON.stringify(auth));

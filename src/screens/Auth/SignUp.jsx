@@ -474,7 +474,7 @@ const SignUp = () => {
             <View style={{ padding: 25, alignItems: 'center' }}>
               <Text style={styles.modalText}>Conta Criada com Sucesso!</Text>
               <Text style={styles.modalText}>
-                A sua conta foi criada com sucesso. Bem-vindo ao Delivery Nobre
+                A sua conta foi criada com sucesso. Bem-vindo ao No Biva
                 :)
               </Text>
             </View>
