@@ -86,21 +86,7 @@ const SignUp = () => {
 
   const userFormData = useForm({ resolver: yupResolver(userSchema) });
   const addressFormData = useForm({ resolver: yupResolver(addressSchema) });
-
-  const updateUserExpoToken = async token => {
-    try {
-      let expoToken = await getExpoPushToken();
-      expoToken = expoToken?.data;
-      console.log('Expo push token a obter: ', expoToken);
-      const response = await api(token).post('/users/expo_token', {
-        expo_token: expoToken,
-      });
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+ 
   const sendCode = async email => {
     console.log(email);
     if (loading) return;
@@ -131,10 +117,14 @@ const SignUp = () => {
     if (loading) return;
     setLoading(true);
     try {
-      const response = await api(null).post('/users/register', data);
+      let expoPushToken = await getExpoPushToken();
+      expoPushToken = expoPushToken?.data;
+      const response = await api(null).post('/users/register', {
+        ...data,
+        expoPushToken,
+      });
       console.log(response.data);
       setSuccessModalVisible(true);
-      updateUserExpoToken(response.data?.token);
       setTimeout(() => {
         setSuccessModalVisible(false);
         register(
@@ -474,8 +464,7 @@ const SignUp = () => {
             <View style={{ padding: 25, alignItems: 'center' }}>
               <Text style={styles.modalText}>Conta Criada com Sucesso!</Text>
               <Text style={styles.modalText}>
-                A sua conta foi criada com sucesso. Bem-vindo ao No Biva
-                :)
+                A sua conta foi criada com sucesso. Bem-vindo ao No Biva :)
               </Text>
             </View>
           </View>
