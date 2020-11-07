@@ -10,7 +10,6 @@ import authContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
 import styles from './styles';
 
-
 export default index = () => {
   let isMounted = true;
   const navigation = useNavigation();
@@ -110,11 +109,17 @@ export default index = () => {
         <Text style={styles.labelStyle}>Telefone</Text>
         <CustomInput
           type="phone"
+          maxLength={13}
           placeholder="Telefone"
           style={inputStyle}
           editable={editable}
           value={userInfo.phone}
-          onChangeText={phone => setUserInfo({ ...userInfo, phone: phone })}
+          onChangeText={phone =>
+            setUserInfo({
+              ...userInfo,
+              phone: phone.includes('+244') ? phone.trim() : `+244`,
+            })
+          }
         />
 
         <Text style={styles.labelStyle}>Email</Text>
@@ -156,5 +161,3 @@ export default index = () => {
     </SafeAreaView>
   );
 };
-
-
