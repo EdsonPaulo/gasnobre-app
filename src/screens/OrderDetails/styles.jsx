@@ -36,6 +36,12 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoCondensed_700Bold',
     textTransform: 'capitalize',
   },
+  bodyText: {
+    fontSize: 16,
+    marginVertical: 2,
+    fontFamily: 'RobotoCondensed_700Bold',
+    textTransform: 'capitalize',
+  }
 });
 
 export default styles;

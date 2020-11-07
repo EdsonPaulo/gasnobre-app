@@ -1,26 +1,26 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, ToastAndroid, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar } from '../../components';
 import { colors, general } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
 import styles from './styles';
 
 export default index = () => {
-  const { role } = useContext(authContext);
+  const { role, token } = useContext(authContext);
   const route = useRoute();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const order = route.params?.order;
-  let cart = [];
-
   console.log(order);
 
   const transformPrice = value =>
     Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
       value,
     );
+
   const convertDate = date =>
     Intl.DateTimeFormat('pt-AO', {
       hour: 'numeric',
@@ -29,6 +29,44 @@ export default index = () => {
       month: 'numeric',
       year: 'numeric',
     }).format(new Date(date));
+
+  const cancelOrder = () => {
+    if (loading) return;
+    setLoading(true);
+    api(token)
+      .post(`/orders/update_status/${order.number}`, {
+        status: 'cancelado',
+      })
+      .then(response => {
+        ToastAndroid.show('Pedido cancelado com sucesso!', ToastAndroid.SHORT);
+        navigation.goBack();
+      })
+      .catch(error => {
+        console.log(`${error} ==> erro`);
+        ToastAndroid.show(
+          'Ocorreu um erro ao cancelar o pedido. Tente novamente mais tarde!',
+          ToastAndroid.LONG,
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleCancelOrder = () => {
+    Alert.alert(
+      'Cancelando o Pedido',
+      'Tem certeza que deseja cancelar esse pedido?',
+      [
+        {
+          text: 'Sim',
+          onPress: () => cancelOrder(),
+        },
+        { text: 'Não', style: 'cancel' },
+      ],
+      { cancelable: true },
+    );
+  };
 
   return (
     <SafeAreaView style={[general.background, {}]}>
@@ -48,7 +86,7 @@ export default index = () => {
                 {
                   color:
                     order.status === 'pendente'
-                      ? colors.dark
+                      ? colors.accent
                       : order.status === 'cancelado'
                       ? colors.alert
                       : order.status === 'concluido'
@@ -79,7 +117,6 @@ export default index = () => {
                 <Text style={{ textTransform: 'capitalize' }}>
                   {item.product?.name}
                 </Text>
-
                 <View style={styles.textContainer}>
                   <Text>
                     {' '}
@@ -111,14 +148,27 @@ export default index = () => {
             </Text>
           </View>
         </View>
-        <View style={styles.section}>
+        <View style={[styles.section, { alignItems: 'center' }]}>
           <Text style={styles.sectionTitle}>Entrega</Text>
-          <Text>{order.customer?.name}</Text>
-          <Text>{order.address}</Text>
-          <Text>Angola - {order.city}</Text>
-          <Text>+244 {order.customer?.phone}</Text>
+
+          <Text style={styles.bodyText}>{order.customer?.name}</Text>
+
+          <Text style={styles.bodyText}>{order.customer?.phone}</Text>
+
+          <Text style={[styles.bodyText]}>
+            {order.address?.home} {order.address?.street},{' '}
+            {order.address?.neighborhood} - {order.address?.city}{' '}
+          </Text>
         </View>
-        {order.status === 'pendente' ? null : (
+
+        {order.status === 'pendente' ? (
+          <CustomButton
+            title="Cancelar Pedido"
+            icon="ios-close"
+            loading={loading}
+            onPress={handleCancelOrder}
+          />
+        ) : (
           <CustomButton
             title="Voltar a pedir"
             icon="md-refresh"

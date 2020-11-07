@@ -117,7 +117,7 @@ export default index = () => {
               fontFamily: 'RobotoCondensed_700Bold',
               color:
                 order.status === 'pendente'
-                  ? colors.dark
+                  ? colors.accent
                   : order.status === 'cancelado'
                   ? colors.alert
                   : order.status === 'concluido'
@@ -167,12 +167,18 @@ export default index = () => {
         style={{
           textAlign: 'center',
           fontSize: 18,
-          marginTop: 5,
+          marginVertical: 5,
           color: colors.grayDark,
         }}
       >
         Sem pedidos registados!
       </Text>
+      <Icon
+        name="refresh"
+        color={colors.grayDark}
+        size={30}
+        onPress={onRefresh}
+      />
     </View>
   );
 
