@@ -9,7 +9,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar } from '../../components';
@@ -29,7 +29,7 @@ const index = () => {
   const [tax] = useState(0);
   const [address, setAddress] = useState(user?.address || []);
 
-  const [deliveryAddress, setDeliveryAddress] = useState(address[0] || '');
+  const [deliveryAddress, setDeliveryAddress] = useState(address[0] || null);
   const [orderObs, setOrderObs] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -40,6 +40,7 @@ const index = () => {
     debit: false,
     obs: orderObs,
     total: subtotal + tax,
+    address: deliveryAddress,
   });
 
   const transformPrice = value =>
@@ -48,8 +49,7 @@ const index = () => {
     );
 
   useEffect(() => {
-    if (isMounted) 
-      setAddress(user?.address);
+    if (isMounted) setDeliveryAddress(user?.address[0] || null);
     return () => (isMounted = false);
   }, [user]);
 
@@ -70,12 +70,13 @@ const index = () => {
     cart.map(product => {
       if (product.product)
         product = { quantity: product.quantity, ...product.product };
-      console.log(product._id);
+
       products.push({
         product: product._id,
         quantity: product.quantity,
       });
     });
+    order.address = deliveryAddress;
     order.products = [...products];
     console.log(order);
     api(token)
