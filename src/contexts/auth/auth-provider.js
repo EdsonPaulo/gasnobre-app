@@ -82,21 +82,19 @@ const AuthProvider = props => {
     }
   };
 
-  const value = useMemo(() => {
-    return {
-      user: authState.user,
-      token: authState.token,
-      role: authState.role,
-      isLogged: !!authState.token,
-      isLoading: authState.isLoading,
+  const value = useMemo(() => ({
+    user: authState.user,
+    token: authState.token,
+    role: authState.role,
+    isLogged: !!authState.token,
+    isLoading: authState.isLoading,
 
-      login: login,
-      logout: logout,
-      register: register,
-      updateUser: updateUser,
-      retrieveToken: retrieveToken,
-    };
-  });
+    login: login,
+    logout: logout,
+    register: register,
+    updateUser: updateUser,
+    retrieveToken: retrieveToken,
+  }));
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>

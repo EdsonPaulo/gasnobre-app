@@ -51,15 +51,6 @@ const index = () => {
   const convertDate = date =>
     Intl.DateTimeFormat('pt-AO').format(new Date(date));
 
-  const handlePlanoKamba = () => {
-    /*
-    user?.kambaPlan?.active ? console.log("SHOW KAMBA INFO")
-      : user?.kambaPlan?.left == 0 ? console.log("SHOW END PLAN INFO")
-        : user?.kambaPlan?.left <= 5 ? console.log("SHOW left days INFO") : null
-    navigation.navigate("kamba")
-    */
-  };
-
   const renderLoading = () => (
     <View style={styles.containerFlex}>
       <ActivityIndicator size="large" color={colors.accent} />
