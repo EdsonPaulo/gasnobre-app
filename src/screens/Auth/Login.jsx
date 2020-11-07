@@ -53,7 +53,7 @@ const Login = () => {
           setErrorModalVisible(true);
         else if (error?.response?.data?.error === 'FACEBOOK_USER')
           Alert.alert(error?.response?.data?.message);
-        else Alert.alert('Ocorreu um erro!', 'Tente novamente ou mais tarde!');
+        else Alert.alert('Ocorreu um erro!', 'Tente novamente mais tarde!');
         console.log(error, error?.response?.data);
       } finally {
         setLoading(false);
