@@ -27,7 +27,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
- 
+
   const signIn = async () => {
     if (!email || !password)
       Alert.alert('Preencha todos os campos', 'Informe o email e a senha!');
@@ -36,7 +36,7 @@ const Login = () => {
       try {
         let expoPushToken = await getExpoPushToken();
         expoPushToken = expoPushToken?.data;
-        const response = await api(null).post('/users/authenticate', {
+        const response = await api().post('/users/authenticate', {
           email,
           password,
           expoPushToken,

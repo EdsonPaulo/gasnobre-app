@@ -33,7 +33,6 @@ const SignUp = () => {
   const { register } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
-  const [sendCodeQtd, setSendCodeQtd] = useState(0);
   const [userData, setUserData] = useState({});
   const [step, setStep] = useState(1);
 
@@ -92,7 +91,7 @@ const SignUp = () => {
     if (loading) return;
     setLoading(true);
     try {
-      const response = await api(null).post('/users/send_code', { email });
+      const response = await api().post('/users/send_code', { email });
       console.log(response.data);
       setStep(step + 1);
     } catch (error) {
@@ -119,7 +118,7 @@ const SignUp = () => {
     try {
       let expoPushToken = await getExpoPushToken();
       expoPushToken = expoPushToken?.data;
-      const response = await api(null).post('/users/register', {
+      const response = await api().post('/users/register', {
         ...data,
         expoPushToken,
       });

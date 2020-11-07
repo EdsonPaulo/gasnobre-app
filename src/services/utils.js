@@ -1,17 +1,18 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { Alert, ToastAndroid } from 'react-native';
-import Rate, { AndroidMarket } from 'react-native-rate';
-
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
+import { Alert, ToastAndroid } from 'react-native';
+import Rate, { AndroidMarket } from 'react-native-rate';
+import { constants } from '../constants';
 import api from './api';
+
 //import Share from 'react-native-share'
 
 export const onRate = async () => {
   const options = {
     AppleAppID: '2193813192',
-    GooglePackageName: 'com.carnesul.deltacorp',
-    //  AmazonPackageName: "com.carnesul.deltacorp",
+    GooglePackageName: 'com.okulikapaco.nobiva',
+    //  AmazonPackageName: 'com.okulikapaco.nobiva'",
     // OtherAndroidURL: "http://www.randomappstore.com/app/47172391",
     preferredAndroidMarket: AndroidMarket.Google,
     preferInApp: false,
@@ -19,7 +20,7 @@ export const onRate = async () => {
     fallbackPlatformURL: 'http://deltacorp.co.ao/',
   };
   Alert.alert(
-    'Avaliar o Carnesul',
+    'Avaliar o No Biva',
     'Avalie-nos, comente o que achou e em que podemos melhorar!',
     [
       { text: 'Não, Obrigado', style: 'cancel' },
@@ -106,7 +107,7 @@ export const uploadImage = (file, token) => {
     formDaa,
     {
       headers: {
-        Accept: 'aplication/json',
+        Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
       },
     }

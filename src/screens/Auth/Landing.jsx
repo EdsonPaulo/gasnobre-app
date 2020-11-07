@@ -1,14 +1,13 @@
-import Icon from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar } from '../../components';
 import { colors, metrics } from '../../constants';
 import AuthContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
 import { facebookAuth } from '../../services/auth';
+import { getExpoPushToken } from '../../services/utils';
 import styles from './styles';
 
 const Landing = () => {
@@ -22,10 +21,14 @@ const Landing = () => {
     try {
       console.log('USER DATA', result);
       const result = await (await facebookAuth()).json();
-      const response = await api(null).post('/users/auth_facebook', {
+      let expoPushToken = await getExpoPushToken();
+      expoPushToken = expoPushToken?.data;
+      console.log(expoPushToken);
+      const response = await api().post('/users/auth_facebook', {
         email: result?.email || result?.phone,
         facebookId: result?.id,
         name: result?.name,
+        expoPushToken,
       });
       login(
         { ...response.data?.user, ...response.data?.customer },
@@ -74,7 +77,6 @@ const Landing = () => {
           title="Criar Conta"
           onPress={() => navigation.navigate('signup')}
         />
-
 
         <CustomButton
           primary
