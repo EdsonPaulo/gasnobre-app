@@ -49,8 +49,14 @@ const Login = () => {
           );
         }
       } catch (error) {
+        if (error?.response?.data?.error === 'INCORRECT_USER')
+          setErrorModalVisible(true);
+        else if (error?.response?.data?.error === 'FACEBOOK_USER')
+          Alert.alert(
+            'Esse email está associado à uma conta registada com o Facebook.',
+          );
+        else Alert.alert('Ocorreu um erro!', 'Tente novamente ou mais tarde!');
         console.log(error, error?.response?.data);
-        setErrorModalVisible(true);
       } finally {
         setLoading(false);
       }
