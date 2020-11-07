@@ -19,11 +19,10 @@ const Landing = () => {
     if (loading) return;
     setLoading(true);
     try {
-      console.log('USER DATA', result);
       const result = await (await facebookAuth()).json();
       let expoPushToken = await getExpoPushToken();
       expoPushToken = expoPushToken?.data;
-      console.log(expoPushToken);
+      console.log('expo token: ' + expoPushToken);
       const response = await api().post('/users/auth_facebook', {
         email: result?.email || result?.phone,
         facebookId: result?.id,
@@ -35,9 +34,10 @@ const Landing = () => {
         response.data?.token,
         response.data?.role,
       );
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
