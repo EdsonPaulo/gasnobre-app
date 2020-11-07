@@ -1,42 +1,62 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, Text, ToastAndroid, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomInput, CustomStatusBar } from '../../components';
 import { colors, general } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
+import api from '../../services/api';
+import styles from './styles';
+
 
 export default index = () => {
+  let isMounted = true;
   const navigation = useNavigation();
-  const { user, role } = useContext(authContext);
+  const { user, role, token, updateUser } = useContext(authContext);
   const [editable, setEditable] = useState(false);
   const [saving, setSaving] = useState(false);
   const [userInfo, setUserInfo] = useState({ ...user });
 
-  useEffect(() => {
-    return () => {
-      //salvar dados dos inputs
-    };
-  }, []);
-
-  const handleSave = () => {
-    setSaving(true);
-
-    setTimeout(() => {
-      ToastAndroid.show('Dados salvos com sucesso!', 1000);
-      setSaving(false);
-      setEditable(false);
-    }, 2000);
+  const getUserData = async () => {
+    try {
+      const userFromServer = await api(token).get('/customers/me');
+      if (userFromServer?.data) {
+        updateUser(userFromServer?.data);
+      }
+    } catch (error) {
+      console.log(error.response);
+      console.log(error.message);
+    }
   };
+
+  const saveUserData = async newAddress => {
+    if (saving) return;
+    setSaving(true);
+    try {
+      const response = await api(token).put(`/customers/${user._id}`, {
+        ...userInfo,
+      });
+      console.log(response.data?.message);
+      updateUser({ ...user, ...userInfo });
+      setEditable(false);
+      ToastAndroid.show('Dados salvos com sucesso!', 1000);
+    } catch (error) {
+      console.log(error.response);
+      console.log(error.message);
+      ToastAndroid.show(error.message, 1000);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isMounted) {
+      getUserData();
+    }
+    return () => (isMounted = false);
+  }, []);
 
   const inputStyle = editable
     ? null
@@ -123,7 +143,7 @@ export default index = () => {
               title="Salvar"
               loading={saving}
               primary
-              onPress={handleSave}
+              onPress={saveUserData}
             />
             <CustomButton
               style={{ flex: 1 }}
@@ -137,35 +157,4 @@ export default index = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  topContainer: {
-    height: 'auto',
-    //width: 200,
-    alignSelf: 'center',
-    margin: 10,
-    //backgroundColor: colors.white,
-    //elevation: 5,
-    //borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 15,
-  },
-  userName: {
-    fontSize: 18,
-    fontFamily: 'RobotoCondensed_700Bold',
-  },
-  userDetails: {
-    fontFamily: 'RobotoCondensed_400Regular',
-    color: colors.dark,
-  },
-  labelStyle: {
-    color: colors.grayDark,
-    marginTop: 10,
-    marginBottom: 2,
-    marginLeft: 10,
-    fontFamily: 'RobotoCondensed_700Bold',
-  },
-});
+

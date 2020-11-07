@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   sectionTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    // marginLeft: metrics.smallMargin
   },
   sectionTitle: {
     color: colors.accent,

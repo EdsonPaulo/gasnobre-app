@@ -2,7 +2,6 @@ import Icon from '@expo/vector-icons/FontAwesome5';
 import { Picker } from '@react-native-community/picker';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import { RectButton } from 'react-native-gesture-handler';
 import {
   Alert,
   Dimensions,
@@ -10,7 +9,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar } from '../../components';
@@ -18,8 +17,6 @@ import { colors, general } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
 import styles from './styles';
-
-const { height } = Dimensions.get('window');
 
 const index = () => {
   let isMounted = true;
@@ -29,8 +26,8 @@ const index = () => {
   const route = useRoute();
   const cart = route.params.cart;
   const subtotal = route.params.subtotal;
-  const [tax, setTax] = useState(0);
-  const [address, setAddress] = useState([]);
+  const [tax] = useState(0);
+  const [address, setAddress] = useState(user?.address || []);
 
   const [deliveryAddress, setDeliveryAddress] = useState(address[0] || '');
   const [orderObs, setOrderObs] = useState('');
@@ -51,21 +48,22 @@ const index = () => {
     );
 
   useEffect(() => {
-    if (isMounted) {
-      console.log(user.address);
+    if (isMounted) 
       setAddress(user?.address);
-    }
     return () => (isMounted = false);
   }, [user]);
 
   //finalizar compra/pedido
   const makeOrder = () => {
     if (loading) return;
+    if (!user?.phone) {
+      Alert.alert('Precisa adicionar o número de telefone!');
+      return;
+    }
     if (!deliveryAddress) {
       Alert.alert('Precisa adicionar o endereço de entrega!');
       return;
     }
-
     let products = [];
     let order = orderDetails;
     setLoading(true);
@@ -140,7 +138,6 @@ const index = () => {
             <View style={styles.textContainer}>
               <Text style={styles.totalText}>Total </Text>
               <Text style={[styles.totalText, { color: colors.success }]}>
-                {' '}
                 {transformPrice(subtotal + tax)}{' '}
               </Text>
             </View>
@@ -160,7 +157,21 @@ const index = () => {
 
             <View style={styles.inputContainer}>
               <Text style={styles.labelStyle}>Telefone</Text>
-              <Text style={styles.valueStyle}>{user?.phone}</Text>
+
+              {user?.phone ? (
+                <Text style={styles.valueStyle}>{user?.phone}</Text>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('profileDetails')}
+                  activeOpacity={0.7}
+                  style={styles.btnAddress}
+                >
+                  <Icon name="plus-circle" color={colors.grayDark} size={20} />
+                  <Text style={[styles.valueStyle, { marginLeft: 10 }]}>
+                    Adicionar Telefone
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
 
             <View style={styles.inputContainer}>

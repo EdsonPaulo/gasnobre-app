@@ -75,16 +75,6 @@ const Landing = () => {
           onPress={() => navigation.navigate('signup')}
         />
 
-        <Text
-          style={[
-            styles.copyrightText,
-            {
-              marginTop: metrics.baseMargin,
-            },
-          ]}
-        >
-          OU
-        </Text>
 
         <CustomButton
           primary

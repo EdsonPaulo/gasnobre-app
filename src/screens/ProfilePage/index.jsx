@@ -54,7 +54,7 @@ export default index = () => {
         </View>
         <View style={styles.user}>
           <Text style={styles.userName}>{user?.name}</Text>
-          <Text style={styles.userDetails}>{user?.phone}</Text>
+          <Text style={styles.userDetails}>{user?.phone || user?.email}</Text>
         </View>
       </View>
 
@@ -103,7 +103,16 @@ export default index = () => {
           <MaterialCommunityIcons name="share-variant" style={styles.icons} />
           <Text style={styles.textStyle}>Partilhar</Text>
         </TouchableOpacity>
-
+        
+        <TouchableOpacity
+          onPress={() => navigation.navigate("about")}
+          activeOpacity={0.7}
+          style={styles.btn}
+        >
+          <MaterialCommunityIcons name="information" style={styles.icons} />
+          <Text style={styles.textStyle}>Sobre Nós</Text>
+        </TouchableOpacity>
+ 
         <TouchableOpacity
           onPress={() => setSupportModalVisible(true)}
           activeOpacity={0.7}

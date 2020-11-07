@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
@@ -6,7 +5,6 @@ import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -16,6 +14,7 @@ import { CustomStatusBar, LoadingSpin } from '../../components';
 import { colors, general, metrics } from '../../constants';
 import AuthContext from '../../contexts/auth/auth-context';
 import api from '../../services/api';
+import styles from './styles';
 
 export default index = () => {
   let isMounted = true;
@@ -197,35 +196,3 @@ export default index = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: metrics.doubleBaseMargin,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  orderContainer: {
-    flex: 1,
-    paddingVertical: metrics.smallMargin,
-    paddingHorizontal: metrics.doubleBaseMargin,
-    backgroundColor: 'white',
-    borderWidth: 1,
-    elevation: 2,
-    borderRadius: metrics.baseRadius,
-    borderColor: colors.borderColor,
-    marginVertical: metrics.smallMargin,
-  },
-  rowContainer: {
-    flex: 1 / 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: metrics.smallMargin,
-  },
-  statusText: {
-    fontSize: 13,
-    fontFamily: 'RobotoCondensed_400Regular',
-    textTransform: 'capitalize',
-  },
-});

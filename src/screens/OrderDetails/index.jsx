@@ -1,10 +1,11 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar } from '../../components';
-import { colors, fonts, general, metrics } from '../../constants';
+import { colors, general } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
+import styles from './styles';
 
 export default index = () => {
   const { role } = useContext(authContext);
@@ -134,40 +135,3 @@ export default index = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: metrics.baseMargin,
-  },
-  sectionTitle: {
-    color: colors.grayDark,
-    fontSize: 15,
-    textAlign: 'center',
-    fontFamily: 'RobotoCondensed_700Bold',
-    marginBottom: metrics.baseMargin,
-  },
-  section: {
-    backgroundColor: 'white',
-    elevation: 1,
-    height: 'auto',
-    padding: metrics.baseMargin,
-    marginVertical: metrics.smallMargin,
-    borderWidth: 1,
-    borderColor: colors.borderColor,
-    borderRadius: metrics.baseRadius,
-  },
-  textContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 2,
-  },
-  totalText: {
-    fontSize: fonts.input,
-    fontFamily: 'RobotoCondensed_700Bold',
-  },
-  statusText: {
-    fontFamily: 'RobotoCondensed_700Bold',
-    textTransform: 'capitalize',
-  },
-});

@@ -38,7 +38,7 @@ const AddressPage = () => {
   });
   const addressFormData = useForm({ resolver: yupResolver(addressSchema) });
 
-  const getAddress = async () => {
+  const getUserData = async () => {
     try {
       const userFromServer = await api(token).get('/customers/me');
       if (userFromServer?.data) {
@@ -110,7 +110,7 @@ const AddressPage = () => {
 
   useEffect(() => {
     if (isMounted) {
-      getAddress();
+      getUserData();
     }
     return () => (isMounted = false);
   }, []);

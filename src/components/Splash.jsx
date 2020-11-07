@@ -1,28 +1,31 @@
 import React from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../constants';
+import logo from '../../assets/splash.png';
 
-const Splash = ({ text }) => (
-  <SafeAreaView
+const Splash = () => (
+  <ImageBackground
+    resizeMode="cover"
+    source={logo}
     style={{
-      flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'flex-end',
       alignItems: 'center',
-      padding: 30,
-      backgroundColor: colors.bgColor,
+      padding: 10,
+      flex: 1,
     }}
   >
-    <Image
-      resizeMode="contain"
-      source={require('../../assets/logo-transparent.png')}
-      style={{ width: '100%' }}
-    />
     <View>
-      <ActivityIndicator size="large" color={colors.primary} />
-      <Text style={{ fontSize: 17 }}> {text || 'Carregando...'}</Text>
+      <ActivityIndicator size="large" color={colors.white} />
+      <Text style={{ fontSize: 17, color: colors.white }}>A Carregar</Text>
     </View>
-  </SafeAreaView>
+  </ImageBackground>
 );
 
 export default Splash;

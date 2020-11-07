@@ -1,5 +1,5 @@
-import { colors, general, metrics } from '../../constants';
 import { StyleSheet } from 'react-native';
+import { colors, metrics } from '../../constants';
 
 const styles = StyleSheet.create({
   addressContainer: {
