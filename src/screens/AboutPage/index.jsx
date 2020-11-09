@@ -112,6 +112,4 @@ const About = () => (
   </SafeAreaView>
 );
 
-
-
 export default About;

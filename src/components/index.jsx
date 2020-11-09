@@ -4,7 +4,7 @@ import CustomStatusBar from './CustomStatusBar';
 import HomeTabBar from './HomeTabBar';
 import LoadingSpin from './LoadingSpin';
 import PlaceholderImage from './PlaceholderImage';
-import ProductVerticalItem from './ProductVerticalItem';
+import ProductItem from './product-item';
 import SwiperCards from './SwiperCards';
 
 export {
@@ -15,5 +15,5 @@ export {
   LoadingSpin,
   SwiperCards,
   PlaceholderImage,
-  ProductVerticalItem,
+  ProductItem,
 };

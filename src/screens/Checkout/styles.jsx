@@ -17,13 +17,17 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: 1,
-    backgroundColor: 'white',
     padding: 15,
     marginTop: 10,
     elevation: 2,
     borderWidth: 1,
+    backgroundColor: 'white',
     borderColor: colors.borderColor,
     borderRadius: metrics.baseRadius,
+  },
+  text: {
+    fontSize: fonts.input,
+    fontFamily: 'RobotoCondensed_400Regular',
   },
   textContainer: {
     flexDirection: 'row',
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
   totalText: {
-    fontSize: fonts.input,
+    fontSize: fonts.big,
     fontFamily: 'RobotoCondensed_700Bold',
   },
   inputContainer: {

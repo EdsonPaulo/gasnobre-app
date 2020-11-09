@@ -1,5 +1,5 @@
 import { Entypo } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React, {
   useCallback,
   useContext,
@@ -7,40 +7,44 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { InteractionManager, Text, TouchableOpacity, View } from 'react-native';
+import {
+  InteractionManager,
+  TouchableOpacity,
+  ToastAndroid,
+  FlatList,
+  Text,
+  View,
+} from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar, LoadingSpin } from '../../components';
 import { colors, general, metrics } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
+import shopContext from '../../contexts/shop/shop-context';
 import api from '../../services/api';
 import { transformPrice } from '../../services/utils';
-import Cart from './cart';
+import CartView from './cart-view';
 import EmptyCart from './empty-cart';
-import BrandList from './brandList';
-import ProductList from './productList';
+import ProductList from './product-list';
 import styles from './styles';
 
 export default index = () => {
   let isMounted = true;
-  const route = useRoute();
   const { token } = useContext(authContext);
   const modalizeRef = useRef(null);
   const navigation = useNavigation();
 
+  const { cart, total, products, loadProducts } = useContext(shopContext);
+
   const [interactionsComplete, setInteractionsComplete] = useState(false);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [total, setTotal] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
   const [page, setPage] = useState(1);
 
-  const [currentBrand, setCurrentBrand] = useState(null);
-
-  const [products, setProducts] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
-  const [cartSize, setCartSize] = useState(0);
-  const [cart, setCart] = useState([]);
+  const [brands] = useState(['tudo', 'atlantis', 'perla', 'pura', 'saudabel']);
+  const [productsCurrent, setProductsCurrent] = useState([]);
+  const [currentBrand, setCurrentBrand] = useState(brands[0]);
 
   const openCartModal = () => modalizeRef.current?.open();
 
@@ -49,49 +53,66 @@ export default index = () => {
       setRefreshing(true);
       setPage(1);
       getProducts();
+      setCurrentBrand(brands[0]);
+      filterByBrand();
     }
   }, []);
 
-  const getProducts = () => {
+  const getProducts = async brand => {
     if (loading) return;
-    if (total > 0 && allProducts.length >= total) {
+    if (totalProducts > 0 && products.length >= totalProducts) {
       setLoading(false);
       setRefreshing(false);
       return;
     }
     setLoading(true);
-    api(token)
-      .get(`/products?page=${page}`)
-      .then(response => {
-        if (isMounted) {
-          setTotal(response.data?.total);
-          if (refreshing) setAllProducts(response.data?.data);
-          else {
-            setAllProducts([...allProducts, ...response.data?.data]);
-            filterByBrand();
-          }
-          setPage(page + 1);
+    try {
+      const filters = `page=${page}${brand ? `&brand=${brand}` : ''}`;
+      console.log('buscando: ', `/products?${filters}`);
+
+      const response = await api(token).get(`/products?${filters}`);
+      console.log(response.data)
+      if (isMounted) {
+        setTotalProducts(response.data?.totalProducts);
+        if (refreshing) loadProducts(response.data?.data);
+        else {
+          loadProducts([...products, ...response.data?.data]);
+          //filterByBrand();
         }
-      })
-      .catch(error => {
-        console.log(error + ' ==> erro');
-      })
-      .finally(() => {
-        if (isMounted) {
-          setLoading(false);
-          setRefreshing(false);
-        }
-      });
+       // setPage(page + 1);
+      }
+    } catch (error) {
+      console.log(error + ' ==> erro');
+      ToastAndroid.show(
+        'Ocorreu um erro ao carregar a lista de produtos! Verifique a sua conexão.',
+        ToastAndroid.LONG,
+      );
+    } finally {
+      if (isMounted) {
+        setLoading(false);
+        setRefreshing(false);
+      }
+    }
   };
 
   const filterByBrand = brand => {
-    const filteredBrand = brand || currentBrand;
-    if (!filteredBrand || filteredBrand.name === 'tudo')
-      setProducts(allProducts);
-    else
-      setProducts(
-        allProducts.filter(product => product.brand === filteredBrand.name),
+    setLoading(true);
+    setPage(1);
+    setCurrentBrand(brand || brands[0]);
+    /** 
+    if (!brand || brand === brands[0]) setProductsCurrent(products);
+    else {
+      const filteredProducts = products.filter(
+        product => product.brand === brand,
       );
+      setProductsCurrent(filteredProducts);
+    }
+    */
+
+    if (!brand || brand === brands[0]) getProducts();
+    else getProducts(brand);
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -104,57 +125,78 @@ export default index = () => {
     return () => (isMounted = false);
   }, []);
 
-  const handleQuantity = (quantity, item, increment) => {
-    const updatedItemIndex = cart.findIndex(
-      product => product._id === item._id,
+  const renderBrandList = () => {
+    const BrandItem = ({ brand }) => (
+      <TouchableOpacity
+        key={brand}
+        activeOpacity={0.8}
+        onPress={() => {
+          setCurrentBrand(brand);
+          filterByBrand(brand);
+        }}
+        style={[
+          styles.brandItem,
+          currentBrand === brand && { backgroundColor: 'white' },
+        ]}
+      >
+        <Text
+          style={[
+            styles.brandItemText,
+            currentBrand === brand && { color: colors.grayDark2 },
+          ]}
+        >
+          {brand}
+        </Text>
+      </TouchableOpacity>
     );
-    if (increment) {
-      setCartSize(cartSize + 1);
-      setSubtotal(subtotal + item.price);
-
-      if (updatedItemIndex < 0) cart.push({ ...item, quantity: 1 });
-      else {
-        cart.splice(updatedItemIndex, 1);
-        cart.push({ ...item, quantity });
-      }
-    } else {
-      setCartSize(cartSize - 1);
-      setSubtotal(subtotal - item.price);
-
-      if (quantity <= 0) {
-        cart.splice(updatedItemIndex, 1);
-      } else {
-        cart.splice(updatedItemIndex, 1);
-        cart.push({ ...item, quantity });
-      }
-    }
+    return (
+      <FlatList
+        bounces
+        horizontal
+        data={brands}
+        style={{ height: 20 }}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ padding: 10 }}
+        renderItem={({ item }) => <BrandItem brand={item} />}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    );
   };
 
   const renderProducts = () => {
-    if (loading && allProducts.length == 0)
+    if (loading)
       return <LoadingSpin text="Carregando Produtos" />;
     return (
       <>
-        <View style={styles.brandListContainer}>
-          <BrandList filterByBrand={filterByBrand} />
-        </View>
-        <View
-          style={[
-            styles.container,
-            products.length <= 0 && {
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-          ]}
-        >
-          {products.length > 0 ? (
-            <ProductList handleQuantity={handleQuantity} products={products} />
-          ) : (
-            <Text style={styles.body}>
-              Não tem produto para essa categoria!
-            </Text>
-          )}
-        </View>
+        <View style={styles.brandListContainer}>{renderBrandList()}</View>
+
+        {loading && products.length <= 0 ? (
+          <LoadingSpin text="Carregando Produtos" />
+        ) : (
+          <View
+            style={[
+              styles.container,
+              productsCurrent.length <= 0 && {
+                justifyContent: 'center',
+                alignItems: 'center',
+              },
+            ]}
+          >
+            {productsCurrent.length > 0 ? (
+              <ProductList
+                products={products}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
+                getProducts={getProducts}
+                currentBrand={currentBrand}
+              />
+            ) : (
+              <Text style={styles.body}>
+                Não tem produto para essa categoria!
+              </Text>
+            )}
+          </View>
+        )}
       </>
     );
   };
@@ -166,7 +208,7 @@ export default index = () => {
       style={[styles.fabPosition, styles.fabBagButton]}
     >
       <View style={[styles.fabPosition, styles.fabBagButtonBadge]}>
-        <Text style={{ color: '#fff' }}>{cartSize}</Text>
+        <Text style={{ color: '#fff' }}>{cart.length}</Text>
       </View>
       <Entypo name="shopping-bag" color="#fff" size={25} />
     </TouchableOpacity>
@@ -185,27 +227,25 @@ export default index = () => {
       />
 
       <View style={styles.container}>
-        {total === 0 && !loading ? <EmptyCart /> : renderProducts()}
+        {totalProducts === 0 && !loading ? <EmptyCart /> : renderProducts()}
 
         {cart.length > 0 && renderCartBadge()}
 
         <Modalize
           ref={modalizeRef}
           rootStyle={{ elevation: 5 }}
-          modalHeight={metrics.screenHeight - 200}
+          modalHeight={metrics.screenHeight - 150}
           FooterComponent={
             <CustomButton
               primary
               style={styles.makeOrderButton}
               rounded
-              onPress={() =>
-                navigation.navigate('checkout', { cart, subtotal })
-              }
-              title={`Fazer Pedido (${transformPrice(subtotal)})`}
+              onPress={() => navigation.navigate('checkout')}
+              title={`Fazer Pedido (${transformPrice(total)})`}
             />
           }
         >
-          <Cart cart={cart} cartSize={cartSize} />
+          <CartView />
         </Modalize>
       </View>
     </SafeAreaView>

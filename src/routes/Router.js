@@ -8,7 +8,7 @@ import AuthContext from '../contexts/auth/auth-context';
 import {
   AdminNavigation,
   AuthNavigation,
-  MainNavigation
+  MainNavigation,
 } from './MainNavigation';
 
 export default Router = () => {
@@ -24,7 +24,6 @@ export default Router = () => {
       shouldSetBadge: false,
     }),
   });
-
 
   useEffect(() => {
     retrieveToken();
@@ -63,8 +62,8 @@ export default Router = () => {
             ) : isLogged && role === 'admin' ? (
               <RootStack.Screen name="admin" component={AdminNavigation} />
             ) : (
-                    <RootStack.Screen name="auth" component={AuthNavigation} />
-                  )}
+              <RootStack.Screen name="auth" component={AuthNavigation} />
+            )}
           </RootStack.Navigator>
         }
       </>

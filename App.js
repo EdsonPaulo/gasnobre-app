@@ -12,6 +12,7 @@ import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
 import AuthProvider from './src/contexts/auth/auth-provider';
+import ShopProvider from './src/contexts/shop/shop-provider';
 import Router from './src/routes/Router';
 
 enableScreens();
@@ -27,9 +28,11 @@ export default function App() {
   else
     return (
       <AuthProvider>
-        <SafeAreaProvider>
-          <Router />
-        </SafeAreaProvider>
+        <ShopProvider>
+          <SafeAreaProvider>
+            <Router />
+          </SafeAreaProvider>
+        </ShopProvider>
       </AuthProvider>
     );
 }

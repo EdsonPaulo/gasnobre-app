@@ -1,10 +1,9 @@
 import Icon from '@expo/vector-icons/FontAwesome5';
 import { Picker } from '@react-native-community/picker';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Alert,
-  Dimensions,
   ScrollView,
   Text,
   TextInput,
@@ -15,31 +14,30 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CustomButton, CustomStatusBar } from '../../components';
 import { colors, general } from '../../constants';
 import authContext from '../../contexts/auth/auth-context';
+import shopContext from '../../contexts/shop/shop-context';
 import api from '../../services/api';
 import styles from './styles';
 
 const index = () => {
   let isMounted = true;
 
+  const { cart, total } = useContext(shopContext);
   const { user, token } = useContext(authContext);
   const navigation = useNavigation();
-  const route = useRoute();
-  const cart = route.params.cart;
-  const subtotal = route.params.subtotal;
   const [tax] = useState(0);
-  const [address, setAddress] = useState(user?.address || []);
 
-  const [deliveryAddress, setDeliveryAddress] = useState(address[0] || null);
+  const [deliveryAddress, setDeliveryAddress] = useState(
+    user?.address[0] || null,
+  );
   const [orderObs, setOrderObs] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [orderDetails, setOrderDetails] = useState({
     tax,
-    subtotal,
+    total,
     products: [],
     debit: false,
     obs: orderObs,
-    total: subtotal + tax,
     address: deliveryAddress,
   });
 
@@ -114,32 +112,34 @@ const index = () => {
                 product = { quantity: product.quantity, ...product.product };
               return (
                 <View key={product._id} style={styles.textContainer}>
-                  <Text style={{ textTransform: 'capitalize' }}>
+                  <Text style={styles.text}>
                     {product.name}{' '}
                     {product.weight <= 0.99
                       ? `${product.weight * 1000}ml `
                       : `${product.weight}L `}
-                    (x{product.quantity})
+                    {` - ${product.quantity} ${
+                      product.quantity < 2 ? 'embalagem' : 'embalagens'
+                    }`}
                   </Text>
-                  <Text>
+                  <Text style={styles.text}>
                     {transformPrice(product.price * product.quantity)}
                   </Text>
                 </View>
               );
             })}
             <View style={[styles.textContainer, { marginTop: 15 }]}>
-              <Text>Subtotal</Text>
-              <Text>{transformPrice(subtotal)} </Text>
+              <Text style={styles.text}>Subtotal</Text>
+              <Text style={styles.text}>{transformPrice(total)} </Text>
             </View>
             <View style={styles.textContainer}>
-              <Text>Taxa de Entrega</Text>
-              <Text>{transformPrice(tax)} </Text>
+              <Text style={styles.text}>Taxa de Entrega</Text>
+              <Text style={styles.text}>{transformPrice(tax)} </Text>
             </View>
 
             <View style={styles.textContainer}>
               <Text style={styles.totalText}>Total </Text>
               <Text style={[styles.totalText, { color: colors.success }]}>
-                {transformPrice(subtotal + tax)}{' '}
+                {transformPrice(total + tax)}{' '}
               </Text>
             </View>
           </View>
@@ -180,7 +180,7 @@ const index = () => {
               <Text style={styles.valueStyle}>{user?.email}</Text>
             </View>
 
-            {address?.length == 0 ? (
+            {user?.address?.length == 0 ? (
               <TouchableOpacity
                 onPress={() => navigation.navigate('address')}
                 activeOpacity={0.7}
@@ -211,7 +211,7 @@ const index = () => {
                       setDeliveryAddress(itemValue)
                     }
                   >
-                    {address?.map((item, index) => (
+                    {user?.address?.map((item, index) => (
                       <Picker.Item
                         key={index}
                         label={`${item.street} - ${item.neighborhood} - ${item.city}`.toUpperCase()}

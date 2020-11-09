@@ -103,16 +103,16 @@ export default index = () => {
           <MaterialCommunityIcons name="share-variant" style={styles.icons} />
           <Text style={styles.textStyle}>Partilhar</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
-          onPress={() => navigation.navigate("about")}
+          onPress={() => navigation.navigate('about')}
           activeOpacity={0.7}
           style={styles.btn}
         >
           <MaterialCommunityIcons name="information" style={styles.icons} />
           <Text style={styles.textStyle}>Sobre Nós</Text>
         </TouchableOpacity>
- 
+
         <TouchableOpacity
           onPress={() => setSupportModalVisible(true)}
           activeOpacity={0.7}

@@ -85,7 +85,7 @@ const SignUp = () => {
 
   const userFormData = useForm({ resolver: yupResolver(userSchema) });
   const addressFormData = useForm({ resolver: yupResolver(addressSchema) });
- 
+
   const sendCode = async email => {
     console.log(email);
     if (loading) return;

@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors, fonts, metrics } from '../../constants';
 
-
 const styles = StyleSheet.create({
   title: {
     fontSize: fonts.big,
@@ -49,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles
+export default styles;

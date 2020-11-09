@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   makeOrderButton: {
     width: 250,
     height: 40,
-    marginVertical: 30,
+    marginVertical: 20,
     alignSelf: 'center',
   },
   body: {
@@ -51,13 +51,75 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 6,
+    marginHorizontal: 4,
   },
   brandItemText: {
     fontSize: fonts.input,
-    textTransform: 'capitalize',
     color: 'white',
+    textTransform: 'capitalize',
     fontFamily: 'RobotoCondensed_400Regular',
+  },
+
+  /**
+      CART PRODUCTS
+  **/
+  productContainer: {
+    maxHeight: 130,
+    elevation: 5,
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: colors.grayLight,
+    borderRadius: metrics.doubleBaseRadius,
+    backgroundColor: colors.white,
+    padding: metrics.baseMargin,
+    marginHorizontal: metrics.baseMargin,
+    marginBottom: metrics.smallMargin,
+    marginTop: metrics.baseMargin,
+  },
+  productImage: {
+    width: 100,
+    height: '100%',
+  },
+  productInfoContainer: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  productTextContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: metrics.smallMargin,
+  },
+  productActionContainer: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: metrics.baseRadius,
+    backgroundColor: colors.grayDark2,
+  },
+  productTitle: {
+    fontSize: fonts.input,
+    fontFamily: 'RobotoCondensed_700Bold',
+  },
+  productSubtitle: {
+    fontSize: fonts.regular,
+    marginVertical: metrics.smallMargin,
+    fontFamily: 'RobotoCondensed_400Regular',
+  },
+  productPrice: {
+    fontSize: fonts.big,
+    color: colors.success,
+    fontFamily: 'RobotoCondensed_700Bold',
+  },
+  productQuantity: {
+    color: colors.white,
+    fontSize: fonts.bigger,
+    fontFamily: 'RobotoCondensed_700Bold',
+  },
+  productQuantityContainer: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 

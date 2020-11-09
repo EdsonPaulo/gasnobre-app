@@ -93,7 +93,9 @@ export const onShare = () => {
 //save in async storage
 
 export const transformPrice = value =>
-  Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(value);
+  Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(
+    value,
+  );
 
 export const uploadImage = (file, token) => {
   const nameFile = `file_name_${Math.random().toString(36).substring(7)}`;
@@ -114,7 +116,6 @@ export const uploadImage = (file, token) => {
     }
   );
 };
-
 
 export const verifyExpoPushToken = async () => {
   try {

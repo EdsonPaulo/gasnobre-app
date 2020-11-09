@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     fontFamily: 'RobotoCondensed_700Bold',
     textTransform: 'capitalize',
-  }
+  },
 });
 
 export default styles;
