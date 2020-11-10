@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     color: colors.success,
     fontFamily: 'RobotoCondensed_700Bold',
     marginBottom: 20,
-  }, 
+  },
   btn: {
     height: 40,
     elevation: 3,
-    width: "auto",
+    width: 'auto',
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',

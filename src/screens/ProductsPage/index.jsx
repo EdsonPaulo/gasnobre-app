@@ -9,10 +9,9 @@ import React, {
 } from 'react';
 import {
   InteractionManager,
-  TouchableOpacity,
-  ToastAndroid,
-  FlatList,
   Text,
+  ToastAndroid,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
@@ -23,8 +22,10 @@ import authContext from '../../contexts/auth/auth-context';
 import shopContext from '../../contexts/shop/shop-context';
 import api from '../../services/api';
 import { transformPrice } from '../../services/utils';
+import BrandList from './brands-list';
 import CartView from './cart-view';
-import EmptyCart from './empty-cart';
+import RenderError from './error-content';
+import NoProducts from './no-products';
 import ProductList from './product-list';
 import styles from './styles';
 
@@ -38,12 +39,12 @@ export default index = () => {
 
   const [interactionsComplete, setInteractionsComplete] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [totalProducts, setTotalProducts] = useState(0);
   const [page, setPage] = useState(1);
 
   const [brands] = useState(['tudo', 'atlantis', 'perla', 'pura', 'saudabel']);
-  const [productsCurrent, setProductsCurrent] = useState([]);
   const [currentBrand, setCurrentBrand] = useState(brands[0]);
 
   const openCartModal = () => modalizeRef.current?.open();
@@ -52,37 +53,24 @@ export default index = () => {
     if (isMounted) {
       setRefreshing(true);
       setPage(1);
-      getProducts();
-      setCurrentBrand(brands[0]);
       filterByBrand();
+      setCurrentBrand(brands[0]);
     }
   }, []);
 
   const getProducts = async brand => {
     if (loading) return;
-    if (totalProducts > 0 && products.length >= totalProducts) {
-      setLoading(false);
-      setRefreshing(false);
-      return;
-    }
     setLoading(true);
     try {
       const filters = `page=${page}${brand ? `&brand=${brand}` : ''}`;
-      console.log('buscando: ', `/products?${filters}`);
-
       const response = await api(token).get(`/products?${filters}`);
-      console.log(response.data)
       if (isMounted) {
-        setTotalProducts(response.data?.totalProducts);
-        if (refreshing) loadProducts(response.data?.data);
-        else {
-          loadProducts([...products, ...response.data?.data]);
-          //filterByBrand();
-        }
-       // setPage(page + 1);
+        setTotalProducts(response.data?.total);
+        loadProducts(response.data?.data || []);
       }
     } catch (error) {
       console.log(error + ' ==> erro');
+      setError(true);
       ToastAndroid.show(
         'Ocorreu um erro ao carregar a lista de produtos! Verifique a sua conexão.',
         ToastAndroid.LONG,
@@ -96,23 +84,11 @@ export default index = () => {
   };
 
   const filterByBrand = brand => {
-    setLoading(true);
     setPage(1);
+    setRefreshing(true);
     setCurrentBrand(brand || brands[0]);
-    /** 
-    if (!brand || brand === brands[0]) setProductsCurrent(products);
-    else {
-      const filteredProducts = products.filter(
-        product => product.brand === brand,
-      );
-      setProductsCurrent(filteredProducts);
-    }
-    */
-
     if (!brand || brand === brands[0]) getProducts();
     else getProducts(brand);
-
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -120,80 +96,43 @@ export default index = () => {
       setInteractionsComplete(true);
     }).then(() => {
       isMounted = true;
+      setCurrentBrand(brands[0]);
       getProducts();
     });
     return () => (isMounted = false);
   }, []);
 
-  const renderBrandList = () => {
-    const BrandItem = ({ brand }) => (
-      <TouchableOpacity
-        key={brand}
-        activeOpacity={0.8}
-        onPress={() => {
-          setCurrentBrand(brand);
-          filterByBrand(brand);
-        }}
-        style={[
-          styles.brandItem,
-          currentBrand === brand && { backgroundColor: 'white' },
-        ]}
-      >
-        <Text
-          style={[
-            styles.brandItemText,
-            currentBrand === brand && { color: colors.grayDark2 },
-          ]}
-        >
-          {brand}
-        </Text>
-      </TouchableOpacity>
-    );
-    return (
-      <FlatList
-        bounces
-        horizontal
-        data={brands}
-        style={{ height: 20 }}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ padding: 10 }}
-        renderItem={({ item }) => <BrandItem brand={item} />}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
-  };
-
   const renderProducts = () => {
-    if (loading)
-      return <LoadingSpin text="Carregando Produtos" />;
     return (
       <>
-        <View style={styles.brandListContainer}>{renderBrandList()}</View>
+        <View style={styles.brandListContainer}>
+          <BrandList
+            brands={brands}
+            filterByBrand={filterByBrand}
+            currentBrand={currentBrand}
+          />
+        </View>
 
         {loading && products.length <= 0 ? (
           <LoadingSpin text="Carregando Produtos" />
+        ) : loading && refreshing ? (
+          <LoadingSpin />
+        ) : error ? (
+          <RenderError />
         ) : (
           <View
             style={[
               styles.container,
-              productsCurrent.length <= 0 && {
+              products.length <= 0 && {
                 justifyContent: 'center',
                 alignItems: 'center',
               },
             ]}
           >
-            {productsCurrent.length > 0 ? (
-              <ProductList
-                products={products}
-                onRefresh={onRefresh}
-                refreshing={refreshing}
-                getProducts={getProducts}
-                currentBrand={currentBrand}
-              />
+            {products.length > 0 ? (
+              <ProductList onRefresh={onRefresh} refreshing={refreshing} />
             ) : (
-              <Text style={styles.body}>
-                Não tem produto para essa categoria!
-              </Text>
+              <NoProducts />
             )}
           </View>
         )}
@@ -227,7 +166,7 @@ export default index = () => {
       />
 
       <View style={styles.container}>
-        {totalProducts === 0 && !loading ? <EmptyCart /> : renderProducts()}
+        {renderProducts()}
 
         {cart.length > 0 && renderCartBadge()}
 

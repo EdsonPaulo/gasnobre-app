@@ -11,7 +11,11 @@ import {
 } from './shop-reducer';
 
 const ShopProvider = props => {
-  const [cartState, dispatch] = useReducer(shopReducer, { products: [], cart: [], total: 0 });
+  const [cartState, dispatch] = useReducer(shopReducer, {
+    products: [],
+    cart: [],
+    total: 0,
+  });
 
   const loadProducts = products => {
     dispatch({ type: LOAD_PRODUCTS, products });
@@ -21,16 +25,16 @@ const ShopProvider = props => {
     dispatch({ type: ADD_PRODUCT, product });
   };
 
-  const removeProductFromCart = product => {
-    dispatch({ type: REMOVE_PRODUCT, product });
+  const removeProductFromCart = productId => {
+    dispatch({ type: REMOVE_PRODUCT, productId });
   };
 
-  const incrementProductQuantity = product => {
-    dispatch({ type: INCREMENT_QUANTITY, product });
+  const incrementProductQuantity = productId => {
+    dispatch({ type: INCREMENT_QUANTITY, productId });
   };
 
-  const decrementProductQuantity = product => {
-    dispatch({ type: DECREMENT_QUANTITY, product });
+  const decrementProductQuantity = productId => {
+    dispatch({ type: DECREMENT_QUANTITY, productId });
   };
 
   const value = useMemo(() => {

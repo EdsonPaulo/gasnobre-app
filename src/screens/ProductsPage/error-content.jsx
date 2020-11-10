@@ -4,11 +4,11 @@ import { Text, View } from 'react-native';
 import { colors } from '../../constants';
 import styles from './styles';
 
-const EmptyCart = () => (
+const ErrorContent = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <Entypo name="emoji-sad" size={40} color={colors.grayDark} />
     <Text style={[styles.body, { marginVertical: 4 }]}>
-      Falha ao carregar os produtos.
+      Falha ao carregar dados.
     </Text>
     <Text style={styles.body}>
       Verifique a sua internet ou tente mais tarde!
@@ -16,4 +16,4 @@ const EmptyCart = () => (
   </View>
 );
 
-export default EmptyCart;
+export default ErrorContent;

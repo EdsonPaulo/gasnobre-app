@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
 import { ProductItem } from '../../components';
+import shopContext from '../../contexts/shop/shop-context';
 
-const ProductList = ({ getProducts, refreshing, onRefresh, products }) => {
-  const [productData, setProductData] = useState(products);
-  const [loading, setLoading] = useState(false);
-
-  /** 
-  useEffect(() => {
-    setLoading(true);
-    setProductData([...products]);
-    setLoading(false);
-  }, [products]);
-*/
+const ProductList = ({ refreshing, onRefresh }) => {
+  const { products } = useContext(shopContext);
   return (
     <FlatList
       bounces
@@ -24,9 +16,7 @@ const ProductList = ({ getProducts, refreshing, onRefresh, products }) => {
       renderItem={({ item }) => (
         <ProductItem product={{ ...item, quantity: 0 }} />
       )}
-      keyExtractor={item => item._id}
-      // onEndReached={getProducts}
-      // onEndReachedThreshold={0.8}
+      keyExtractor={(item, index) => index.toString()}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }

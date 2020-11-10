@@ -61,14 +61,14 @@ const Cart = props => {
                 size={30}
                 name="squared-plus"
                 color={colors.white}
-                onPress={() => incrementProductQuantity(product)}
+                onPress={() => incrementProductQuantity(product._id)}
               />
               <Text style={styles.productQuantity}>{product.quantity}</Text>
               <Entypo
                 size={30}
                 name="squared-minus"
                 color={colors.white}
-                onPress={() => decrementProductQuantity(product)}
+                onPress={() => decrementProductQuantity(product._id)}
               />
             </View>
           </View>

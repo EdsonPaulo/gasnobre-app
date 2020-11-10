@@ -41,8 +41,6 @@ const index = () => {
   };
 
   useEffect(() => {
-    console.log('user', JSON.stringify(user));
-
     getOrders();
     return () => (isMounted = false);
   }, []);

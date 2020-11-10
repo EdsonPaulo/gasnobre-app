@@ -11,7 +11,6 @@ const loadProducts = (products, state) => {
 };
 
 const addProductToCart = (product, state) => {
-  console.log('add on cart> ', product);
   const updatedCart = state.cart;
   const updatedItemIndex = updatedCart.findIndex(
     item => item._id === product._id,
@@ -31,39 +30,41 @@ const addProductToCart = (product, state) => {
   return { ...state, cart: updatedCart, total: newTotal };
 };
 
-const removeProductFromCart = (product, state) => {
-  console.log('remove on cart> ', product);
-
+const removeProductFromCart = (productId, state) => {
   const updatedCart = state.cart;
-  const updatedItemIndex = updatedCart.findIndex(item => item._id === product._id);
+  const updatedItemIndex = updatedCart.findIndex(
+    item => item._id === productId,
+  );
   updatedCart.splice(updatedItemIndex, 1);
 
-  const newTotal = state.total - product.price;
+  const newTotal = state.total - updatedItem.price;
   return { ...state, cart: updatedCart, total: newTotal };
 };
 
-const incrementProductQuantity = (product, state) => {
-  console.log('increment on cart> ', product);
-
+const incrementProductQuantity = (productId, state) => {
   const updatedCart = state.cart;
-  const updatedItemIndex = updatedCart.findIndex(item => item._id === product._id);
+  const updatedItemIndex = updatedCart.findIndex(
+    item => item._id === productId,
+  );
   const updatedItem = { ...updatedCart[updatedItemIndex] };
   updatedItem.quantity++;
   updatedCart[updatedItemIndex] = updatedItem;
 
-  const newTotal = state.total + product.price;
+  const newTotal = state.total + updatedItem.price;
   return { ...state, cart: updatedCart, total: newTotal };
 };
 
-const decrementProductQuantity = (product, state) => {
+const decrementProductQuantity = (productId, state) => {
   const updatedCart = state.cart;
-  const updatedItemIndex = updatedCart.findIndex(item => item._id === product._id);
+  const updatedItemIndex = updatedCart.findIndex(
+    item => item._id === productId,
+  );
   const updatedItem = { ...updatedCart[updatedItemIndex] };
   updatedItem.quantity--;
   if (updatedItem.quantity <= 0) updatedCart.splice(updatedItemIndex, 1);
   else updatedCart[updatedItemIndex] = updatedItem;
 
-  const newTotal = state.total - product.price;
+  const newTotal = state.total - updatedItem.price;
   return { ...state, cart: updatedCart, total: newTotal };
 };
 
@@ -74,11 +75,11 @@ export const shopReducer = (state, action) => {
     case ADD_PRODUCT:
       return addProductToCart(action.product, state);
     case REMOVE_PRODUCT:
-      return removeProductFromCart(action.product, state);
+      return removeProductFromCart(action.productId, state);
     case INCREMENT_QUANTITY:
-      return incrementProductQuantity(action.product, state);
+      return incrementProductQuantity(action.productId, state);
     case DECREMENT_QUANTITY:
-      return decrementProductQuantity(action.product, state);
+      return decrementProductQuantity(action.productId, state);
     default:
       return state;
   }
